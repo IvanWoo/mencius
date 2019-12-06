@@ -52,4 +52,5 @@ export function about(ctx: AppContext) {
                 ]
             ]
         ]
-}
+    ]
+};

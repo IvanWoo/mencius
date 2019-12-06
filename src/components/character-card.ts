@@ -9,7 +9,7 @@ import { AppContext } from "../api";
 export function characterCard(ctx: AppContext, attribs: string, keyword: string, description: string, icon: any) {
     return [
         "div",
-        { class: ctx.ui.characterCard.container.class + attribs },
+        { class: ctx.ui.characterCard.container.class + " " + attribs },
         [
             "div",
             { class: "flex flex-grow" },
