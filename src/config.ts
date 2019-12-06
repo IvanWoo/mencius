@@ -108,7 +108,7 @@ export const CONFIG: AppConfig = {
                 description: { class: "text-gray-600 mt-1 text-sm md:text-base" }
             }
         },
-        root: { class: "relative bg-gray-200" },
+        root: { class: "about_bg" },
         logo: {
             container: { class: "flex items-center" },
 
