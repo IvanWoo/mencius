@@ -21,7 +21,6 @@
         "@thi.ng/router": "latest"
     },
     "devDependencies": {
-        "@fullhuman/postcss-purgecss": "^1.2.0",
         "autoprefixer": "^9.5.1",
         "concurrently": "^4.1.0",
         "cross-env": "^5.2.0",
