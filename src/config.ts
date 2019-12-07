@@ -111,7 +111,6 @@ export const CONFIG: AppConfig = {
         root: { class: "about_bg" },
         logo: {
             container: { class: "flex items-center" },
-
         }
     }
 };

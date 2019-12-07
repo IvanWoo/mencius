@@ -20,7 +20,7 @@ export function about(ctx: AppContext) {
             ["div",
                 { class: "flex flex-col flex-grow bg-white lg:shadow-2xl lg:rounded-lg lg:overflow-hidden" },
                 ["div",
-                    { class: "flex-grow flex flex-col justify-center p-12" },
+                    { class: "flex flex-col flex-grow justify-center p-12" },
                     ["div", { class: "flex items-center" }],
                     logo,
                     [
