@@ -1,12 +1,17 @@
 import { AppContext } from "../api";
 
-
 /**
  * Character card component.
  *
  * @param ctx injected context object
  */
-export function characterCard(ctx: AppContext, attribs: string, keyword: string, description: string, icon: any) {
+export function characterCard(
+    ctx: AppContext,
+    attribs: string,
+    keyword: string,
+    description: string,
+    icon: any
+) {
     const ui = ctx.ui.characterCard;
     return [
         "div",
@@ -24,4 +29,3 @@ export function characterCard(ctx: AppContext, attribs: string, keyword: string,
         ]
     ];
 }
-

@@ -43,6 +43,7 @@ export interface AppViews extends Record<keyof AppViews, IView<any>> {
     status: IView<Status>;
     debug: IView<number>;
     json: IView<string>;
+    isNavOpen: IView<boolean>;
 }
 
 export interface AppContext {
@@ -63,6 +64,8 @@ export interface UIAttribs {
     characterCard: any;
     root: any;
     logo: any;
+    nav: any;
+    contact: any;
 }
 
 /// demo app related types
