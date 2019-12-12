@@ -66,6 +66,7 @@ export interface UIAttribs {
     logo: any;
     nav: any;
     contact: any;
+    debug: any;
 }
 
 /// demo app related types

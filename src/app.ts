@@ -5,6 +5,7 @@ import { start } from "@thi.ng/hdom";
 import { EventBus, trace, valueSetter } from "@thi.ng/interceptors";
 import { EVENT_ROUTE_CHANGED, HTMLRouter } from "@thi.ng/router";
 import { AppConfig, AppContext, AppViews, ViewSpec } from "./api";
+import { debugContainer } from "./components/debug-container";
 // import { nav } from "./components/nav";
 import * as fx from "./effects";
 import * as ev from "./events";
@@ -40,7 +41,7 @@ export class App {
         this.router = new HTMLRouter(config.router);
         // connect router to event bus so that routing events are processed
         // as part of the normal batched event processing loop
-        this.router.addListener(EVENT_ROUTE_CHANGED, e =>
+        this.router.addListener(EVENT_ROUTE_CHANGED, (e) =>
             this.ctx.bus.dispatch([EVENT_ROUTE_CHANGED, e.value])
         );
         // whenever the route has changed, record its details in the app
@@ -64,7 +65,7 @@ export class App {
             route: "route",
             routeComponent: [
                 "route.id",
-                id =>
+                (id) =>
                     (
                         this.config.components[id] ||
                         (() => ["div", `missing component for route: ${id}`])
@@ -115,7 +116,13 @@ export class App {
      * by current route and the derived view defined above.
      */
     rootComponent(): any {
+        const debug = this.ctx.views.debug.deref()!;
         const ui = this.ctx.ui;
-        return ["div", ui.root, this.ctx.views.routeComponent];
+        return [
+            "div",
+            ui.root,
+            [debugContainer, debug, this.ctx.views.json],
+            this.ctx.views.routeComponent
+        ];
     }
 }

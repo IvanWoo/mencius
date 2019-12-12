@@ -12,7 +12,7 @@ export function frame(ctx: AppContext, content: any) {
         nav,
         [
             "div",
-            { class: "relative max-w-5xl mx-auto lg:-mt-16" },
+            { class: "max-w-5xl mx-auto lg:-mt-16" },
             [
                 "div",
                 {

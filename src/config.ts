@@ -44,7 +44,10 @@ export const CONFIG: AppConfig = {
             [FX_DISPATCH_NOW]: [fx.POPUP]
         }),
 
-        [ev.TOGGLE_NAV]: valueUpdater<boolean>("isNavOpen", x => !x)
+        [ev.TOGGLE_NAV]: valueUpdater<boolean>("isNavOpen", (x) => !x),
+
+        // toggles debug state flag on/off
+        [ev.TOGGLE_DEBUG]: valueUpdater<number>("debug", (x) => x ^ 1)
     },
 
     // side effects
@@ -86,8 +89,8 @@ export const CONFIG: AppConfig = {
     // docs here:
     // https://github.com/thi-ng/umbrella/tree/master/packages/atom#derived-views
     views: {
-        json: ["", state => JSON.stringify(state, null, 2)],
-        users: ["users", users => users || {}],
+        json: ["", (state) => JSON.stringify(state, null, 2)],
+        users: ["users", (users) => users || {}],
         userlist: "userlist",
         status: "status",
         debug: "debug",
@@ -133,6 +136,20 @@ export const CONFIG: AppConfig = {
             }
         },
         root: { class: "about_bg" },
+        debug: {
+            container: {
+                class: "fixed right-0 mt-40 flex"
+            },
+            debugToggle: {
+                class: "font-bold rotate-270 flex items-center -m-3"
+            },
+            open: {
+                class: "bg-gray-200 text-xs p-2 text-gray-800 rounded-lg"
+            },
+            close: {
+                class: "hidden"
+            }
+        },
         logo: {
             container: { class: "flex items-center" },
             m: { class: "h-10" },
