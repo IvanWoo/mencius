@@ -151,11 +151,13 @@ export const CONFIG: AppConfig = {
             }
         },
         logo: {
-            container: { class: "flex items-center" },
+            container: { class: "sm:px-4 sm:pt-2 sm:pb-6 flex items-center" },
             m: { class: "h-10" },
             mxs: { class: "h-10 ml-4" }
         },
         nav: {
+            outer: {},
+            search: {},
             inner: {
                 open: { class: "px-4 pt-2 pb-6 block sm:block sm:flex" },
                 close: {
