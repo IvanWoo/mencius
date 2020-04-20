@@ -1,5 +1,5 @@
 import { IObjectOf } from "@thi.ng/api";
-import { Atom } from "@thi.ng/atom";
+import { Atom, defViewUnsafe } from "@thi.ng/atom";
 import { isArray } from "@thi.ng/checks";
 import { start } from "@thi.ng/hdom";
 import { EventBus, trace, valueSetter } from "@thi.ng/interceptors";
@@ -35,7 +35,7 @@ export class App {
         this.ctx = {
             bus: new EventBus(this.state, config.events, config.effects),
             views: <AppViews>{},
-            ui: config.ui
+            ui: config.ui,
         };
         this.addViews(<any>this.config.views);
         this.router = new HTMLRouter(config.router);
@@ -52,7 +52,9 @@ export class App {
         // circle
         this.ctx.bus.addHandlers({
             [EVENT_ROUTE_CHANGED]: valueSetter("route"),
-            [ev.ROUTE_TO]: (_, [__, route]) => ({ [fx.ROUTE_TO]: route })
+            [ev.ROUTE_TO]: (_, [__, route]) => ({
+                [fx.ROUTE_TO]: route,
+            }),
         });
         this.ctx.bus.addEffect(fx.ROUTE_TO, ([id, params]) =>
             this.router.routeTo(this.router.format(id, params))
@@ -69,8 +71,8 @@ export class App {
                     (
                         this.config.components[id] ||
                         (() => ["div", `missing component for route: ${id}`])
-                    )(this.ctx)
-            ]
+                    )(this.ctx),
+            ],
         });
     }
 
@@ -84,11 +86,9 @@ export class App {
         const views: any = this.ctx.views;
         for (let id in specs) {
             const spec = specs[id];
-            if (isArray(spec)) {
-                views[id] = this.state.addView(spec[0], spec[1]);
-            } else {
-                views[id] = this.state.addView(spec);
-            }
+            views[id] = isArray(spec)
+                ? defViewUnsafe(this.state, spec[0], spec[1])
+                : defViewUnsafe(this.state, spec);
         }
     }
 
@@ -122,7 +122,7 @@ export class App {
             "div",
             ui.root,
             [debugContainer, debug, this.ctx.views.json],
-            this.ctx.views.routeComponent
+            this.ctx.views.routeComponent,
         ];
     }
 }
