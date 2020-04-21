@@ -1,6 +1,6 @@
 import { AppContext } from "../api";
 import { ABOUT, CONTACT } from "../routes";
-import { TOGGLE_NAV } from "../events";
+import { TOGGLE_NAV, SET_INPUT, GET_ENTRY } from "../events";
 
 import { logo } from "./logo";
 import { routeLink } from "./route-link";
@@ -10,7 +10,7 @@ import {
     HEADER_HAMBURGER,
     HEADER_CLOSE,
     INFO_OUTLINE,
-    CHAT
+    CHAT,
 } from "@thi.ng/hiccup-carbon-icons";
 /**
  * Main nav component with hard coded routes.
@@ -18,12 +18,14 @@ import {
  * @param ctx injected context object
  */
 export function nav(ctx: AppContext) {
-    const isNavOpen = ctx.views.isNavOpen.deref();
+    const isNavOpen = ctx.views.isNavOpen.deref()!;
+    const input = ctx.views.input.deref()!;
     const ui = ctx.ui.nav;
+    const bus = ctx.bus;
     return [
         "nav",
         {
-            class: "sm:flex sm:justify-between sm:items-center px-6 py-3"
+            class: "sm:flex sm:justify-between sm:items-center px-6 py-3",
         },
         [
             "div",
@@ -36,43 +38,52 @@ export function nav(ctx: AppContext) {
                 [
                     "div",
                     { class: "h-8 w-8 md:h-10 md:w-10 md:-my-1" },
-                    isNavOpen ? HEADER_CLOSE : HEADER_HAMBURGER
-                ]
-            ]
+                    isNavOpen ? HEADER_CLOSE : HEADER_HAMBURGER,
+                ],
+            ],
         ],
         [
             "div",
             {
-                class: "w-full xl:px-24 px-4 pt-2 pb-6"
+                class: "w-full xl:px-24 px-4 pt-2 pb-6",
             },
             [
                 "div",
                 { class: "relative" },
                 [
-                    "input#entry_search",
+                    "input",
                     {
+                        id: "entry_search",
                         class:
                             "transition bg-white shadow-md focus:outline-0 border border-transparent placeholder-gray-700 rounded-lg py-2 pr-4 pl-10 block w-full appearance-none leading-normal",
                         placeholder: "搜寻条目 / Search Entries",
-                        type: "text"
-                    }
+                        type: "text",
+                        oninput: (e) => {
+                            bus.dispatch([SET_INPUT, e.target.value]);
+                        },
+                        onkeyup: (e) => {
+                            if (e.key === "Enter") {
+                                bus.dispatch([GET_ENTRY, input]);
+                            }
+                        },
+                    },
                 ],
                 [
                     "div",
                     {
                         class:
-                            "pointer-events-none absolute inset-y-0 left-0 pl-4 flex items-center"
+                            "pointer-events-none absolute inset-y-0 left-0 pl-4 flex items-center",
                     },
                     [
                         "div",
                         {
                             class:
-                                "fill-current pointer-events-none text-gray-600 w-4 h-4"
+                                "fill-current pointer-events-none text-gray-600 w-4 h-4",
                         },
-                        SEARCH
-                    ]
-                ]
-            ]
+                        SEARCH,
+                    ],
+                ],
+            ],
         ],
         [
             "div",
@@ -85,11 +96,11 @@ export function nav(ctx: AppContext) {
                 [
                     "div",
                     {
-                        class: "flex flex-row items-center"
+                        class: "flex flex-row items-center",
                     },
                     ["div", { class: "h-4 w-4 mr-2" }, INFO_OUTLINE],
-                    "About"
-                ]
+                    "About",
+                ],
             ],
             [
                 routeLink,
@@ -99,12 +110,12 @@ export function nav(ctx: AppContext) {
                 [
                     "div",
                     {
-                        class: "flex flex-row items-center"
+                        class: "flex flex-row items-center",
                     },
                     ["div", { class: "h-4 w-4 mr-2" }, CHAT],
-                    "Contact"
-                ]
-            ]
-        ]
+                    "Contact",
+                ],
+            ],
+        ],
     ];
 }

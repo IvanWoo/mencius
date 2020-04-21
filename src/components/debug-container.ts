@@ -18,8 +18,8 @@ export function debugContainer(ctx: AppContext, debug: any, json: string) {
             eventBtn,
             [TOGGLE_DEBUG],
             ui.debugToggle,
-            debug ? "close \u25bc" : "open \u25b2"
+            debug ? "close \u25bc" : "open \u25b2",
         ],
-        ["pre", debug ? ui.open : ui.close, json]
+        ["pre", debug ? ui.open : ui.close, json],
     ];
 }

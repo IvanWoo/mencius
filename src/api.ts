@@ -1,7 +1,7 @@
-import { IObjectOf } from "@thi.ng/api";
-import { IView, ViewTransform } from "@thi.ng/atom";
 import { EffectDef, EventBus, EventDef } from "@thi.ng/interceptors";
-import { HTMLRouterConfig, RouteMatch } from "@thi.ng/router";
+import type { Fn, IObjectOf, Path } from "@thi.ng/api";
+import type { IView } from "@thi.ng/atom";
+import type { HTMLRouterConfig, RouteMatch } from "@thi.ng/router";
 
 // general types defined for the base app
 
@@ -14,7 +14,7 @@ export type AppComponent = (ctx: AppContext, ...args: any[]) => any;
 /**
  * Derived view configurations.
  */
-export type ViewSpec = string | [string, ViewTransform<any>];
+export type ViewSpec = string | Path | [string | Path, Fn<any, any>];
 
 /**
  * Structure of the overall application config object.
@@ -41,9 +41,11 @@ export interface AppViews extends Record<keyof AppViews, IView<any>> {
     users: IView<IObjectOf<User>>;
     userlist: IView<User[]>;
     status: IView<Status>;
-    debug: IView<number>;
+    debug: IView<boolean>;
     json: IView<string>;
     isNavOpen: IView<boolean>;
+    input: IView<string>;
+    entries: IView<IObjectOf<Entry>>;
 }
 
 export interface AppContext {
@@ -69,7 +71,30 @@ export interface UIAttribs {
     debug: any;
 }
 
-/// demo app related types
+/// app related types
+export interface EntryResponse {
+    success: boolean;
+    error: string;
+    data: Entry;
+}
+export interface Entry {
+    album: string;
+    alias: string;
+    author: string;
+    category: string;
+    consensus_translation: string;
+    date: string;
+    group: string;
+    id: string;
+    name: string;
+    opinions?: OpinionsEntity[] | null;
+}
+export interface OpinionsEntity {
+    details: string;
+    github_handler: string;
+    translation: string;
+    user_name: string;
+}
 
 export interface User {
     id: number;
@@ -87,7 +112,7 @@ export enum StatusType {
     DONE,
     INFO,
     SUCCESS,
-    ERROR
+    ERROR,
 }
 
 export interface Status extends Array<any> {

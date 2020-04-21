@@ -4,11 +4,13 @@ import {
     FX_DELAY,
     FX_DISPATCH_ASYNC,
     FX_DISPATCH_NOW,
-    valueUpdater
+    valueUpdater,
 } from "@thi.ng/interceptors";
 import { AppConfig, StatusType } from "./api";
 import { about } from "./components/about";
 import { contact } from "./components/contact";
+// import { search } from "./components/search";
+// import { entryDetail } from "./components/entry-detail";
 import * as fx from "./effects";
 import * as ev from "./events";
 import * as routes from "./routes";
@@ -25,7 +27,12 @@ export const CONFIG: AppConfig = {
         defaultRouteID: routes.ABOUT.id,
         // IMPORTANT: rules with common prefixes MUST be specified in
         // order of highest precision / longest path
-        routes: [routes.ABOUT, routes.CONTACT]
+        routes: [
+            routes.ABOUT,
+            routes.CONTACT,
+            // routes.SEARCH,
+            routes.ENTRY_DETAIL,
+        ],
     },
 
     // event handlers events are queued and batch processed in app's RAF
@@ -40,14 +47,63 @@ export const CONFIG: AppConfig = {
     // https://github.com/thi-ng/umbrella/blob/master/packages/atom/src/event-bus.ts#L14
 
     events: {
+        // sets status to "done"
+        [ev.DONE]: () => ({
+            [FX_DISPATCH_NOW]: [ev.SET_STATUS, [StatusType.DONE, "done"]],
+        }),
+
+        // sets status to thrown error's message
+        [ev.ERROR]: (_, [__, err]) => ({
+            [FX_DISPATCH_NOW]: [ev.SET_STATUS, [StatusType.ERROR, err.message]],
+        }),
+
+        // stores status (a tuple of `[type, message, done?]`) in app state
+        // if status type != DONE & `done` == true, also triggers delayed EV_DONE
+        // Note: we inject the `trace` interceptor to log the event to the console
+        [ev.SET_STATUS]: (_, [__, status]) => ({
+            [FX_DISPATCH_NOW]: [EV_SET_VALUE, ["status", status]],
+            [FX_DISPATCH_ASYNC]:
+                status[0] !== StatusType.DONE && status[2]
+                    ? [FX_DELAY, [1000], ev.DONE, ev.ERROR]
+                    : undefined,
+        }),
+
         [ev.POPUP_WINDOW]: () => ({
-            [FX_DISPATCH_NOW]: [fx.POPUP]
+            [FX_DISPATCH_NOW]: [fx.POPUP],
         }),
 
         [ev.TOGGLE_NAV]: valueUpdater<boolean>("isNavOpen", (x) => !x),
 
         // toggles debug state flag on/off
-        [ev.TOGGLE_DEBUG]: valueUpdater<number>("debug", (x) => x ^ 1)
+        [ev.TOGGLE_DEBUG]: valueUpdater<boolean>("debug", (x) => !x),
+
+        [ev.SET_INPUT]: [
+            (_, [__, input]) => ({
+                [FX_DISPATCH_NOW]: [EV_SET_VALUE, ["input", input]],
+            }),
+        ],
+
+        [ev.GET_ENTRY]: (_, [__, id]) => ({
+            [FX_DISPATCH_NOW]: [
+                [ev.SET_STATUS, [StatusType.INFO, "getting entry data..."]],
+            ],
+            [FX_DISPATCH_ASYNC]: [
+                fx.GET_ENTRY,
+                `${id}`,
+                ev.RECEIVE_ENTRY,
+                ev.ERROR,
+            ],
+        }),
+
+        [ev.RECEIVE_ENTRY]: (_, [__, json]) => ({
+            [FX_DISPATCH_NOW]: [
+                [EV_SET_VALUE, [["entries", json.data.id], json.data]],
+                [
+                    ev.SET_STATUS,
+                    [StatusType.SUCCESS, "JSON successfully loaded", true],
+                ],
+            ],
+        }),
     },
 
     // side effects
@@ -59,7 +115,14 @@ export const CONFIG: AppConfig = {
                 "scrollbars=yes, width=800, height=600"
             );
             return true;
-        }
+        },
+        [fx.GET_ENTRY]: (id) =>
+            fetch("http://localhost:4200/entries/" + id).then((resp) => {
+                if (!resp.ok) {
+                    throw new Error(resp.statusText);
+                }
+                return resp.json();
+            }),
     },
 
     // mapping route IDs to their respective UI component functions
@@ -67,7 +130,9 @@ export const CONFIG: AppConfig = {
     // base on the currently active route
     components: {
         [routes.ABOUT.id]: about,
-        [routes.CONTACT.id]: contact
+        [routes.CONTACT.id]: contact,
+        // [routes.SEARCH.id]: search,
+        // [routes.ENTRY_DETAIL.id]: entryDetail,
     },
 
     // DOM root element (or ID)
@@ -79,8 +144,10 @@ export const CONFIG: AppConfig = {
         users: {},
         userlist: [],
         route: {},
-        debug: 1,
-        isNavOpen: false
+        debug: true,
+        isNavOpen: false,
+        input: "",
+        entries: {},
     },
 
     // derived view declarations
@@ -94,7 +161,9 @@ export const CONFIG: AppConfig = {
         userlist: "userlist",
         status: "status",
         debug: "debug",
-        isNavOpen: "isNavOpen"
+        isNavOpen: "isNavOpen",
+        input: "input",
+        entries: "entries",
     },
 
     // component CSS class config using tailwind-css
@@ -103,57 +172,59 @@ export const CONFIG: AppConfig = {
         newsletterForm: {
             title: {
                 class:
-                    "sm:font-light text-2xl sm:text-3xl md:text-4xl text-gray-900 mt-6"
+                    "sm:font-light text-2xl sm:text-3xl md:text-4xl text-gray-900 mt-6",
             },
             form: { class: "w-full" },
             container: {
                 class:
-                    "flex items-center border-b border-b-2 border-purple-500 py-2"
+                    "flex items-center border-b border-b-2 border-purple-500 py-2",
             },
             input: {
                 class:
-                    "appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
+                    "appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none",
             },
             button: {
                 class:
-                    "flex-shrink-0 bg-purple-500 hover:bg-purple-700 border-purple-500 hover:border-purple-700 text-sm border-4 text-white py-1 px-2 rounded"
-            }
+                    "flex-shrink-0 bg-purple-500 hover:bg-purple-700 border-purple-500 hover:border-purple-700 text-sm border-4 text-white py-1 px-2 rounded",
+            },
         },
         characterCard: {
             container: {
                 class:
-                    "flex flex-col px-12 py-10 w-full sm:w-1/2 border-gray-200"
+                    "flex flex-col px-12 py-10 w-full sm:w-1/2 border-gray-200",
             },
             icon: { class: "h-8 w-8 md:h-10 md:w-10 md:-my-1" },
             body: {
-                class: "flex flex-col leading-relaxed ml-4 md:ml-6"
+                class: "flex flex-col leading-relaxed ml-4 md:ml-6",
             },
             content: {
                 keyword: { class: "font-medium text-gray-800 text-lg" },
                 description: {
-                    class: "text-gray-600 mt-1 text-sm md:text-base"
-                }
-            }
+                    class: "text-gray-600 mt-1 text-sm md:text-base",
+                },
+            },
         },
         root: { class: "about_bg" },
         debug: {
             container: {
-                class: "fixed right-0 mt-40 flex"
+                class: "fixed right-0 mt-40 flex",
             },
             debugToggle: {
-                class: "font-bold rotate-270 flex items-center -m-3"
+                class: "font-bold rotate-270 flex items-center -m-3",
             },
             open: {
-                class: "bg-gray-200 text-xs p-2 text-gray-800 rounded-lg"
+                class: "bg-gray-200 text-xs p-2 text-gray-800 rounded-lg",
             },
             close: {
-                class: "hidden"
-            }
+                class: "hidden",
+            },
         },
         logo: {
-            container: { class: "sm:px-4 sm:pt-2 sm:pb-6 flex items-center" },
+            container: {
+                class: "sm:px-4 sm:pt-2 sm:pb-6 flex items-center",
+            },
             m: { class: "h-10" },
-            mxs: { class: "h-10 ml-4" }
+            mxs: { class: "h-10 ml-4" },
         },
         nav: {
             outer: {},
@@ -161,20 +232,20 @@ export const CONFIG: AppConfig = {
             inner: {
                 open: { class: "px-4 pt-2 pb-6 block sm:block sm:flex" },
                 close: {
-                    class: "px-4 pt-2 pb-6 hidden sm:block sm:flex"
-                }
+                    class: "px-4 pt-2 pb-6 hidden sm:block sm:flex",
+                },
             },
             title: { class: "black f1 lh-title tc db mb2 mb2-ns" },
             link: {
                 class:
-                    "mt-1 block px-2 py-1 font-bold rounded hover:bg-gray-100 text-lg sm:mt-0 sm:ml-2"
-            }
+                    "mt-1 block px-2 py-1 font-bold rounded hover:bg-gray-100 text-lg sm:mt-0 sm:ml-2",
+            },
         },
         contact: {
             link: {
                 class:
-                    "flex flex-col sm:text-xl text-gray-600 mt-2 leading-relaxed font-bold hover:bg-gray-200 hover:text-gray-900"
-            }
-        }
-    }
+                    "flex flex-col sm:text-xl text-gray-600 mt-2 leading-relaxed font-bold hover:bg-gray-200 hover:text-gray-900",
+            },
+        },
+    },
 };
