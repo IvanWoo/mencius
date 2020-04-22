@@ -1,6 +1,6 @@
-import { AppContext } from "../api";
+import { AppContext, StatusType } from "../api";
 import { ABOUT, CONTACT } from "../routes";
-import { TOGGLE_NAV, SET_INPUT, GET_ENTRY } from "../events";
+import { TOGGLE_NAV, SET_INPUT, GET_ENTRY, SET_STATUS } from "../events";
 
 import { logo } from "./logo";
 import { routeLink } from "./route-link";
@@ -63,7 +63,18 @@ export function nav(ctx: AppContext) {
                         },
                         onkeyup: (e) => {
                             if (e.key === "Enter") {
-                                bus.dispatch([GET_ENTRY, input]);
+                                ctx.bus.dispatch(
+                                    ctx.views.entries.deref()![input]
+                                        ? [
+                                              SET_STATUS,
+                                              [
+                                                  StatusType.SUCCESS,
+                                                  "loaded from cache",
+                                                  true,
+                                              ],
+                                          ]
+                                        : [GET_ENTRY, input]
+                                );
                             }
                         },
                     },
