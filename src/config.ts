@@ -79,7 +79,10 @@ export const CONFIG: AppConfig = {
 
         [ev.SET_INPUT]: [
             (_, [__, input]) => ({
-                [FX_DISPATCH_NOW]: [EV_SET_VALUE, ["input", input]],
+                [FX_DISPATCH_NOW]: [
+                    EV_SET_VALUE,
+                    ["input", input.toLowerCase()],
+                ],
             }),
         ],
 
