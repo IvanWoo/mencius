@@ -10,7 +10,7 @@ import { AppConfig, StatusType } from "./api";
 import { about } from "./components/about";
 import { contact } from "./components/contact";
 // import { search } from "./components/search";
-// import { entryDetail } from "./components/entry-detail";
+import { entryDetail } from "./components/entry-detail";
 import * as fx from "./effects";
 import * as ev from "./events";
 import * as routes from "./routes";
@@ -87,21 +87,22 @@ export const CONFIG: AppConfig = {
             [FX_DISPATCH_NOW]: [
                 [ev.SET_STATUS, [StatusType.INFO, "getting entry data..."]],
             ],
-            [FX_DISPATCH_ASYNC]: [
-                fx.GET_ENTRY,
-                `${id}`,
-                ev.RECEIVE_ENTRY,
-                ev.ERROR,
-            ],
+            [FX_DISPATCH_ASYNC]: [fx.GET_ENTRY, id, ev.RECEIVE_ENTRY, ev.ERROR],
         }),
 
         [ev.RECEIVE_ENTRY]: (_, [__, json]) => ({
             [FX_DISPATCH_NOW]: [
-                [EV_SET_VALUE, [["entries", json.data.id], json.data]],
+                [EV_SET_VALUE, [["entries", json.id], json.data]],
                 [
                     ev.SET_STATUS,
                     [StatusType.SUCCESS, "JSON successfully loaded", true],
                 ],
+            ],
+        }),
+
+        [ev.ROUTE_TO_ENTRY]: (_, [__, id]) => ({
+            [FX_DISPATCH_NOW]: [
+                [ev.ROUTE_TO, [routes.ENTRY_DETAIL.id, { id }]],
             ],
         }),
     },
@@ -132,7 +133,7 @@ export const CONFIG: AppConfig = {
         [routes.ABOUT.id]: about,
         [routes.CONTACT.id]: contact,
         // [routes.SEARCH.id]: search,
-        // [routes.ENTRY_DETAIL.id]: entryDetail,
+        [routes.ENTRY_DETAIL.id]: entryDetail,
     },
 
     // DOM root element (or ID)

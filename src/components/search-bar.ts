@@ -1,5 +1,5 @@
 import { AppContext, StatusType } from "../api";
-import { SET_INPUT, GET_ENTRY, SET_STATUS } from "../events";
+import { SET_INPUT, GET_ENTRY, SET_STATUS, ROUTE_TO_ENTRY } from "../events";
 
 import { SEARCH } from "@thi.ng/hiccup-carbon-icons";
 
@@ -40,6 +40,7 @@ export function searchBar(ctx: AppContext) {
                                       ]
                                     : [GET_ENTRY, input]
                             );
+                            bus.dispatch([ROUTE_TO_ENTRY, input]);
                         }
                     },
                 },

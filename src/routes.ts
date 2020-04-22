@@ -18,10 +18,4 @@ export const SEARCH: Route = {
 export const ENTRY_DETAIL: Route = {
     id: "entry-detail",
     match: ["entry", "?id"],
-    validate: {
-        id: {
-            // make sure the don't contain any uppercase
-            check: (x) => !/[A-Z]/.test(x),
-        },
-    },
 };
