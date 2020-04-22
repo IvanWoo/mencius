@@ -1,5 +1,4 @@
 import { AppContext } from "../api";
-import { frame } from "./frame";
 import { externalLink } from "./external-link";
 
 /**
@@ -8,7 +7,7 @@ import { externalLink } from "./external-link";
  * @param ctx injected context object
  */
 export function contact(ctx: AppContext) {
-    return frame(ctx, [
+    return [
         "div",
         { class: "flex flex-col p-12" },
         ["p", ctx.ui.newsletterForm.title, "Get in touch!"],
@@ -18,8 +17,8 @@ export function contact(ctx: AppContext) {
                 ["https://github.com/IvanWoo/mencius", "GitHub"],
                 ["/", "Twitter"],
                 ["/", "Weibo"],
-                ["/", "Medium"]
-            ].map(link => [externalLink, ctx.ui.contact.link, ...link])
-        ]
-    ]);
+                ["/", "Medium"],
+            ].map((link) => [externalLink, ctx.ui.contact.link, ...link]),
+        ],
+    ];
 }

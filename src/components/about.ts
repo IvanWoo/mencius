@@ -1,6 +1,4 @@
 import { AppContext } from "../api";
-
-import { frame } from "./frame";
 import { newsletterForm } from "./newsletter-form";
 import { characterCard } from "./character-card";
 
@@ -17,7 +15,8 @@ import {
  * @param ctx injected context object
  */
 export function about(ctx: AppContext) {
-    return frame(ctx, [
+    return [
+        "div",
         [
             "div",
             { class: "flex flex-col flex-grow justify-center p-12" },
@@ -67,5 +66,5 @@ export function about(ctx: AppContext) {
                 ].map((content) => [characterCard, ...content]),
             ],
         ],
-    ]);
+    ];
 }
