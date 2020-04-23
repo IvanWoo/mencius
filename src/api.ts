@@ -87,9 +87,9 @@ export interface Entry {
     group: string;
     id: string;
     name: string;
-    opinions?: OpinionsEntity[] | null;
+    opinions?: Opinion[] | null;
 }
-export interface OpinionsEntity {
+export interface Opinion {
     details: string;
     github_handler: string;
     translation: string;

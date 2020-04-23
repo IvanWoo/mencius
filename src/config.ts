@@ -95,7 +95,7 @@ export const CONFIG: AppConfig = {
 
         [ev.RECEIVE_ENTRY]: (_, [__, json]) => ({
             [FX_DISPATCH_NOW]: [
-                [EV_SET_VALUE, [["entries", json.id], json.data]],
+                [EV_SET_VALUE, [["entries", decodeURI(json.id)], json.data]],
                 [
                     ev.SET_STATUS,
                     [StatusType.SUCCESS, "JSON successfully loaded", true],
@@ -148,7 +148,7 @@ export const CONFIG: AppConfig = {
         users: {},
         userlist: [],
         route: {},
-        debug: true,
+        debug: false,
         isNavOpen: false,
         input: "",
         entries: {},
@@ -211,7 +211,7 @@ export const CONFIG: AppConfig = {
         root: { class: "about_bg" },
         debug: {
             container: {
-                class: "fixed right-0 mt-40 flex",
+                class: "max-w-xs fixed right-0 mt-40 flex",
             },
             debugToggle: {
                 class: "font-bold rotate-270 flex items-center -m-3",

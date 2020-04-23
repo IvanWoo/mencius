@@ -6,6 +6,7 @@
 export function frame(content: any) {
     return [
         "div",
+        { class: "mt-4" },
         [
             "div",
             { class: "max-w-5xl mx-auto lg:-mt-16" },
