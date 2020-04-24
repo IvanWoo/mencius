@@ -34,15 +34,31 @@ export function metadata(entry: Entry) {
                     `# ${entry.category}`,
                 ],
             ],
-            // wikipedia
+            entry.wikipedia.pageid ? wikipedia(entry) : [],
+        ],
+    ];
+}
+
+function wikipedia(entry: Entry) {
+    return [
+        "div",
+        {
+            class: " sm:text-xl text-gray-600 mt-3 leading-relaxed",
+        },
+        ["p", { class: "font-light text-base" }, entry.wikipedia.extract],
+        [
+            "div",
+            {
+                class:
+                    "pt-2 mt-auto text-lg font-medium inline-flex items-center text-purple-600 hover:text-purple-800",
+            },
             [
-                "div",
+                "a",
                 {
-                    class: " sm:text-xl text-gray-600 mt-3 leading-relaxed",
+                    href: `https://${entry.language}.wikipedia.org/?curid=${entry.wikipedia.pageid}`,
+                    target: "_blank",
                 },
-                ["span", { class: "font-semibold underline" }, `${entry.name}`],
-                ["p", "#TODO: wikipedia content summary"],
-                ["div", "#TODO: wikipedia link"],
+                "Surf the Wikipedia 🌊",
             ],
         ],
     ];

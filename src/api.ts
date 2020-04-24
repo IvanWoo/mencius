@@ -77,6 +77,7 @@ export interface EntryResponse {
     error: string;
     data: Entry;
 }
+
 export interface Entry {
     album: string;
     alias: string;
@@ -87,8 +88,18 @@ export interface Entry {
     group: string;
     id: string;
     name: string;
+    language: string;
+    wikipedia: Wikipedia | null;
     opinions?: Opinion[] | null;
 }
+
+export interface Wikipedia {
+    pageid: number;
+    ns: number;
+    title: string;
+    extract: string;
+}
+
 export interface Opinion {
     details: string;
     github_handler: string;

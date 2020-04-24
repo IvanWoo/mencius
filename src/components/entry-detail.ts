@@ -20,6 +20,7 @@ export function entryDetail(ctx: AppContext) {
     return () => {
         const id = decodeURI(ctx.views.route.deref()!.params.id);
         const entry = ctx.views.entries.deref()![id];
+        // TODO: 404 / create entry page
         return entry && entry.id
             ? [
                   "div",
@@ -27,6 +28,6 @@ export function entryDetail(ctx: AppContext) {
                   metadata(entry),
                   entry.opinions.map((x) => opinionCard(x)),
               ]
-            : ["div", "no data"];
+            : ["div", { class: "text-4xl m-auto p-6" }, "no data..."];
     };
 }
