@@ -9,3 +9,5 @@ export const TOGGLE_DEBUG = "toggle-debug";
 export const SET_INPUT = "set-input";
 export const GET_ENTRY = "get-entry";
 export const RECEIVE_ENTRY = "receive-entry";
+export const GET_TOKEN = "get-token";
+export const RECEIVE_TOKEN = "receive-token";

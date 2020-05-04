@@ -1,5 +1,5 @@
 import { AppContext, StatusType } from "../api";
-import { ABOUT, CONTACT } from "../routes";
+import { ABOUT, CONTACT, SIGN_IN } from "../routes";
 import { TOGGLE_NAV } from "../events";
 
 import { logo } from "./logo";
@@ -11,6 +11,7 @@ import {
     HEADER_CLOSE,
     INFO_OUTLINE,
     CHAT,
+    USER,
 } from "@thi.ng/hiccup-carbon-icons";
 /**
  * Main nav component with hard coded routes.
@@ -70,6 +71,21 @@ export function nav(ctx: AppContext) {
                     },
                     ["div", { class: "h-4 w-4 mr-2" }, CHAT],
                     "Contact",
+                ],
+            ],
+            [
+                routeLink,
+                SIGN_IN.id,
+                null,
+                ui.link,
+                [
+                    "div",
+                    {
+                        class: "flex flex-row items-center",
+                    },
+                    ["div", { class: "h-4 w-4 mr-2" }, USER],
+                    // TODO: figure out why "sign in" will break the ui
+                    "Sign_in",
                 ],
             ],
         ],

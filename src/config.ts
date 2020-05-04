@@ -11,6 +11,8 @@ import { about } from "./components/about";
 import { contact } from "./components/contact";
 // import { search } from "./components/search";
 import { entryDetail } from "./components/entry-detail";
+import { signIn } from "./components/sign-in";
+import { githubOauth } from "./components/github-oauth";
 import * as fx from "./effects";
 import * as ev from "./events";
 import * as routes from "./routes";
@@ -32,6 +34,8 @@ export const CONFIG: AppConfig = {
             routes.CONTACT,
             // routes.SEARCH,
             routes.ENTRY_DETAIL,
+            routes.SIGN_IN,
+            routes.GITHUB_OAUTH_CB,
         ],
     },
 
@@ -108,6 +112,30 @@ export const CONFIG: AppConfig = {
                 [ev.ROUTE_TO, [routes.ENTRY_DETAIL.id, { id }]],
             ],
         }),
+
+        [ev.GET_TOKEN]: (_, [__, code]) => ({
+            [FX_DISPATCH_NOW]: [
+                [ev.SET_STATUS, [StatusType.INFO, "getting token..."]],
+            ],
+            [FX_DISPATCH_ASYNC]: [
+                fx.GET_TOKEN,
+                code,
+                ev.RECEIVE_TOKEN,
+                ev.ERROR,
+            ],
+        }),
+
+        [ev.RECEIVE_TOKEN]: (_, [__, json]) => ({
+            [FX_DISPATCH_NOW]: [
+                [EV_SET_VALUE, ["token", json.token]],
+                [
+                    ev.SET_STATUS,
+                    [StatusType.SUCCESS, "Token successfully loaded", true],
+                ],
+                // TODO: redirect to sign-in landing page
+                [ev.ROUTE_TO, [routes.ABOUT.id, {}]],
+            ],
+        }),
     },
 
     // side effects
@@ -127,6 +155,13 @@ export const CONFIG: AppConfig = {
                 }
                 return resp.json();
             }),
+        [fx.GET_TOKEN]: (code) =>
+            fetch("http://localhost:4200/token?code=" + code).then((resp) => {
+                if (!resp.ok) {
+                    throw new Error(resp.statusText);
+                }
+                return resp.json();
+            }),
     },
 
     // mapping route IDs to their respective UI component functions
@@ -137,6 +172,8 @@ export const CONFIG: AppConfig = {
         [routes.CONTACT.id]: contact,
         // [routes.SEARCH.id]: search,
         [routes.ENTRY_DETAIL.id]: entryDetail,
+        [routes.SIGN_IN.id]: signIn,
+        [routes.GITHUB_OAUTH_CB.id]: githubOauth,
     },
 
     // DOM root element (or ID)

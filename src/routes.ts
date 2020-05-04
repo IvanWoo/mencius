@@ -26,3 +26,13 @@ export const ENTRY_DETAIL: Route = {
         },
     },
 };
+
+export const SIGN_IN: Route = {
+    id: "sign-in",
+    match: ["sign_in"],
+};
+
+export const GITHUB_OAUTH_CB: Route = {
+    id: "github-oauth-cb",
+    match: ["github_oauth_cb"],
+};

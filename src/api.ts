@@ -46,6 +46,7 @@ export interface AppViews extends Record<keyof AppViews, IView<any>> {
     isNavOpen: IView<boolean>;
     input: IView<string>;
     entries: IView<IObjectOf<Entry>>;
+    token: IView<string>;
 }
 
 export interface AppContext {
