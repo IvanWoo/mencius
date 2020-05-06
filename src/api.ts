@@ -70,6 +70,7 @@ export interface UIAttribs {
     nav: any;
     contact: any;
     debug: any;
+    status: any;
 }
 
 /// app related types

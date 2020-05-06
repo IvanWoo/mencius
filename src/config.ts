@@ -102,7 +102,11 @@ export const CONFIG: AppConfig = {
                 [EV_SET_VALUE, [["entries", decodeURI(json.id)], json.data]],
                 [
                     ev.SET_STATUS,
-                    [StatusType.SUCCESS, "JSON successfully loaded", true],
+                    [
+                        StatusType.SUCCESS,
+                        "entry data successfully loaded",
+                        true,
+                    ],
                 ],
             ],
         }),
@@ -130,7 +134,7 @@ export const CONFIG: AppConfig = {
                 [EV_SET_VALUE, ["token", json.token]],
                 [
                     ev.SET_STATUS,
-                    [StatusType.SUCCESS, "Token successfully loaded", true],
+                    [StatusType.SUCCESS, "token successfully loaded", true],
                 ],
                 // TODO: redirect to sign-in landing page
                 [ev.ROUTE_TO, [routes.ABOUT.id, {}]],
@@ -210,6 +214,20 @@ export const CONFIG: AppConfig = {
     // component CSS class config using tailwind-css
     // these attribs are being passed to all/most components
     ui: {
+        status: {
+            [StatusType.DONE]: {
+                class: "text-center p-2 bg-yellow-200 text-yellow-700 fadeout",
+            },
+            [StatusType.INFO]: {
+                class: "text-center p-2 bg-yellow-200 text-yellow-700",
+            },
+            [StatusType.SUCCESS]: {
+                class: "text-center p-2 bg-green-200 text-green-700",
+            },
+            [StatusType.ERROR]: {
+                class: "text-center p-2 bg-red-200 text-red-700",
+            },
+        },
         newsletterForm: {
             title: {
                 class:

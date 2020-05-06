@@ -1,5 +1,6 @@
 import type { AppContext } from "../api";
 import { GET_TOKEN } from "../events";
+import { status } from "./status";
 
 /**
  * Github OAuth callback page.
@@ -12,7 +13,7 @@ export function githubOauth(ctx: AppContext) {
     ctx.bus.dispatch([GET_TOKEN, code]);
     return [
         "div",
-        { class: "text-4xl m-auto p-6" },
-        "Signing-in with Github...",
+        status,
+        ["div", { class: "text-4xl m-auto p-6" }, "Signing-in with Github..."],
     ];
 }
