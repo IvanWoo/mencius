@@ -131,7 +131,6 @@ export const CONFIG: AppConfig = {
 
         [ev.RECEIVE_TOKEN]: (_, [__, json]) => ({
             [FX_DISPATCH_NOW]: [
-                [EV_SET_VALUE, ["token", json.token]],
                 [
                     ev.SET_STATUS,
                     [StatusType.SUCCESS, "token successfully loaded", true],
@@ -153,14 +152,28 @@ export const CONFIG: AppConfig = {
             return true;
         },
         [fx.GET_ENTRY]: (id) =>
-            fetch("http://localhost:4200/entries/" + id).then((resp) => {
+            fetch("http://localhost:4200/entries/" + id, {
+                method: "GET",
+                headers: [
+                    ["Content-Type", "application/json"],
+                    ["Content-Type", "text/plain"],
+                ],
+                credentials: "include",
+            }).then((resp) => {
                 if (!resp.ok) {
                     throw new Error(resp.statusText);
                 }
                 return resp.json();
             }),
         [fx.GET_TOKEN]: (code) =>
-            fetch("http://localhost:4200/token?code=" + code).then((resp) => {
+            fetch("http://localhost:4200/token?code=" + code, {
+                method: "GET",
+                headers: [
+                    ["Content-Type", "application/json"],
+                    ["Content-Type", "text/plain"],
+                ],
+                credentials: "include",
+            }).then((resp) => {
                 if (!resp.ok) {
                     throw new Error(resp.statusText);
                 }

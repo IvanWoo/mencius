@@ -8,8 +8,8 @@ import { status } from "./status";
  * @param ctx injected context object
  */
 export function githubOauth(ctx: AppContext) {
-    // TODO: make the extracting more robust
-    const code = window.location.href.split("?code=")[1].split("#/")[0];
+    const urlParams = new URLSearchParams(window.location.search);
+    const code = urlParams.get("code");
     ctx.bus.dispatch([GET_TOKEN, code]);
     return [
         "div",
