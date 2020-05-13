@@ -117,6 +117,23 @@ export const CONFIG: AppConfig = {
             ],
         }),
 
+        [ev.GET_USER]: () => ({
+            [FX_DISPATCH_NOW]: [
+                [ev.SET_STATUS, [StatusType.INFO, "getting user data..."]],
+            ],
+            [FX_DISPATCH_ASYNC]: [fx.GET_USER, null, ev.RECEIVE_USER, ev.ERROR],
+        }),
+
+        [ev.RECEIVE_USER]: (_, [__, json]) => ({
+            [FX_DISPATCH_NOW]: [
+                [EV_SET_VALUE, ["user", json.data]],
+                [
+                    ev.SET_STATUS,
+                    [StatusType.SUCCESS, "user data successfully loaded", true],
+                ],
+            ],
+        }),
+
         [ev.GET_TOKEN]: (_, [__, code]) => ({
             [FX_DISPATCH_NOW]: [
                 [ev.SET_STATUS, [StatusType.INFO, "getting token..."]],
@@ -137,6 +154,7 @@ export const CONFIG: AppConfig = {
                 ],
                 // TODO: redirect to sign-in landing page
                 [ev.ROUTE_TO, [routes.ABOUT.id, {}]],
+                [ev.GET_USER],
             ],
         }),
     },
@@ -152,7 +170,21 @@ export const CONFIG: AppConfig = {
             return true;
         },
         [fx.GET_ENTRY]: (id) =>
-            fetch("http://localhost:4200/entries/" + id, {
+            fetch("http://localhost:4200/api/v1/entries/" + id, {
+                method: "GET",
+                headers: [
+                    ["Content-Type", "application/json"],
+                    ["Content-Type", "text/plain"],
+                ],
+                credentials: "include",
+            }).then((resp) => {
+                if (!resp.ok) {
+                    throw new Error(resp.statusText);
+                }
+                return resp.json();
+            }),
+        [fx.GET_USER]: () =>
+            fetch("http://localhost:4200/api/v1/user", {
                 method: "GET",
                 headers: [
                     ["Content-Type", "application/json"],
@@ -199,8 +231,7 @@ export const CONFIG: AppConfig = {
     // initial app state
     initialState: {
         status: [StatusType.INFO, "running"],
-        users: {},
-        userlist: [],
+        user: {},
         route: {},
         debug: false,
         isNavOpen: false,
@@ -215,8 +246,7 @@ export const CONFIG: AppConfig = {
     // https://github.com/thi-ng/umbrella/tree/master/packages/atom#derived-views
     views: {
         json: ["", (state) => JSON.stringify(state, null, 2)],
-        users: ["users", (users) => users || {}],
-        userlist: "userlist",
+        user: ["user", (user) => user || {}],
         status: "status",
         debug: "debug",
         isNavOpen: "isNavOpen",
@@ -302,9 +332,13 @@ export const CONFIG: AppConfig = {
             outer: {},
             search: {},
             inner: {
-                open: { class: "px-4 pt-2 pb-6 block sm:block sm:flex" },
+                open: {
+                    class:
+                        "items-center justify-between px-4 pt-2 pb-6 block sm:block sm:flex",
+                },
                 close: {
-                    class: "px-4 pt-2 pb-6 hidden sm:block sm:flex",
+                    class:
+                        "items-center justify-between px-4 pt-2 pb-6 hidden sm:block sm:flex",
                 },
             },
             title: { class: "black f1 lh-title tc db mb2 mb2-ns" },

@@ -38,8 +38,7 @@ export interface AppConfig {
 export interface AppViews extends Record<keyof AppViews, IView<any>> {
     route: IView<RouteMatch>;
     routeComponent: IView<any>;
-    users: IView<IObjectOf<User>>;
-    userlist: IView<User[]>;
+    user: IView<User>;
     status: IView<Status>;
     debug: IView<boolean>;
     json: IView<string>;
@@ -109,12 +108,19 @@ export interface Opinion {
 }
 
 export interface User {
-    id: number;
+    login: string;
+    avatar_url: string;
+    url: string;
+    html_url: string;
+    type: string;
     name: string;
-    job: string;
-    img: string;
-    desc: string;
-    alias: string;
+    company: string;
+    blog: string;
+    location: string;
+    email: string;
+    bio?: any;
+    created_at: string;
+    updated_at: string;
 }
 
 /**

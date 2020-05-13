@@ -13,6 +13,7 @@ import {
     CHAT,
     USER,
 } from "@thi.ng/hiccup-carbon-icons";
+
 /**
  * Main nav component with hard coded routes.
  *
@@ -20,6 +21,7 @@ import {
  */
 export function nav(ctx: AppContext) {
     const isNavOpen = ctx.views.isNavOpen.deref()!;
+    const user = ctx.views.user.deref()!;
     const ui = ctx.ui.nav;
     return [
         "nav",
@@ -73,21 +75,36 @@ export function nav(ctx: AppContext) {
                     "Contact",
                 ],
             ],
-            [
-                routeLink,
-                SIGN_IN.id,
-                null,
-                ui.link,
-                [
-                    "div",
-                    {
-                        class: "flex flex-row items-center",
-                    },
-                    ["div", { class: "h-4 w-4 mr-2" }, USER],
-                    // TODO: figure out why "sign in" will break the ui
-                    "Sign_in",
-                ],
-            ],
+            user.name === undefined
+                ? [
+                      routeLink,
+                      SIGN_IN.id,
+                      null,
+                      ui.link,
+                      [
+                          "div",
+                          {
+                              class: "flex flex-row items-center",
+                          },
+                          ["div", { class: "h-4 w-4 mr-2" }, USER],
+                          // TODO: figure out why "sign in" will break the ui
+                          "Sign_in",
+                      ],
+                  ]
+                : [
+                      "div",
+                      {
+                          class: "flex flex-row items-center relative w-8 mx-2",
+                      },
+                      [
+                          "img",
+                          {
+                              class: "rounded-full",
+                              src: user.avatar_url,
+                              alt: user.name,
+                          },
+                      ],
+                  ],
         ],
     ];
 }
