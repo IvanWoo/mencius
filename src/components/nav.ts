@@ -34,14 +34,25 @@ export function nav(ctx: AppContext) {
             { class: "flex items-center justify-between px-4 py-3 sm:p-0" },
             logo,
             [
-                eventBtn,
-                [TOGGLE_NAV],
-                { class: "block sm:hidden" },
+                "div",
+                { class: "flex items-center justify-end" },
                 [
-                    "div",
-                    { class: "h-8 w-8 md:h-10 md:w-10 md:-my-1" },
-                    isNavOpen ? HEADER_CLOSE : HEADER_HAMBURGER,
+                    eventBtn,
+                    [TOGGLE_NAV],
+                    { class: "block sm:hidden" },
+                    [
+                        "div",
+                        { class: "h-8 w-8 md:h-10 md:w-10 md:-my-1" },
+                        isNavOpen ? HEADER_CLOSE : HEADER_HAMBURGER,
+                    ],
                 ],
+                user.name !== undefined
+                    ? [
+                          "div",
+                          { class: "block sm:hidden z-10" },
+                          accountDropdown,
+                      ]
+                    : [],
             ],
         ],
         searchBar,
@@ -92,7 +103,7 @@ export function nav(ctx: AppContext) {
                           "Sign_in",
                       ],
                   ]
-                : accountDropdown,
+                : ["div", { class: "hidden sm:block" }, accountDropdown],
         ],
     ];
 }

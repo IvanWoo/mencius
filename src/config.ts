@@ -80,6 +80,8 @@ export const CONFIG: AppConfig = {
 
         [ev.TOGGLE_ACCOUNT]: valueUpdater<boolean>("accountOpen", (x) => !x),
 
+        [ev.CLOSE_ACCOUNT]: valueUpdater<boolean>("accountOpen", (x) => false),
+
         // toggles debug state flag on/off
         [ev.TOGGLE_DEBUG]: valueUpdater<boolean>("debug", (x) => !x),
 
@@ -159,6 +161,15 @@ export const CONFIG: AppConfig = {
                 [ev.GET_USER],
             ],
         }),
+
+        [ev.SIGN_OUT]: () => ({
+            [FX_DISPATCH_NOW]: [
+                // TODO: redirect to home page
+                [ev.ROUTE_TO, [routes.ABOUT.id, {}]],
+                [EV_SET_VALUE, ["user", {}]],
+            ],
+            [FX_DISPATCH_ASYNC]: [fx.SIGN_OUT, null, null, ev.ERROR],
+        }),
     },
 
     // side effects
@@ -213,6 +224,10 @@ export const CONFIG: AppConfig = {
                 }
                 return resp.json();
             }),
+        [fx.SIGN_OUT]: () =>
+            // TODO: sign-out logic on backend
+            (document.cookie =
+                "session_id=; expires=Thu, 01 Jan 1970 00:00:00 GMT"),
     },
 
     // mapping route IDs to their respective UI component functions
@@ -316,7 +331,7 @@ export const CONFIG: AppConfig = {
                 class: "max-w-xs fixed right-0 mt-40 flex",
             },
             debugToggle: {
-                class: "font-bold rotate-270 flex items-center -m-3",
+                class: "font-bold rotate-270 flex -m-3 focus:outline-none",
             },
             open: {
                 class: "bg-gray-200 text-xs p-2 text-gray-800 rounded-lg",

@@ -1,7 +1,9 @@
 import { AppContext } from "../api";
-import { TOGGLE_ACCOUNT } from "../events";
+import { TOGGLE_ACCOUNT, CLOSE_ACCOUNT, SIGN_OUT } from "../events";
+import { ABOUT, CONTACT, SIGN_IN } from "../routes";
 
 import { eventBtn } from "./event-btn";
+import { routeLink } from "./route-link";
 
 /**
  * Account dropdown component.
@@ -9,11 +11,20 @@ import { eventBtn } from "./event-btn";
  * @param ctx injected context object
  */
 export function accountDropdown(ctx: AppContext) {
+    const bus = ctx.bus;
     const user = ctx.views.user.deref()!;
     const accountOpen = ctx.views.accountOpen.deref()!;
     return [
         "div",
-        { class: "relative" },
+        {
+            class: "relative",
+            // TODO: fix browser compatibility issue, this only works on Chrome...
+            onkeydown: (e: KeyboardEvent) => {
+                if (e.key === "Escape" || e.key === "Esc") {
+                    bus.dispatch([CLOSE_ACCOUNT, null]);
+                }
+            },
+        },
         [
             "div",
             {
@@ -24,7 +35,7 @@ export function accountDropdown(ctx: AppContext) {
                 [TOGGLE_ACCOUNT],
                 {
                     class:
-                        "block rounded-full overflow-hidden focus:outline-none",
+                        "relative z-10 block rounded-full overflow-hidden focus:outline-none",
                 },
                 [
                     "img",
@@ -34,6 +45,16 @@ export function accountDropdown(ctx: AppContext) {
                     },
                 ],
             ],
+            accountOpen
+                ? [
+                      eventBtn,
+                      [CLOSE_ACCOUNT],
+                      {
+                          tabindex: "-1",
+                          class: "fixed inset-0 h-full w-full cursor-default",
+                      },
+                  ]
+                : [],
         ],
         accountOpen
             ? [
@@ -48,15 +69,33 @@ export function accountDropdown(ctx: AppContext) {
                       `Signed in as ${user.login.toLowerCase()}`,
                   ],
                   ["div", { class: "block my-2 border-b bg-grey-400" }],
+                  // TODO: add settings
                   [
-                      "div",
-                      { class: "block px-4 py-2 text-gray-800" },
+                      routeLink,
+                      ABOUT.id,
+                      null,
+                      {
+                          class: "block px-4 py-2 text-black hover:bg-gray-200",
+                      },
                       "Settings",
                   ],
-                  ["div", { class: "block px-4 py-2 text-gray-800" }, "Help"],
+                  // TODO: add help
                   [
-                      "div",
-                      { class: "block px-4 py-2 text-gray-800" },
+                      routeLink,
+                      ABOUT.id,
+                      null,
+                      {
+                          class: "block px-4 py-2 text-black hover:bg-gray-200",
+                      },
+                      "Help",
+                  ],
+                  [
+                      eventBtn,
+                      [SIGN_OUT],
+                      {
+                          class:
+                              "block px-4 py-2 text-black hover:bg-gray-200 w-full text-left",
+                      },
                       "Sign out",
                   ],
               ]
