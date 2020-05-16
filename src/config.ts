@@ -17,6 +17,8 @@ import * as fx from "./effects";
 import * as ev from "./events";
 import * as routes from "./routes";
 
+const API_HOST = "http://localhost:4200";
+
 // main App configuration
 export const CONFIG: AppConfig = {
     // router configuration
@@ -58,7 +60,13 @@ export const CONFIG: AppConfig = {
 
         // sets status to thrown error's message
         [ev.ERROR]: (_, [__, err]) => ({
-            [FX_DISPATCH_NOW]: [ev.SET_STATUS, [StatusType.ERROR, err.message]],
+            [FX_DISPATCH_NOW]:
+                err.message === "Unauthorized"
+                    ? [
+                          [ev.SET_STATUS, [StatusType.ERROR, err.message]],
+                          [ev.ROUTE_TO, [routes.SIGN_IN.id, {}]],
+                      ]
+                    : [ev.SET_STATUS, [StatusType.ERROR, err.message]],
         }),
 
         // stores status (a tuple of `[type, message, done?]`) in app state
@@ -164,11 +172,26 @@ export const CONFIG: AppConfig = {
 
         [ev.SIGN_OUT]: () => ({
             [FX_DISPATCH_NOW]: [
-                // TODO: redirect to home page
+                [ev.SET_STATUS, [StatusType.INFO, "signing out..."]],
+            ],
+            [FX_DISPATCH_ASYNC]: [
+                fx.SIGN_OUT,
+                null,
+                ev.SIGN_OUT_SUCCESS,
+                ev.ERROR,
+            ],
+        }),
+
+        [ev.SIGN_OUT_SUCCESS]: () => ({
+            [FX_DISPATCH_NOW]: [
+                [
+                    ev.SET_STATUS,
+                    [StatusType.SUCCESS, "signed out successfully", true],
+                ],
+                // redirect to home page
                 [ev.ROUTE_TO, [routes.ABOUT.id, {}]],
                 [EV_SET_VALUE, ["user", {}]],
             ],
-            [FX_DISPATCH_ASYNC]: [fx.SIGN_OUT, null, null, ev.ERROR],
         }),
     },
 
@@ -183,7 +206,7 @@ export const CONFIG: AppConfig = {
             return true;
         },
         [fx.GET_ENTRY]: (id) =>
-            fetch("http://localhost:4200/api/v1/entries/" + id, {
+            fetch(API_HOST + "/api/v1/entries/" + id, {
                 method: "GET",
                 headers: [
                     ["Content-Type", "application/json"],
@@ -197,7 +220,7 @@ export const CONFIG: AppConfig = {
                 return resp.json();
             }),
         [fx.GET_USER]: () =>
-            fetch("http://localhost:4200/api/v1/user", {
+            fetch(API_HOST + "/api/v1/user", {
                 method: "GET",
                 headers: [
                     ["Content-Type", "application/json"],
@@ -211,7 +234,7 @@ export const CONFIG: AppConfig = {
                 return resp.json();
             }),
         [fx.GET_TOKEN]: (code) =>
-            fetch("http://localhost:4200/token?code=" + code, {
+            fetch(API_HOST + "/token?code=" + code, {
                 method: "GET",
                 headers: [
                     ["Content-Type", "application/json"],
@@ -225,9 +248,21 @@ export const CONFIG: AppConfig = {
                 return resp.json();
             }),
         [fx.SIGN_OUT]: () =>
-            // TODO: sign-out logic on backend
-            (document.cookie =
-                "session_id=; expires=Thu, 01 Jan 1970 00:00:00 GMT"),
+            // sign-out endpoint on backend
+            fetch(API_HOST + "/token", {
+                method: "DELETE",
+                headers: [
+                    ["Content-Type", "application/json"],
+                    ["Content-Type", "text/plain"],
+                ],
+                credentials: "include",
+            }).then((resp) => {
+                if (!resp.ok) {
+                    throw new Error(resp.statusText);
+                }
+                // document.cookie ="session_id=; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+                return resp.json();
+            }),
     },
 
     // mapping route IDs to their respective UI component functions

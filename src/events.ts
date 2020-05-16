@@ -16,3 +16,4 @@ export const RECEIVE_USER = "receive-user";
 export const GET_TOKEN = "get-token";
 export const RECEIVE_TOKEN = "receive-token";
 export const SIGN_OUT = "sign-out";
+export const SIGN_OUT_SUCCESS = "sign-out-success";

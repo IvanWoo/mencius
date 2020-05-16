@@ -24,7 +24,10 @@ export function searchBar(ctx: AppContext) {
                     placeholder: "搜寻条目 / Search Entries",
                     type: "text",
                     oninput: (e: InputEvent) => {
-                        bus.dispatch([SET_INPUT, e.target.value]);
+                        bus.dispatch([
+                            SET_INPUT,
+                            (<HTMLTextAreaElement>e.target).value,
+                        ]);
                     },
                     onkeyup: (e: KeyboardEvent) => {
                         if (e.key === "Enter") {
