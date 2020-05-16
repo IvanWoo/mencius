@@ -6,6 +6,7 @@ import { logo } from "./logo";
 import { routeLink } from "./route-link";
 import { eventBtn } from "./event-btn";
 import { searchBar } from "./search-bar";
+import { accountDropdown } from "./account-dropdown";
 import {
     HEADER_HAMBURGER,
     HEADER_CLOSE,
@@ -91,20 +92,7 @@ export function nav(ctx: AppContext) {
                           "Sign_in",
                       ],
                   ]
-                : [
-                      "div",
-                      {
-                          class: "flex flex-row items-center relative w-8 mx-2",
-                      },
-                      [
-                          "img",
-                          {
-                              class: "rounded-full",
-                              src: user.avatar_url,
-                              alt: user.name,
-                          },
-                      ],
-                  ],
+                : accountDropdown,
         ],
     ];
 }

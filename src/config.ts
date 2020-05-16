@@ -78,6 +78,8 @@ export const CONFIG: AppConfig = {
 
         [ev.TOGGLE_NAV]: valueUpdater<boolean>("isNavOpen", (x) => !x),
 
+        [ev.TOGGLE_ACCOUNT]: valueUpdater<boolean>("accountOpen", (x) => !x),
+
         // toggles debug state flag on/off
         [ev.TOGGLE_DEBUG]: valueUpdater<boolean>("debug", (x) => !x),
 
@@ -235,6 +237,7 @@ export const CONFIG: AppConfig = {
         route: {},
         debug: false,
         isNavOpen: false,
+        accountOpen: false,
         input: "",
         entries: {},
     },
@@ -250,6 +253,7 @@ export const CONFIG: AppConfig = {
         status: "status",
         debug: "debug",
         isNavOpen: "isNavOpen",
+        accountOpen: "accountOpen",
         input: "input",
         entries: "entries",
     },

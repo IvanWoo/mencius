@@ -43,6 +43,7 @@ export interface AppViews extends Record<keyof AppViews, IView<any>> {
     debug: IView<boolean>;
     json: IView<string>;
     isNavOpen: IView<boolean>;
+    accountOpen: IView<boolean>;
     input: IView<string>;
     entries: IView<IObjectOf<Entry>>;
 }

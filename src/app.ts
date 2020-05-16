@@ -102,6 +102,7 @@ export class App {
      */
     start() {
         this.router.start();
+        this.ctx.bus.dispatch([ev.GET_USER]);
         start(
             () => {
                 if (this.ctx.bus.processQueue()) {
