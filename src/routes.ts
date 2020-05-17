@@ -27,6 +27,11 @@ export const ENTRY_DETAIL: Route = {
     },
 };
 
+export const NEW_ENTRY: Route = {
+    id: "new-entry",
+    match: ["new_entry"],
+};
+
 export const SIGN_IN: Route = {
     id: "sign-in",
     match: ["sign_in"],

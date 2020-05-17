@@ -11,6 +11,7 @@ import { about } from "./components/about";
 import { contact } from "./components/contact";
 // import { search } from "./components/search";
 import { entryDetail } from "./components/entry-detail";
+import { newEntry } from "./components/new-entry";
 import { signIn } from "./components/sign-in";
 import { githubOauth } from "./components/github-oauth";
 import * as fx from "./effects";
@@ -36,6 +37,7 @@ export const CONFIG: AppConfig = {
             routes.CONTACT,
             // routes.SEARCH,
             routes.ENTRY_DETAIL,
+            routes.NEW_ENTRY,
             routes.SIGN_IN,
             routes.GITHUB_OAUTH_CB,
         ],
@@ -273,6 +275,7 @@ export const CONFIG: AppConfig = {
         [routes.CONTACT.id]: contact,
         // [routes.SEARCH.id]: search,
         [routes.ENTRY_DETAIL.id]: entryDetail,
+        [routes.NEW_ENTRY.id]: newEntry,
         [routes.SIGN_IN.id]: signIn,
         [routes.GITHUB_OAUTH_CB.id]: githubOauth,
     },

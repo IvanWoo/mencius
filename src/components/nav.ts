@@ -1,5 +1,5 @@
 import { AppContext, StatusType } from "../api";
-import { ABOUT, CONTACT, SIGN_IN } from "../routes";
+import { ABOUT, CONTACT, SIGN_IN, NEW_ENTRY } from "../routes";
 import { TOGGLE_NAV } from "../events";
 
 import { logo } from "./logo";
@@ -9,6 +9,7 @@ import { searchBar } from "./search-bar";
 import { accountDropdown } from "./account-dropdown";
 import {
     HEADER_HAMBURGER,
+    ADD_OUTLINE,
     HEADER_CLOSE,
     INFO_OUTLINE,
     CHAT,
@@ -59,6 +60,20 @@ export function nav(ctx: AppContext) {
         [
             "div",
             isNavOpen ? ui.inner.open : ui.inner.close,
+            [
+                routeLink,
+                NEW_ENTRY.id,
+                null,
+                ui.link,
+                [
+                    "div",
+                    {
+                        class: "flex flex-row items-center",
+                    },
+                    ["div", { class: "h-4 w-4 mr-2" }, ADD_OUTLINE],
+                    "New",
+                ],
+            ],
             [
                 routeLink,
                 ABOUT.id,
