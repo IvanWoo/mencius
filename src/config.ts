@@ -337,7 +337,7 @@ export const CONFIG: AppConfig = {
             },
             input: {
                 class:
-                    "appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none",
+                    "appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none md:text-xl",
             },
             button: {
                 class:

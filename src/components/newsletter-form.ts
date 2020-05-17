@@ -19,7 +19,7 @@ export function newsletterForm(ctx: AppContext) {
                 action: "https://tinyletter.com/nopro-studio",
                 method: "post",
                 target: "popupwindow",
-                onsubmit: () => ctx.bus.dispatch([POPUP_WINDOW])
+                onsubmit: () => ctx.bus.dispatch([POPUP_WINDOW]),
             },
             [
                 "div",
@@ -29,16 +29,13 @@ export function newsletterForm(ctx: AppContext) {
                     {
                         ...ui.input,
                         type: "text",
-                        placeholder: "you.are.awesome@email.com",
+                        placeholder: "email address",
                         name: "email",
-                        id: "tlemail"
-                    }
+                        id: "tlemail",
+                    },
                 ],
-                [
-                    "input",
-                    { ...ui.button, type: "submit", value: "GET UPDATES" }
-                ]
-            ]
-        ]
+                ["input", { ...ui.button, type: "submit", value: "SUBSCRIBE" }],
+            ],
+        ],
     ];
 }
