@@ -1,5 +1,6 @@
 import {
     EV_SET_VALUE,
+    EV_UPDATE_VALUE,
     Event,
     FX_DELAY,
     FX_DISPATCH_ASYNC,
@@ -191,6 +192,55 @@ export const CONFIG: AppConfig = {
                 [EV_SET_VALUE, ["user", {}]],
             ],
         }),
+
+        [ev.SET_OPINION_TEMPLATE]: (_, [__, json]) => ({
+            [FX_DISPATCH_NOW]: [
+                EV_SET_VALUE,
+                [`opinions.${json.id}`, json.data],
+            ],
+        }),
+
+        [ev.SET_OPINION]: (_, [__, json]) => ({
+            [FX_DISPATCH_NOW]: [
+                EV_SET_VALUE,
+                [`opinions.${json.id}.${json.key}`, json.value],
+            ],
+        }),
+
+        [ev.CREATE_OPINION]: (_, [__, json]) => ({
+            [FX_DISPATCH_NOW]: [
+                [ev.SET_STATUS, [StatusType.INFO, "submitting opinion..."]],
+                [ev.APPEND_OPINION, json],
+            ],
+            [FX_DISPATCH_ASYNC]: [
+                fx.CREATE_OPINION,
+                json,
+                ev.CREATE_OPINION_SUCCESS,
+                ev.ERROR,
+            ],
+        }),
+
+        [ev.CREATE_OPINION_SUCCESS]: () => ({
+            [FX_DISPATCH_NOW]: [
+                [
+                    ev.SET_STATUS,
+                    [
+                        StatusType.SUCCESS,
+                        "opinion submitted successfully",
+                        true,
+                    ],
+                ],
+            ],
+        }),
+
+        [ev.APPEND_OPINION]: (_, [__, json]) => ({
+            [FX_DISPATCH_NOW]: [
+                [
+                    EV_UPDATE_VALUE,
+                    [`entries.${json.id}.opinions`, (x) => [...x, json.data]],
+                ],
+            ],
+        }),
     },
 
     // side effects
@@ -253,6 +303,21 @@ export const CONFIG: AppConfig = {
                 // document.cookie ="session_id=; expires=Thu, 01 Jan 1970 00:00:00 GMT";
                 return resp.json();
             }),
+        [fx.CREATE_OPINION]: (json) =>
+            fetch(API_HOST + "/api/v1/entries/" + json.id, {
+                method: "POST",
+                headers: [
+                    ["Content-Type", "application/json"],
+                    ["Content-Type", "text/plain"],
+                ],
+                credentials: "include",
+                body: JSON.stringify(json.data),
+            }).then((resp) => {
+                if (!resp.ok) {
+                    throw new Error(resp.statusText);
+                }
+                return resp.json();
+            }),
     },
 
     // mapping route IDs to their respective UI component functions
@@ -281,6 +346,7 @@ export const CONFIG: AppConfig = {
         accountOpen: false,
         input: "",
         entries: {},
+        opinions: {},
     },
 
     // derived view declarations
@@ -297,6 +363,7 @@ export const CONFIG: AppConfig = {
         accountOpen: "accountOpen",
         input: "input",
         entries: "entries",
+        opinions: "opinions",
     },
 
     // component CSS class config using tailwind-css

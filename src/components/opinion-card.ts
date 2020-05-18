@@ -17,7 +17,9 @@ export function opinionCard(opinion: Opinion) {
                     "img",
                     {
                         class: "h-8 w-8 md:h-10 md:w-10 rounded-full",
-                        src: "https://subjpop.com/images/sidebar-logo.png",
+                        src: opinion.user_avatar_url
+                            ? opinion.user_avatar_url
+                            : "https://subjpop.com/images/sidebar-logo.png",
                     },
                 ],
                 [
@@ -27,8 +29,13 @@ export function opinionCard(opinion: Opinion) {
                     [
                         "div",
                         { class: "text-gray-700 text-sm" },
-                        "ザ・アイドル, My Beauty is for Everyone",
+                        `@${opinion.github_handler.toLowerCase()}`,
                     ],
+                    // [
+                    //     "div",
+                    //     { class: "text-gray-700 text-sm" },
+                    //     opinion.user_bio,
+                    // ],
                 ],
             ],
             [

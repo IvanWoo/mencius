@@ -46,6 +46,7 @@ export interface AppViews extends Record<keyof AppViews, IView<any>> {
     accountOpen: IView<boolean>;
     input: IView<string>;
     entries: IView<IObjectOf<Entry>>;
+    opinions: IView<IObjectOf<Opinion>>;
 }
 
 export interface AppContext {
@@ -106,6 +107,8 @@ export interface Opinion {
     github_handler: string;
     translation: string;
     user_name: string;
+    user_bio: string;
+    user_avatar_url: string;
 }
 
 export interface User {
