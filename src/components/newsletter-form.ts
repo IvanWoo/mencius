@@ -1,5 +1,4 @@
 import { AppContext } from "../api";
-import { POPUP_WINDOW } from "../events";
 
 /**
  * Newsletter form component.
@@ -19,7 +18,6 @@ export function newsletterForm(ctx: AppContext) {
                 action: "https://tinyletter.com/nopro-studio",
                 method: "post",
                 target: "popupwindow",
-                onsubmit: () => ctx.bus.dispatch([POPUP_WINDOW]),
             },
             [
                 "div",
@@ -28,7 +26,7 @@ export function newsletterForm(ctx: AppContext) {
                     "input",
                     {
                         ...ui.input,
-                        type: "text",
+                        type: "email",
                         placeholder: "email address",
                         name: "email",
                         id: "tlemail",

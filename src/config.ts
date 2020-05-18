@@ -82,10 +82,6 @@ export const CONFIG: AppConfig = {
                     : undefined,
         }),
 
-        [ev.POPUP_WINDOW]: () => ({
-            [FX_DISPATCH_NOW]: [fx.POPUP],
-        }),
-
         [ev.TOGGLE_NAV]: valueUpdater<boolean>("isNavOpen", (x) => !x),
 
         [ev.TOGGLE_ACCOUNT]: valueUpdater<boolean>("accountOpen", (x) => !x),
@@ -199,14 +195,6 @@ export const CONFIG: AppConfig = {
 
     // side effects
     effects: {
-        [fx.POPUP]: () => {
-            window.open(
-                "https://tinyletter.com/nopro-studio",
-                "popupwindow",
-                "scrollbars=yes, width=800, height=600"
-            );
-            return true;
-        },
         [fx.GET_ENTRY]: (id) =>
             fetch(API_HOST + "/api/v1/entries/" + id, {
                 method: "GET",
