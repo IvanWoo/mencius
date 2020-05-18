@@ -14,12 +14,15 @@ export function debugContainer(ctx: AppContext, debug: any, json: string) {
     return [
         "div#debug",
         ui.container,
+        [eventBtn, [TOGGLE_DEBUG], ui.debugToggle, debug ? "close▼" : "open▲"],
         [
-            eventBtn,
-            [TOGGLE_DEBUG],
-            ui.debugToggle,
-            debug ? "close \u25bc" : "open \u25b2",
+            "pre",
+            debug ? ui.open : ui.close,
+            [
+                "div",
+                { class: "flex-1 flex overflow-hidden" },
+                ["div", { class: "flex-1 overflow-y-scroll" }, json],
+            ],
         ],
-        ["pre", debug ? ui.open : ui.close, json],
     ];
 }

@@ -123,8 +123,17 @@ export class App {
         return [
             "div",
             ui.root,
-            [debugContainer, debug, this.ctx.views.json],
-            ["div", nav, [frame(this.ctx.views.routeComponent)]],
+            [
+                "div",
+                { class: "flex" },
+                [
+                    "div",
+                    { class: "w-full" },
+                    nav,
+                    [frame(this.ctx.views.routeComponent)],
+                ],
+                [debugContainer, debug, this.ctx.views.json],
+            ],
         ];
     }
 }

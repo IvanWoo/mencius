@@ -354,10 +354,10 @@ export const CONFIG: AppConfig = {
         root: { class: "about_bg" },
         debug: {
             container: {
-                class: "max-w-xs fixed right-0 mt-40 flex",
+                class: "max-w-xs mt-1 flex",
             },
             debugToggle: {
-                class: "font-bold rotate-270 flex -m-3 focus:outline-none",
+                class: "font-bold rotate-270 flex mt-5 focus:outline-none h-10",
             },
             open: {
                 class: "bg-gray-200 text-xs p-2 text-gray-800 rounded-lg",
