@@ -241,6 +241,40 @@ export const CONFIG: AppConfig = {
                 ],
             ],
         }),
+
+        [ev.REMOVE_OPINION]: (_, [__, json]) => ({
+            [FX_DISPATCH_NOW]: [
+                [
+                    EV_UPDATE_VALUE,
+                    [
+                        `entries.${json.id}.opinions`,
+                        (x) => x.filter((y) => y !== json.data),
+                    ],
+                ],
+            ],
+        }),
+
+        [ev.DELETE_OPINION]: (_, [__, json]) => ({
+            [FX_DISPATCH_NOW]: [
+                [ev.SET_STATUS, [StatusType.INFO, "deleting opinion..."]],
+                [ev.REMOVE_OPINION, json],
+            ],
+            [FX_DISPATCH_ASYNC]: [
+                fx.DELETE_OPINION,
+                json,
+                ev.DELETE_OPINION_SUCCESS,
+                ev.ERROR,
+            ],
+        }),
+
+        [ev.DELETE_OPINION_SUCCESS]: () => ({
+            [FX_DISPATCH_NOW]: [
+                [
+                    ev.SET_STATUS,
+                    [StatusType.SUCCESS, "opinion deleted successfully", true],
+                ],
+            ],
+        }),
     },
 
     // side effects
@@ -312,6 +346,20 @@ export const CONFIG: AppConfig = {
                 ],
                 credentials: "include",
                 body: JSON.stringify(json.data),
+            }).then((resp) => {
+                if (!resp.ok) {
+                    throw new Error(resp.statusText);
+                }
+                return resp.json();
+            }),
+        [fx.DELETE_OPINION]: (json) =>
+            fetch(API_HOST + `/api/v1/entries/${json.id}/${json.userName}`, {
+                method: "DELETE",
+                headers: [
+                    ["Content-Type", "application/json"],
+                    ["Content-Type", "text/plain"],
+                ],
+                credentials: "include",
             }).then((resp) => {
                 if (!resp.ok) {
                     throw new Error(resp.statusText);

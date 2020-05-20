@@ -1,6 +1,12 @@
-import type { Opinion } from "../api";
+import type { AppContext, Opinion } from "../api";
+import { eventBtn } from "./event-btn";
+import { DELETE_OPINION } from "../events";
+import { withSize, EDIT, DELETE } from "@thi.ng/hiccup-carbon-icons";
 
-export function opinionCard(opinion: Opinion) {
+export function opinionCard(ctx: AppContext, opinion: Opinion) {
+    const views = ctx.views;
+    const id = decodeURI(ctx.views.route.deref()!.params.id);
+    const user = views.user.deref()!;
     return [
         "div",
         {
@@ -12,31 +18,72 @@ export function opinionCard(opinion: Opinion) {
             { class: "flex flex-col ml-4 md:ml-6" },
             [
                 "div",
-                { class: "my-3 flex flex-row justify-start items-center" },
-                [
-                    "img",
-                    {
-                        class: "h-8 w-8 md:h-10 md:w-10 rounded-full",
-                        src: opinion.user_avatar_url
-                            ? opinion.user_avatar_url
-                            : "https://subjpop.com/images/sidebar-logo.png",
-                    },
-                ],
+                { class: "my-3 flex flex-row justify-between items-center" },
                 [
                     "div",
-                    { class: "ml-3 flex flex-col" },
-                    ["div", { class: "font-semibold" }, opinion.user_name],
+                    { class: "flex flex-row justify-start items-center" },
+                    [
+                        "img",
+                        {
+                            class: "h-8 w-8 md:h-10 md:w-10 rounded-full",
+                            src: opinion.user_avatar_url
+                                ? opinion.user_avatar_url
+                                : "https://subjpop.com/images/sidebar-logo.png",
+                        },
+                    ],
                     [
                         "div",
-                        { class: "text-gray-700 text-sm" },
-                        `@${opinion.github_handler.toLowerCase()}`,
+                        { class: "ml-3 flex flex-col" },
+                        ["div", { class: "font-semibold" }, opinion.user_name],
+                        [
+                            "div",
+                            { class: "text-gray-700 text-sm" },
+                            `@${opinion.github_handler.toLowerCase()}`,
+                        ],
+                        // [
+                        //     "div",
+                        //     { class: "text-gray-700 text-sm" },
+                        //     opinion.user_bio,
+                        // ],
                     ],
-                    // [
-                    //     "div",
-                    //     { class: "text-gray-700 text-sm" },
-                    //     opinion.user_bio,
-                    // ],
                 ],
+                user.login == opinion.github_handler
+                    ? [
+                          "div",
+                          { class: "flex flex-row items-top text-gray-500" },
+                          [
+                              eventBtn,
+                              [],
+                              {
+                                  class:
+                                      "ml-2 focus:outline-none hover:text-gray-700",
+                              },
+                              [
+                                  "span",
+                                  {
+                                      class: "inline-block w-full fill-current",
+                                  },
+                                  withSize(EDIT, "20"),
+                              ],
+                          ],
+                          [
+                              eventBtn,
+                              [
+                                  DELETE_OPINION,
+                                  { id, userName: user.login, data: opinion },
+                              ],
+                              {
+                                  class:
+                                      "ml-4 focus:outline-none hover:text-gray-700",
+                              },
+                              [
+                                  "div",
+                                  { class: "inline-block w-full fill-current" },
+                                  withSize(DELETE, "20"),
+                              ],
+                          ],
+                      ]
+                    : [],
             ],
             [
                 "div",

@@ -21,3 +21,6 @@ export const SET_OPINION = "set-opinion";
 export const CREATE_OPINION = "create-opinion";
 export const CREATE_OPINION_SUCCESS = "create-opinion-success";
 export const APPEND_OPINION = "append-opinion";
+export const REMOVE_OPINION = "remove-opinion";
+export const DELETE_OPINION = "delete-opinion";
+export const DELETE_OPINION_SUCCESS = "delete-opinion-success";

@@ -34,7 +34,7 @@ export function entryDetail(ctx: AppContext) {
                       "div",
                       { class: "flex flex-col" },
                       metadata(entry),
-                      entry.opinions.map((x) => opinionCard(x)),
+                      entry.opinions.map((x) => opinionCard(ctx, x)),
                       user.login &&
                       entry.opinions
                           .map((x) => x.github_handler.toLowerCase())
