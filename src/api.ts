@@ -47,6 +47,7 @@ export interface AppViews extends Record<keyof AppViews, IView<any>> {
     input: IView<string>;
     entries: IView<IObjectOf<Entry>>;
     opinions: IView<IObjectOf<Opinion>>;
+    tempOpinion: IView<IObjectOf<Opinion>>;
 }
 
 export interface AppContext {
@@ -125,6 +126,15 @@ export interface User {
     bio?: any;
     created_at: string;
     updated_at: string;
+}
+
+/**
+ * Types for opinion related events payload
+ */
+export interface OpinionMessenger {
+    id: string;
+    data: Opinion | IObjectOf<Opinion>;
+    userName?: string;
 }
 
 /**

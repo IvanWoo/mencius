@@ -5,3 +5,4 @@ export const GET_TOKEN = "get-token";
 export const SIGN_OUT = "sign-out";
 export const CREATE_OPINION = "create-opinion";
 export const DELETE_OPINION = "delete-opinion";
+export const UPDATE_OPINION = "update-opinion";

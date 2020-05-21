@@ -1,6 +1,6 @@
-import type { AppContext, Opinion } from "../api";
+import type { AppContext, Opinion, OpinionMessenger } from "../api";
 import { eventBtn } from "./event-btn";
-import { DELETE_OPINION } from "../events";
+import { DELETE_OPINION, EDIT_OPINION } from "../events";
 import { withSize, EDIT, DELETE } from "@thi.ng/hiccup-carbon-icons";
 
 export function opinionCard(ctx: AppContext, opinion: Opinion) {
@@ -53,7 +53,10 @@ export function opinionCard(ctx: AppContext, opinion: Opinion) {
                           { class: "flex flex-row items-top text-gray-500" },
                           [
                               eventBtn,
-                              [],
+                              [
+                                  EDIT_OPINION,
+                                  <OpinionMessenger>{ id, data: opinion },
+                              ],
                               {
                                   class:
                                       "ml-2 focus:outline-none hover:text-gray-700",
@@ -70,7 +73,11 @@ export function opinionCard(ctx: AppContext, opinion: Opinion) {
                               eventBtn,
                               [
                                   DELETE_OPINION,
-                                  { id, userName: user.login, data: opinion },
+                                  <OpinionMessenger>{
+                                      id,
+                                      data: opinion,
+                                      userName: user.login,
+                                  },
                               ],
                               {
                                   class:

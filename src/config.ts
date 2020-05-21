@@ -7,7 +7,8 @@ import {
     FX_DISPATCH_NOW,
     valueUpdater,
 } from "@thi.ng/interceptors";
-import { AppConfig, StatusType } from "./api";
+import type { AppConfig, Opinion } from "./api";
+import { StatusType } from "./api";
 import { about } from "./components/about";
 import { contact } from "./components/contact";
 // import { search } from "./components/search";
@@ -237,7 +238,10 @@ export const CONFIG: AppConfig = {
             [FX_DISPATCH_NOW]: [
                 [
                     EV_UPDATE_VALUE,
-                    [`entries.${json.id}.opinions`, (x) => [...x, json.data]],
+                    [
+                        `entries.${json.id}.opinions`,
+                        (x: [Opinion]) => [...x, json.data],
+                    ],
                 ],
             ],
         }),
@@ -248,7 +252,8 @@ export const CONFIG: AppConfig = {
                     EV_UPDATE_VALUE,
                     [
                         `entries.${json.id}.opinions`,
-                        (x) => x.filter((y) => y !== json.data),
+                        (x: [Opinion]) =>
+                            x.filter((y: Opinion) => y !== json.data),
                     ],
                 ],
             ],
@@ -275,11 +280,52 @@ export const CONFIG: AppConfig = {
                 ],
             ],
         }),
+
+        [ev.SET_TEMP_OPINION]: (_, [__, json]) => ({
+            [FX_DISPATCH_NOW]: [[EV_SET_VALUE, ["tempOpinion", json.data]]],
+        }),
+
+        [ev.EDIT_OPINION]: (_, [__, json]) => ({
+            [FX_DISPATCH_NOW]: [
+                [ev.SET_TEMP_OPINION, json],
+                [ev.SET_OPINION_TEMPLATE, json],
+                [ev.REMOVE_OPINION, json],
+            ],
+        }),
+
+        [ev.CANCEL_EDIT_OPINION]: (_, [__, json]) => ({
+            [FX_DISPATCH_NOW]: [
+                [ev.APPEND_OPINION, json],
+                [ev.SET_TEMP_OPINION, {}],
+            ],
+        }),
+
+        [ev.UPDATE_OPINION]: (_, [__, json]) => ({
+            [FX_DISPATCH_NOW]: [
+                [ev.SET_STATUS, [StatusType.INFO, "updating opinion..."]],
+                [ev.APPEND_OPINION, json],
+            ],
+            [FX_DISPATCH_ASYNC]: [
+                fx.UPDATE_OPINION,
+                json,
+                ev.UPDATE_OPINION_SUCCESS,
+                ev.ERROR,
+            ],
+        }),
+
+        [ev.UPDATE_OPINION_SUCCESS]: () => ({
+            [FX_DISPATCH_NOW]: [
+                [
+                    ev.SET_STATUS,
+                    [StatusType.SUCCESS, "opinion updated successfully", true],
+                ],
+            ],
+        }),
     },
 
     // side effects
     effects: {
-        [fx.GET_ENTRY]: (id) =>
+        [fx.GET_ENTRY]: (id: string) =>
             fetch(API_HOST + "/api/v1/entries/" + id, {
                 method: "GET",
                 headers: [
@@ -307,7 +353,7 @@ export const CONFIG: AppConfig = {
                 }
                 return resp.json();
             }),
-        [fx.GET_TOKEN]: (code) =>
+        [fx.GET_TOKEN]: (code: string) =>
             fetch(API_HOST + "/token?code=" + code, {
                 method: "GET",
                 headers: [
@@ -366,6 +412,21 @@ export const CONFIG: AppConfig = {
                 }
                 return resp.json();
             }),
+        [fx.UPDATE_OPINION]: (json) =>
+            fetch(API_HOST + `/api/v1/entries/${json.id}/${json.userName}`, {
+                method: "PUT",
+                headers: [
+                    ["Content-Type", "application/json"],
+                    ["Content-Type", "text/plain"],
+                ],
+                credentials: "include",
+                body: JSON.stringify(json.data),
+            }).then((resp) => {
+                if (!resp.ok) {
+                    throw new Error(resp.statusText);
+                }
+                return resp.json();
+            }),
     },
 
     // mapping route IDs to their respective UI component functions
@@ -395,6 +456,7 @@ export const CONFIG: AppConfig = {
         input: "",
         entries: {},
         opinions: {},
+        tempOpinion: {},
     },
 
     // derived view declarations
@@ -412,6 +474,7 @@ export const CONFIG: AppConfig = {
         input: "input",
         entries: "entries",
         opinions: "opinions",
+        tempOpinion: "tempOpinion",
     },
 
     // component CSS class config using tailwind-css

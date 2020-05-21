@@ -1,5 +1,11 @@
-import type { AppContext, Opinion } from "../api";
-import { SET_OPINION_TEMPLATE, SET_OPINION, CREATE_OPINION } from "../events";
+import type { AppContext, Opinion, OpinionMessenger } from "../api";
+import {
+    SET_OPINION_TEMPLATE,
+    SET_OPINION,
+    CREATE_OPINION,
+    CANCEL_EDIT_OPINION,
+    UPDATE_OPINION,
+} from "../events";
 import { eventBtn } from "./event-btn";
 
 export function opinionInput(ctx: AppContext) {
@@ -8,6 +14,7 @@ export function opinionInput(ctx: AppContext) {
     const user = views.user.deref()!;
     const id = decodeURI(views.route.deref()!.params.id);
     const opinions = views.opinions.deref()!;
+    const tempOpinion = views.tempOpinion.deref()!;
 
     let data: Opinion;
 
@@ -20,7 +27,7 @@ export function opinionInput(ctx: AppContext) {
             translation: "",
             details: "",
         };
-        bus.dispatch([SET_OPINION_TEMPLATE, { id, data }]);
+        bus.dispatch([SET_OPINION_TEMPLATE, <OpinionMessenger>{ id, data }]);
     } else {
         data = opinions[id];
     }
@@ -108,7 +115,9 @@ export function opinionInput(ctx: AppContext) {
                 ],
                 [
                     eventBtn,
-                    [CREATE_OPINION, { id, data }],
+                    tempOpinion === {}
+                        ? [CREATE_OPINION, <OpinionMessenger>{ id, data }]
+                        : [UPDATE_OPINION, <OpinionMessenger>{ id, data }],
                     { class: "block mt-4" },
                     [
                         "div",
@@ -117,6 +126,22 @@ export function opinionInput(ctx: AppContext) {
                                 "shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded",
                         },
                         "SUBMIT",
+                    ],
+                ],
+                [
+                    eventBtn,
+                    [
+                        CANCEL_EDIT_OPINION,
+                        <OpinionMessenger>{ id, data: tempOpinion },
+                    ],
+                    { class: "block mt-4" },
+                    [
+                        "div",
+                        {
+                            class:
+                                "shadow bg-gray-500 hover:bg-gray-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded",
+                        },
+                        "CANCEL",
                     ],
                 ],
             ],
