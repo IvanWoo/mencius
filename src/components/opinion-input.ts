@@ -1,12 +1,12 @@
 import type { AppContext, Opinion, OpinionMessenger } from "../api";
 import {
     SET_OPINION_TEMPLATE,
-    SET_OPINION,
     CREATE_OPINION,
     CANCEL_EDIT_OPINION,
     UPDATE_OPINION,
 } from "../events";
 import { eventBtn } from "./event-btn";
+import { opinionInputRow } from "./input-row";
 
 const isEmpty = (x: any): x is object => Object.keys(x).length === 0;
 
@@ -69,52 +69,9 @@ export function opinionInput(ctx: AppContext) {
             [
                 "div",
                 { class: "leading-relaxed flex flex-col" },
-                [
-                    "div",
-                    { class: "block font-medium text-gray-800 text-lg mb-2" },
-                    "翻译:",
-                    [
-                        "input",
-                        {
-                            class:
-                                "shadow-inner appearance-none border rounded w-full py-2 px-3 bg-gray-200 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:bg-white",
-                            value: data.translation,
-                            oninput: (e: InputEvent) =>
-                                bus.dispatch([
-                                    SET_OPINION,
-                                    {
-                                        id,
-                                        key: "translation",
-                                        value: (<HTMLTextAreaElement>e.target)
-                                            .value,
-                                    },
-                                ]),
-                        },
-                    ],
-                ],
-                [
-                    "div",
-                    { class: "block font-medium text-gray-800 text-lg mb-2" },
-                    "论据:",
-                    [
-                        "input",
-                        {
-                            class:
-                                "shadow-inner appearance-none border rounded w-full py-2 px-3 bg-gray-200 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:bg-white",
-                            value: data.details,
-                            oninput: (e: InputEvent) =>
-                                bus.dispatch([
-                                    SET_OPINION,
-                                    {
-                                        id,
-                                        key: "details",
-                                        value: (<HTMLTextAreaElement>e.target)
-                                            .value,
-                                    },
-                                ]),
-                        },
-                    ],
-                ],
+                // prettier-ignore
+                opinionInputRow(ctx, "翻译:", data.translation, id, "translation"),
+                opinionInputRow(ctx, "论据:", data.details, id, "details"),
                 [
                     eventBtn,
                     isEmpty(tempOpinion)
