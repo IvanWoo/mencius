@@ -20,7 +20,7 @@ import * as fx from "./effects";
 import * as ev from "./events";
 import * as routes from "./routes";
 
-const API_HOST = "http://localhost:4200";
+const API_HOST = process.env.API_HOST;
 
 // main App configuration
 export const CONFIG: AppConfig = {
