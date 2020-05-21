@@ -8,6 +8,8 @@ import {
 } from "../events";
 import { eventBtn } from "./event-btn";
 
+const isEmpty = (x: any): x is object => Object.keys(x).length === 0;
+
 export function opinionInput(ctx: AppContext) {
     const bus = ctx.bus;
     const views = ctx.views;
@@ -115,7 +117,7 @@ export function opinionInput(ctx: AppContext) {
                 ],
                 [
                     eventBtn,
-                    tempOpinion === {}
+                    isEmpty(tempOpinion)
                         ? [CREATE_OPINION, <OpinionMessenger>{ id, data }]
                         : [UPDATE_OPINION, <OpinionMessenger>{ id, data }],
                     { class: "block mt-4" },
@@ -128,22 +130,24 @@ export function opinionInput(ctx: AppContext) {
                         "SUBMIT",
                     ],
                 ],
-                [
-                    eventBtn,
-                    [
-                        CANCEL_EDIT_OPINION,
-                        <OpinionMessenger>{ id, data: tempOpinion },
-                    ],
-                    { class: "block mt-4" },
-                    [
-                        "div",
-                        {
-                            class:
-                                "shadow bg-gray-500 hover:bg-gray-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded",
-                        },
-                        "CANCEL",
-                    ],
-                ],
+                isEmpty(tempOpinion)
+                    ? []
+                    : [
+                          eventBtn,
+                          [
+                              CANCEL_EDIT_OPINION,
+                              <OpinionMessenger>{ id, data: tempOpinion },
+                          ],
+                          { class: "block mt-4" },
+                          [
+                              "div",
+                              {
+                                  class:
+                                      "shadow bg-gray-500 hover:bg-gray-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded",
+                              },
+                              "CANCEL",
+                          ],
+                      ],
             ],
         ],
     ];
