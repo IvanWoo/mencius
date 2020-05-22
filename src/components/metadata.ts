@@ -1,5 +1,19 @@
 import type { Entry } from "../api";
 
+function tag(x: string) {
+    return [
+        "div",
+        [
+            "span",
+            {
+                class:
+                    " py-2, bg-purple-200 text-sm sm:text-base text-gray-700 subpixel-antialiased px-1 rounded mr-2",
+            },
+            `# ${x}`,
+        ],
+    ];
+}
+
 export function metadata(entry: Entry) {
     return [
         "div",
@@ -25,14 +39,16 @@ export function metadata(entry: Entry) {
             ],
             [
                 "div",
+                { class: "flex flex-row" },
                 [
-                    "span",
-                    {
-                        class:
-                            " py-2, bg-purple-200 text-sm sm:text-base text-gray-700 subpixel-antialiased px-1 rounded mr-2",
-                    },
-                    `# ${entry.category}`,
-                ],
+                    entry.alias,
+                    entry.author,
+                    entry.category,
+                    entry.date,
+                    entry.group,
+                    entry.language,
+                    entry.romanization,
+                ].map((x) => (x ? tag(x) : [])),
             ],
             entry.wikipedia.pageid ? wikipedia(entry) : [],
         ],
