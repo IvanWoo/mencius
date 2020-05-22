@@ -11,6 +11,8 @@ import { frame } from "./components/frame";
 import * as fx from "./effects";
 import * as ev from "./events";
 
+const ENV = process.env.ENV;
+
 /**
  * Generic base app skeleton. You can use this as basis for your own
  * apps.
@@ -62,7 +64,9 @@ export class App {
         );
 
         // instrument all event handlers to trace events in console
-        this.ctx.bus.instrumentWith([trace]);
+        if (ENV && ENV === "debug") {
+            this.ctx.bus.instrumentWith([trace]);
+        }
 
         this.addViews({
             route: "route",
@@ -132,7 +136,9 @@ export class App {
                     nav,
                     [frame(this.ctx.views.routeComponent)],
                 ],
-                [debugContainer, debug, this.ctx.views.json],
+                ENV && ENV === "debug"
+                    ? [debugContainer, debug, this.ctx.views.json]
+                    : [],
             ],
         ];
     }
