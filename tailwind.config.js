@@ -1,7 +1,10 @@
 module.exports = {
+    purge: false,
     theme: {
-        extend: {}
+        extend: {},
     },
-    variants: {},
-    plugins: []
+    variants: {
+        opacity: ["responsive", "hover", "focus", "disabled"],
+    },
+    plugins: [],
 };
