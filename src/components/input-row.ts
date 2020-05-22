@@ -1,13 +1,7 @@
 import type { AppContext } from "../api";
 import { SET_OPINION, SET_NEW_ENTRY } from "../events";
 
-function inputRow(
-    ctx: AppContext,
-    title: string,
-    value: any,
-    placeholder: string,
-    cb: any
-) {
+function inputRow(ctx: AppContext, title: string, attribs: any) {
     return [
         "div",
         { class: "block font-medium text-gray-800 text-lg mb-2" },
@@ -15,11 +9,9 @@ function inputRow(
         [
             "input",
             {
+                ...attribs,
                 class:
                     "shadow-inner appearance-none border rounded w-full py-2 px-3 bg-gray-200 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:bg-white",
-                value,
-                placeholder,
-                oninput: cb,
             },
         ],
     ];
@@ -28,10 +20,9 @@ function inputRow(
 export function opinionInputRow(
     ctx: AppContext,
     title: string,
-    value: any,
-    placeholder: string,
     key: string,
-    id: string
+    id: string,
+    attribs: any
 ) {
     const bus = ctx.bus;
     const cb = (e: InputEvent) =>
@@ -43,15 +34,14 @@ export function opinionInputRow(
                 value: (<HTMLTextAreaElement>e.target).value,
             },
         ]);
-    return inputRow(ctx, title, value, placeholder, cb);
+    return inputRow(ctx, title, { ...attribs, oninput: cb });
 }
 
 export function entryInputRow(
     ctx: AppContext,
     title: string,
-    value: any,
-    placeholder: string,
-    key: string
+    key: string,
+    attribs: any
 ) {
     const bus = ctx.bus;
     const cb = (e: InputEvent) => {
@@ -72,5 +62,5 @@ export function entryInputRow(
               ])
             : null;
     };
-    return inputRow(ctx, title, value, placeholder, cb);
+    return inputRow(ctx, title, { ...attribs, oninput: cb });
 }

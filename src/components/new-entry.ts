@@ -52,13 +52,10 @@ export function newEntry(ctx: AppContext) {
                       "div",
                       { class: "flex flex-col p-12" },
                       ["h2", ctx.ui.newsletterForm.title, "Add new entry"],
-                      entryInputRow(
-                          ctx,
-                          "原文",
-                          newEntry.name,
-                          "Mencius",
-                          "name"
-                      ),
+                      entryInputRow(ctx, "原文", "name", {
+                          value: newEntry.name,
+                          placeholder: "Mencius",
+                      }),
                       [
                           "div",
                           {
@@ -86,37 +83,31 @@ export function newEntry(ctx: AppContext) {
                               "en",
                           ],
                       ],
-                      entryInputRow(
-                          ctx,
-                          "亦名",
-                          newEntry.alias,
-                          "Mengzi",
-                          "alias"
-                      ),
-                      entryInputRow(
-                          ctx,
-                          "罗马化转写",
-                          newEntry.romanization,
-                          "Mencius",
-                          "romanization"
-                      ),
-                      entryInputRow(
-                          ctx,
-                          "属性",
-                          newEntry.category,
-                          "哲学家",
-                          "category"
-                      ),
-                      entryInputRow(
-                          ctx,
-                          "作品年份",
-                          newEntry.date,
-                          "372-289 BC",
-                          "date"
-                      ),
-                      entryInputRow(ctx, "团体", newEntry.group, "", "group"),
-                      entryInputRow(ctx, "作者", newEntry.author, "", "author"),
-                      entryInputRow(ctx, "专辑", newEntry.album, "", "album"),
+                      entryInputRow(ctx, "亦名", "alias", {
+                          value: newEntry.alias,
+                          placeholder: "Mengzi",
+                      }),
+                      entryInputRow(ctx, "罗马化转写", "romanization", {
+                          value: newEntry.romanization,
+                          placeholder: "Mengzi",
+                      }),
+                      entryInputRow(ctx, "属性", "category", {
+                          value: newEntry.category,
+                          placeholder: "哲学家",
+                      }),
+                      entryInputRow(ctx, "作品年份", "date", {
+                          value: newEntry.date,
+                          placeholder: "372-289 BC",
+                      }),
+                      entryInputRow(ctx, "团体", "group", {
+                          value: newEntry.group,
+                      }),
+                      entryInputRow(ctx, "作者", "author", {
+                          value: newEntry.author,
+                      }),
+                      entryInputRow(ctx, "专辑", "album", {
+                          value: newEntry.album,
+                      }),
                       newEntry.wikipedia
                           ? [
                                 "div",
