@@ -70,8 +70,8 @@ export function opinionInput(ctx: AppContext) {
                 "div",
                 { class: "leading-relaxed flex flex-col" },
                 // prettier-ignore
-                opinionInputRow(ctx, "翻译:", data.translation, id, "translation"),
-                opinionInputRow(ctx, "论据:", data.details, id, "details"),
+                opinionInputRow(ctx, "翻译:", data.translation, id, "translation", id),
+                opinionInputRow(ctx, "论据:", data.details, id, "details", id),
                 [
                     eventBtn,
                     isEmpty(tempOpinion)

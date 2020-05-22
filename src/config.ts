@@ -321,6 +321,38 @@ export const CONFIG: AppConfig = {
                 ],
             ],
         }),
+
+        [ev.SET_NEW_ENTRY]: (_, [__, json]) => ({
+            [FX_DISPATCH_NOW]: [
+                EV_SET_VALUE,
+                [`newEntry.${json.key}`, json.value],
+            ],
+        }),
+
+        [ev.SET_NEW_ENTRY_TEMPLATE]: (_, [__, json]) => ({
+            [FX_DISPATCH_NOW]: [EV_SET_VALUE, ["newEntry", json.data]],
+        }),
+
+        [ev.GET_WIKI]: (_, [__, json]) => ({
+            [FX_DISPATCH_NOW]: [
+                [ev.SET_STATUS, [StatusType.INFO, "getting wikipedia data..."]],
+            ],
+            [FX_DISPATCH_ASYNC]: [fx.GET_WIKI, json, ev.RECEIVE_WIKI, ev.ERROR],
+        }),
+
+        [ev.RECEIVE_WIKI]: (_, [__, json]) => ({
+            [FX_DISPATCH_NOW]: [
+                [EV_SET_VALUE, ["newEntry.wikipedia", json.data]],
+                [
+                    ev.SET_STATUS,
+                    [
+                        StatusType.SUCCESS,
+                        "wikipedia data successfully loaded",
+                        true,
+                    ],
+                ],
+            ],
+        }),
     },
 
     // side effects
@@ -427,6 +459,24 @@ export const CONFIG: AppConfig = {
                 }
                 return resp.json();
             }),
+        [fx.GET_WIKI]: (json) =>
+            fetch(
+                API_HOST +
+                    `/api/v1/wiki?language=${json.language}&titles=${json.titles}`,
+                {
+                    method: "GET",
+                    headers: [
+                        ["Content-Type", "application/json"],
+                        ["Content-Type", "text/plain"],
+                    ],
+                    credentials: "include",
+                }
+            ).then((resp) => {
+                if (!resp.ok) {
+                    throw new Error(resp.statusText);
+                }
+                return resp.json();
+            }),
     },
 
     // mapping route IDs to their respective UI component functions
@@ -457,6 +507,7 @@ export const CONFIG: AppConfig = {
         entries: {},
         opinions: {},
         tempOpinion: {},
+        newEntry: {},
     },
 
     // derived view declarations
@@ -475,6 +526,7 @@ export const CONFIG: AppConfig = {
         entries: "entries",
         opinions: "opinions",
         tempOpinion: "tempOpinion",
+        newEntry: "newEntry",
     },
 
     // component CSS class config using tailwind-css

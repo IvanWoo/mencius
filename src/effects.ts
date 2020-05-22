@@ -6,3 +6,6 @@ export const SIGN_OUT = "sign-out";
 export const CREATE_OPINION = "create-opinion";
 export const DELETE_OPINION = "delete-opinion";
 export const UPDATE_OPINION = "update-opinion";
+export const GET_WIKI = "get-wiki";
+export const CREATE_ENTRY = "create-entry";
+export const UPDATE_ENTRY = "update-entry";

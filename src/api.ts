@@ -47,7 +47,8 @@ export interface AppViews extends Record<keyof AppViews, IView<any>> {
     input: IView<string>;
     entries: IView<IObjectOf<Entry>>;
     opinions: IView<IObjectOf<Opinion>>;
-    tempOpinion: IView<IObjectOf<Opinion>>;
+    tempOpinion: IView<Opinion>;
+    newEntry: IView<Entry>;
 }
 
 export interface AppContext {
@@ -92,6 +93,7 @@ export interface Entry {
     id: string;
     name: string;
     language: string;
+    romanization: string;
     wikipedia: Wikipedia | null;
     opinions?: Opinion[] | null;
 }
@@ -133,7 +135,7 @@ export interface User {
  */
 export interface OpinionMessenger {
     id: string;
-    data: Opinion | IObjectOf<Opinion>;
+    data: Opinion;
     userName?: string;
 }
 
