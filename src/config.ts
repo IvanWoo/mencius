@@ -353,6 +353,27 @@ export const CONFIG: AppConfig = {
                 ],
             ],
         }),
+
+        [ev.CREATE_ENTRY]: (_, [__, json]) => ({
+            [FX_DISPATCH_NOW]: [
+                [ev.SET_STATUS, [StatusType.INFO, "submitting entry..."]],
+            ],
+            [FX_DISPATCH_ASYNC]: [
+                fx.CREATE_ENTRY,
+                json,
+                ev.CREATE_ENTRY_SUCCESS,
+                ev.ERROR,
+            ],
+        }),
+
+        [ev.CREATE_ENTRY_SUCCESS]: () => ({
+            [FX_DISPATCH_NOW]: [
+                [
+                    ev.SET_STATUS,
+                    [StatusType.SUCCESS, "entry submitted successfully", true],
+                ],
+            ],
+        }),
     },
 
     // side effects
@@ -472,6 +493,21 @@ export const CONFIG: AppConfig = {
                     credentials: "include",
                 }
             ).then((resp) => {
+                if (!resp.ok) {
+                    throw new Error(resp.statusText);
+                }
+                return resp.json();
+            }),
+        [fx.CREATE_ENTRY]: (json) =>
+            fetch(API_HOST + "/api/v1/entries", {
+                method: "POST",
+                headers: [
+                    ["Content-Type", "application/json"],
+                    ["Content-Type", "text/plain"],
+                ],
+                credentials: "include",
+                body: JSON.stringify(json.data),
+            }).then((resp) => {
                 if (!resp.ok) {
                     throw new Error(resp.statusText);
                 }

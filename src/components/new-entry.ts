@@ -1,6 +1,11 @@
 import type { AppContext, Entry } from "../api";
 import { status } from "./status";
-import { SET_NEW_ENTRY_TEMPLATE, SET_NEW_ENTRY, GET_WIKI } from "../events";
+import {
+    SET_NEW_ENTRY_TEMPLATE,
+    SET_NEW_ENTRY,
+    GET_WIKI,
+    CREATE_ENTRY,
+} from "../events";
 import { entryInputRow } from "./input-row";
 import { eventBtn } from "./event-btn";
 import { dropdown, DropDownOption } from "@thi.ng/hdom-components";
@@ -153,7 +158,7 @@ export function newEntry(ctx: AppContext) {
                       ],
                       [
                           eventBtn,
-                          [],
+                          [CREATE_ENTRY, { data: newEntry }],
                           // disable the btn when the name is empty
                           newEntry.name
                               ? {
