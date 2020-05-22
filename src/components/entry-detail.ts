@@ -1,10 +1,11 @@
 import type { AppContext } from "../api";
 import { StatusType } from "../api";
-import { GET_ENTRY, SET_STATUS } from "../events";
+import { GET_ENTRY, SET_STATUS, ROUTE_TO_NEW_ENTRY } from "../events";
 import { opinionCard } from "./opinion-card";
 import { opinionInput } from "./opinion-input";
 import { metadata } from "./metadata";
 import { status } from "./status";
+import { eventBtn } from "./event-btn";
 
 /**
  * Single entry detail page. Triggers JSON I/O request on init if entry
@@ -25,7 +26,6 @@ export function entryDetail(ctx: AppContext) {
         const id = decodeURI(views.route.deref()!.params.id);
         const entry = views.entries.deref()![id];
         const user = views.user.deref()!;
-        // TODO: 404 / create entry page
         return [
             "div",
             status,
@@ -44,8 +44,31 @@ export function entryDetail(ctx: AppContext) {
                   ]
                 : [
                       "div",
-                      { class: "text-4xl m-auto p-6" },
-                      "no available data...",
+                      [
+                          "div",
+                          { class: "text-4xl m-auto p-6" },
+                          "no available data...",
+                      ],
+                      // when 404, then create new entry
+                      [
+                          "div",
+                          { class: "flex flex-row items-top text-gray-500" },
+                          [
+                              eventBtn,
+                              [ROUTE_TO_NEW_ENTRY, id],
+                              {
+                                  class: "block m-4 w-full",
+                              },
+                              [
+                                  "div",
+                                  {
+                                      class:
+                                          "shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded",
+                                  },
+                                  "CREATE",
+                              ],
+                          ],
+                      ],
                   ],
         ];
     };

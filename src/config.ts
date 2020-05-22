@@ -129,6 +129,10 @@ export const CONFIG: AppConfig = {
             ],
         }),
 
+        [ev.ROUTE_TO_NEW_ENTRY]: (_, [__, id]) => ({
+            [FX_DISPATCH_NOW]: [[ev.ROUTE_TO, [routes.NEW_ENTRY.id, { id }]]],
+        }),
+
         [ev.GET_USER]: () => ({
             [FX_DISPATCH_NOW]: [
                 [ev.SET_STATUS, [StatusType.INFO, "getting user data..."]],
@@ -543,7 +547,21 @@ export const CONFIG: AppConfig = {
         entries: {},
         opinions: {},
         tempOpinion: {},
-        newEntry: {},
+        newEntry: {
+            album: "",
+            alias: "",
+            author: "",
+            category: "",
+            consensus_translation: "",
+            date: "",
+            group: "",
+            id: "",
+            name: "",
+            language: "en",
+            romanization: "",
+            wikipedia: null,
+            opinions: [],
+        },
     },
 
     // derived view declarations

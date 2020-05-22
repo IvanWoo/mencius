@@ -1,7 +1,6 @@
 import { AppContext } from "../api";
 import { TOGGLE_ACCOUNT, CLOSE_ACCOUNT, SIGN_OUT } from "../events";
-import { ABOUT, CONTACT, SIGN_IN } from "../routes";
-
+import { ABOUT } from "../routes";
 import { eventBtn } from "./event-btn";
 import { routeLink } from "./route-link";
 

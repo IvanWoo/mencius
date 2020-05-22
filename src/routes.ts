@@ -29,7 +29,14 @@ export const ENTRY_DETAIL: Route = {
 
 export const NEW_ENTRY: Route = {
     id: "new-entry",
-    match: ["new_entry"],
+    match: ["new_entry", "?id"],
+    validate: {
+        id: {
+            // make sure the don't contain any uppercase
+            coerce: (x) => x.toLowerCase(),
+            check: (x) => x.toLowerCase() === x,
+        },
+    },
 };
 
 export const SIGN_IN: Route = {

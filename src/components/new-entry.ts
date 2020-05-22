@@ -26,26 +26,14 @@ const LANG_OPTS: DropDownOption[] = [
 export function newEntry(ctx: AppContext) {
     const views = ctx.views;
     const bus = ctx.bus;
+    const id = decodeURI(views.route.deref()!.params.id);
     const newEntry = views.newEntry.deref()!;
+    const data: Entry =
+        id === "null" || id === ""
+            ? newEntry
+            : { ...newEntry, ...{ id, name: id } };
+    bus.dispatch([SET_NEW_ENTRY_TEMPLATE, { data }]);
 
-    if (!newEntry.name) {
-        const data: Entry = {
-            album: "",
-            alias: "",
-            author: "",
-            category: "",
-            consensus_translation: "",
-            date: "",
-            group: "",
-            id: "",
-            name: "",
-            language: "en",
-            romanization: "",
-            wikipedia: null,
-            opinions: [],
-        };
-        bus.dispatch([SET_NEW_ENTRY_TEMPLATE, { data }]);
-    }
     return () => {
         const user = views.user.deref()!;
         const newEntry = views.newEntry.deref()!;

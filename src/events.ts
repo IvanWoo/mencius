@@ -3,6 +3,7 @@ export const ERROR = "error";
 export const SET_STATUS = "set-status";
 export const ROUTE_TO = "route-to";
 export const ROUTE_TO_ENTRY = "route-to-entry";
+export const ROUTE_TO_NEW_ENTRY = "route-to-new-entry";
 export const TOGGLE_NAV = "toggle-nav";
 export const TOGGLE_ACCOUNT = "toggle-account";
 export const CLOSE_ACCOUNT = "close-account";
