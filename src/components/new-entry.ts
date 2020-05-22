@@ -122,31 +122,49 @@ export function newEntry(ctx: AppContext) {
                                 ],
                             ]
                           : [],
-                      newEntry.name && newEntry.language
-                          ? [
-                                eventBtn,
-                                [
-                                    GET_WIKI,
-                                    {
-                                        titles: newEntry.name,
-                                        language: newEntry.language,
-                                    },
-                                ],
-                                { class: "block mt-4" },
-                                [
-                                    "div",
-                                    {
-                                        class:
-                                            "shadow bg-gray-500 hover:bg-gray-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded",
-                                    },
-                                    "RETRIEVE FROM WIKIPEDIA",
-                                ],
-                            ]
-                          : [],
+                      [
+                          eventBtn,
+                          [
+                              GET_WIKI,
+                              {
+                                  titles: newEntry.name,
+                                  language: newEntry.language,
+                              },
+                          ],
+                          // disable the btn when the name and language is empty
+                          newEntry.name && newEntry.language
+                              ? {
+                                    class:
+                                        "block mt-4 transition ease-in-out duration-700",
+                                }
+                              : {
+                                    class:
+                                        "block mt-4 transition ease-in-out duration-700 disabled:opacity-50",
+                                    disabled: true,
+                                },
+                          [
+                              "div",
+                              {
+                                  class:
+                                      "shadow bg-gray-500 hover:bg-gray-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded",
+                              },
+                              "RETRIEVE FROM WIKIPEDIA",
+                          ],
+                      ],
                       [
                           eventBtn,
                           [],
-                          { class: "block mt-4" },
+                          // disable the btn when the name is empty
+                          newEntry.name
+                              ? {
+                                    class:
+                                        "block mt-4 transition ease-in-out duration-700",
+                                }
+                              : {
+                                    class:
+                                        "block mt-4 transition ease-in-out duration-700 disabled:opacity-50",
+                                    disabled: true,
+                                },
                           [
                               "div",
                               {
