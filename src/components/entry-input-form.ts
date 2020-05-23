@@ -62,7 +62,7 @@ export function entryInputForm(
                             ]),
                     },
                     LANG_OPTS,
-                    "en",
+                    entry.language,
                 ],
             ],
             entryInputRow(ctx, "亦名", "alias", setEvent, {

@@ -31,6 +31,18 @@ export function searchBar(ctx: AppContext) {
                     },
                     onkeyup: (e: KeyboardEvent) => {
                         if (e.key === "Enter") {
+                            bus.dispatch(
+                                entries[input]
+                                    ? [
+                                          SET_STATUS,
+                                          [
+                                              StatusType.SUCCESS,
+                                              "loaded from cache",
+                                              true,
+                                          ],
+                                      ]
+                                    : [GET_ENTRY, input]
+                            );
                             bus.dispatch([ROUTE_TO_ENTRY, input]);
                         }
                     },
