@@ -16,9 +16,9 @@ jobs:
 
       - name: Install and Build 🔧
         env:
-          API_HOST: ""
+          API_HOST: "localhost:4200"
           CLIENT_ID: ${{ secrets.MENCIUS_CLIENT_ID }}
-          REDIRECT_URI: ""
+          REDIRECT_URI: "https://nopro.studio/mencius/#/github_oauth_cb"
         run: |
           echo -en "API_HOST=${API_HOST}\nCLIENT_ID=${CLIENT_ID}\nREDIRECT_URI={$REDIRECT_URI}\n" > .env
           yarn install
