@@ -14,6 +14,7 @@ import { contact } from "./components/contact";
 // import { search } from "./components/search";
 import { entryDetail } from "./components/entry-detail";
 import { newEntry } from "./components/new-entry";
+import { editEntry } from "./components/edit-entry";
 import { signIn } from "./components/sign-in";
 import { githubOauth } from "./components/github-oauth";
 import * as fx from "./effects";
@@ -40,6 +41,7 @@ export const CONFIG: AppConfig = {
             // routes.SEARCH,
             routes.ENTRY_DETAIL,
             routes.NEW_ENTRY,
+            routes.EDIT_ENTRY,
             routes.SIGN_IN,
             routes.GITHUB_OAUTH_CB,
         ],
@@ -131,6 +133,10 @@ export const CONFIG: AppConfig = {
 
         [ev.ROUTE_TO_NEW_ENTRY]: (_, [__, id]) => ({
             [FX_DISPATCH_NOW]: [[ev.ROUTE_TO, [routes.NEW_ENTRY.id, { id }]]],
+        }),
+
+        [ev.ROUTE_TO_EDIT_ENTRY]: (_, [__, id]) => ({
+            [FX_DISPATCH_NOW]: [[ev.ROUTE_TO, [routes.EDIT_ENTRY.id, { id }]]],
         }),
 
         [ev.GET_USER]: () => ({
@@ -337,16 +343,48 @@ export const CONFIG: AppConfig = {
             [FX_DISPATCH_NOW]: [EV_SET_VALUE, ["newEntry", json.data]],
         }),
 
-        [ev.GET_WIKI]: (_, [__, json]) => ({
+        // TODO: find way to unify get-wiki
+        [ev.GET_WIKI_NEW]: (_, [__, json]) => ({
             [FX_DISPATCH_NOW]: [
                 [ev.SET_STATUS, [StatusType.INFO, "getting wikipedia data..."]],
             ],
-            [FX_DISPATCH_ASYNC]: [fx.GET_WIKI, json, ev.RECEIVE_WIKI, ev.ERROR],
+            [FX_DISPATCH_ASYNC]: [
+                fx.GET_WIKI,
+                json,
+                ev.RECEIVE_WIKI_NEW,
+                ev.ERROR,
+            ],
         }),
 
-        [ev.RECEIVE_WIKI]: (_, [__, json]) => ({
+        [ev.RECEIVE_WIKI_NEW]: (_, [__, json]) => ({
             [FX_DISPATCH_NOW]: [
                 [EV_SET_VALUE, ["newEntry.wikipedia", json.data]],
+                [
+                    ev.SET_STATUS,
+                    [
+                        StatusType.SUCCESS,
+                        "wikipedia data successfully loaded",
+                        true,
+                    ],
+                ],
+            ],
+        }),
+
+        [ev.GET_WIKI_TEMP]: (_, [__, json]) => ({
+            [FX_DISPATCH_NOW]: [
+                [ev.SET_STATUS, [StatusType.INFO, "getting wikipedia data..."]],
+            ],
+            [FX_DISPATCH_ASYNC]: [
+                fx.GET_WIKI,
+                json,
+                ev.RECEIVE_WIKI_TEMP,
+                ev.ERROR,
+            ],
+        }),
+
+        [ev.RECEIVE_WIKI_TEMP]: (_, [__, json]) => ({
+            [FX_DISPATCH_NOW]: [
+                [EV_SET_VALUE, ["tempEntry.wikipedia", json.data]],
                 [
                     ev.SET_STATUS,
                     [
@@ -377,6 +415,38 @@ export const CONFIG: AppConfig = {
                     [StatusType.SUCCESS, "entry submitted successfully", true],
                 ],
             ],
+        }),
+
+        [ev.UPDATE_ENTRY]: (_, [__, json]) => ({
+            [FX_DISPATCH_NOW]: [
+                [ev.SET_STATUS, [StatusType.INFO, "updating entry..."]],
+            ],
+            [FX_DISPATCH_ASYNC]: [
+                fx.UPDATE_ENTRY,
+                json,
+                ev.UPDATE_ENTRY_SUCCESS,
+                ev.ERROR,
+            ],
+        }),
+
+        [ev.UPDATE_ENTRY_SUCCESS]: () => ({
+            [FX_DISPATCH_NOW]: [
+                [
+                    ev.SET_STATUS,
+                    [StatusType.SUCCESS, "entry updated successfully", true],
+                ],
+            ],
+        }),
+
+        [ev.SET_TEMP_ENTRY]: (_, [__, json]) => ({
+            [FX_DISPATCH_NOW]: [
+                EV_SET_VALUE,
+                [`tempEntry.${json.key}`, json.value],
+            ],
+        }),
+
+        [ev.SET_TEMP_ENTRY_TEMPLATE]: (_, [__, json]) => ({
+            [FX_DISPATCH_NOW]: [EV_SET_VALUE, ["tempEntry", json.data]],
         }),
     },
 
@@ -517,6 +587,21 @@ export const CONFIG: AppConfig = {
                 }
                 return resp.json();
             }),
+        [fx.UPDATE_ENTRY]: (json) =>
+            fetch(API_HOST + `/api/v1/entries/${json.id}`, {
+                method: "PUT",
+                headers: [
+                    ["Content-Type", "application/json"],
+                    ["Content-Type", "text/plain"],
+                ],
+                credentials: "include",
+                body: JSON.stringify(json.data),
+            }).then((resp) => {
+                if (!resp.ok) {
+                    throw new Error(resp.statusText);
+                }
+                return resp.json();
+            }),
     },
 
     // mapping route IDs to their respective UI component functions
@@ -528,6 +613,7 @@ export const CONFIG: AppConfig = {
         // [routes.SEARCH.id]: search,
         [routes.ENTRY_DETAIL.id]: entryDetail,
         [routes.NEW_ENTRY.id]: newEntry,
+        [routes.EDIT_ENTRY.id]: editEntry,
         [routes.SIGN_IN.id]: signIn,
         [routes.GITHUB_OAUTH_CB.id]: githubOauth,
     },
@@ -562,6 +648,7 @@ export const CONFIG: AppConfig = {
             wikipedia: null,
             opinions: [],
         },
+        tempEntry: {},
     },
 
     // derived view declarations
@@ -581,6 +668,7 @@ export const CONFIG: AppConfig = {
         opinions: "opinions",
         tempOpinion: "tempOpinion",
         newEntry: "newEntry",
+        tempEntry: "tempEntry",
     },
 
     // component CSS class config using tailwind-css

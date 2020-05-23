@@ -39,6 +39,18 @@ export const NEW_ENTRY: Route = {
     },
 };
 
+export const EDIT_ENTRY: Route = {
+    id: "edit-entry",
+    match: ["edit_entry", "?id"],
+    validate: {
+        id: {
+            // make sure the don't contain any uppercase
+            coerce: (x) => x.toLowerCase(),
+            check: (x) => x.toLowerCase() === x,
+        },
+    },
+};
+
 export const SIGN_IN: Route = {
     id: "sign-in",
     match: ["sign_in"],

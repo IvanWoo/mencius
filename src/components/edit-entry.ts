@@ -1,28 +1,28 @@
 import type { AppContext, Entry } from "../api";
 import { status } from "./status";
 import {
-    SET_NEW_ENTRY_TEMPLATE,
-    SET_NEW_ENTRY,
-    CREATE_ENTRY,
-    GET_WIKI_NEW,
+    ROUTE_TO_ENTRY,
+    SET_TEMP_ENTRY_TEMPLATE,
+    SET_TEMP_ENTRY,
+    UPDATE_ENTRY,
+    GET_WIKI_TEMP,
 } from "../events";
 import { entryInputForm } from "./entry-input-form";
 
 /**
- * Create new entry page.
+ * Edit existing entry page.
  *
  * @param ctx injected context object
  */
-export function newEntry(ctx: AppContext) {
+export function editEntry(ctx: AppContext) {
     const views = ctx.views;
     const bus = ctx.bus;
-    const id = decodeURI(views.route.deref()!.params.id);
-    const newEntry = views.newEntry.deref()!;
-    const data: Entry =
-        id === "null" || id === ""
-            ? newEntry
-            : { ...newEntry, ...{ id, name: id } };
-    bus.dispatch([SET_NEW_ENTRY_TEMPLATE, { data }]);
+    const id = decodeURI(ctx.views.route.deref()!.params.id);
+    const data: Entry = views.entries.deref()![id];
+    if (!data) {
+        return bus.dispatch([ROUTE_TO_ENTRY, id]);
+    }
+    bus.dispatch([SET_TEMP_ENTRY_TEMPLATE, { data }]);
 
     return () => {
         const user = views.user.deref()!;
@@ -32,10 +32,10 @@ export function newEntry(ctx: AppContext) {
             user.name
                 ? entryInputForm(
                       ctx,
-                      "newEntry",
-                      SET_NEW_ENTRY,
-                      GET_WIKI_NEW,
-                      CREATE_ENTRY
+                      "tempEntry",
+                      SET_TEMP_ENTRY,
+                      GET_WIKI_TEMP,
+                      UPDATE_ENTRY
                   )
                 : [
                       "div",
@@ -43,7 +43,7 @@ export function newEntry(ctx: AppContext) {
                       [
                           "p",
                           ctx.ui.newsletterForm.title,
-                          "Please sign in before adding new entry...",
+                          "Please sign in before editing entry...",
                       ],
                   ],
         ];

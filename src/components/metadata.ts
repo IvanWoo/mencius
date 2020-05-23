@@ -1,4 +1,7 @@
-import type { Entry } from "../api";
+import type { AppContext, Entry } from "../api";
+import { eventBtn } from "./event-btn";
+import { ROUTE_TO_EDIT_ENTRY } from "../events";
+import { withSize, EDIT } from "@thi.ng/hiccup-carbon-icons";
 
 function tag(x: string) {
     return [
@@ -14,7 +17,8 @@ function tag(x: string) {
     ];
 }
 
-export function metadata(entry: Entry) {
+export function metadata(ctx: AppContext, entry: Entry) {
+    const id = decodeURI(ctx.views.route.deref()!.params.id);
     return [
         "div",
         { class: "flex flex-col justify-center p-8" },
@@ -49,6 +53,20 @@ export function metadata(entry: Entry) {
                     entry.language,
                     entry.romanization,
                 ].map((x) => (x ? tag(x) : [])),
+                [
+                    eventBtn,
+                    [ROUTE_TO_EDIT_ENTRY, id],
+                    {
+                        class: "ml-2 focus:outline-none hover:text-gray-700",
+                    },
+                    [
+                        "span",
+                        {
+                            class: "inline-block w-full fill-current",
+                        },
+                        withSize(EDIT, "20"),
+                    ],
+                ],
             ],
             entry.wikipedia.pageid ? wikipedia(entry) : [],
         ],

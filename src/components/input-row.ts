@@ -1,5 +1,5 @@
 import type { AppContext } from "../api";
-import { SET_OPINION, SET_NEW_ENTRY } from "../events";
+import { SET_OPINION } from "../events";
 
 function inputRow(ctx: AppContext, title: string, attribs: any) {
     return [
@@ -41,18 +41,19 @@ export function entryInputRow(
     ctx: AppContext,
     title: string,
     key: string,
+    setEvent: string,
     attribs: any
 ) {
     const bus = ctx.bus;
     const cb = (e: InputEvent) => {
         bus.dispatch([
-            SET_NEW_ENTRY,
+            setEvent,
             { key, value: (<HTMLTextAreaElement>e.target).value },
         ]);
         // update id based on name
         key === "name"
             ? bus.dispatch([
-                  SET_NEW_ENTRY,
+                  setEvent,
                   {
                       key: "id",
                       value: (<HTMLTextAreaElement>(

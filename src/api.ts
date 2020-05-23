@@ -49,6 +49,7 @@ export interface AppViews extends Record<keyof AppViews, IView<any>> {
     opinions: IView<IObjectOf<Opinion>>;
     tempOpinion: IView<Opinion>;
     newEntry: IView<Entry>;
+    tempEntry: IView<Entry>;
 }
 
 export interface AppContext {
