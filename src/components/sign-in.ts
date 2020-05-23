@@ -2,8 +2,8 @@ import type { AppContext } from "../api";
 import { externalLink } from "./external-link";
 import { status } from "./status";
 
-const CLIENT_ID = "af5760d4381efcd62142";
-const REDIRECT_URI = "http://localhost:8080/#/github_oauth_cb";
+const CLIENT_ID = process.env.CLIENT_ID;
+const REDIRECT_URI = process.env.REDIRECT_URI;
 
 /**
  * Sign in page.
