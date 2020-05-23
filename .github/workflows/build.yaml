@@ -1,0 +1,47 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+
+      - name: Install and Build 🔧
+        env:
+          API_HOST: ""
+          CLIENT_ID: ${{ secrets.MENCIUS_CLIENT_ID }}
+          REDIRECT_URI: ""
+        run: |
+          echo -en "API_HOST=${API_HOST}\nCLIENT_ID=${CLIENT_ID}\nREDIRECT_URI={$REDIRECT_URI}\n" > .env
+          yarn install
+          yarn build
+
+      - name: Checkout Host Repo
+        uses: actions/checkout@v2
+        with:
+          repository: noprostudio/noprostudio.github.io
+          token: ${{ secrets.GH_PAT }}
+          path: host-repo
+
+      - name: Copy Out to Host Repo
+        run: |
+          rm -rf host-repo/mencius
+          mkdir host-repo/mencius
+          cp -a out/. host-repo/mencius
+
+      - name: Commit Changes and Push
+        run: |
+          cd host-repo
+          git add .
+          git config --local user.email "tyivanwu@gmail.com"
+          git config --local user.name "Yifan Wu"
+          git commit -m "📖 update mencius, cheers!" -a
+          git push
