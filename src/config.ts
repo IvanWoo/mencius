@@ -207,14 +207,14 @@ export const CONFIG: AppConfig = {
         [ev.SET_OPINION_TEMPLATE]: (_, [__, json]) => ({
             [FX_DISPATCH_NOW]: [
                 EV_SET_VALUE,
-                [`opinions.${json.id}`, json.data],
+                [["opinions", json.id], json.data],
             ],
         }),
 
         [ev.SET_OPINION]: (_, [__, json]) => ({
             [FX_DISPATCH_NOW]: [
                 EV_SET_VALUE,
-                [`opinions.${json.id}.${json.key}`, json.value],
+                [["opinions", json.id, json.key], json.value],
             ],
         }),
 
@@ -335,7 +335,7 @@ export const CONFIG: AppConfig = {
         [ev.SET_NEW_ENTRY]: (_, [__, json]) => ({
             [FX_DISPATCH_NOW]: [
                 EV_SET_VALUE,
-                [`newEntry.${json.key}`, json.value],
+                [["newEntry", json.key], json.value],
             ],
         }),
 
@@ -441,7 +441,7 @@ export const CONFIG: AppConfig = {
         [ev.SET_TEMP_ENTRY]: (_, [__, json]) => ({
             [FX_DISPATCH_NOW]: [
                 EV_SET_VALUE,
-                [`tempEntry.${json.key}`, json.value],
+                [["tempEntry", json.key], json.value],
             ],
         }),
 
