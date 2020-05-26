@@ -14,7 +14,8 @@ export function contact(ctx: AppContext) {
         [
             "p",
             [
-                ["https://github.com/IvanWoo/mencius", "GitHub"],
+                ["mailto:townb.production@gmail.com", "Email"],
+                ["https://github.com/noprostudio", "GitHub"],
                 ["/", "Twitter"],
                 ["/", "Weibo"],
                 ["/", "Medium"],
