@@ -1,13 +1,13 @@
 import type { AppContext } from "../api";
 import { SET_OPINION } from "../events";
 
-function inputRow(ctx: AppContext, title: string, attribs: any) {
+function row(ctx: AppContext, title: string, attribs: any, tag: string) {
     return [
         "div",
         { class: "block font-medium text-gray-800 text-lg mb-2" },
         title,
         [
-            "input",
+            tag,
             {
                 ...attribs,
                 class:
@@ -15,6 +15,14 @@ function inputRow(ctx: AppContext, title: string, attribs: any) {
             },
         ],
     ];
+}
+
+function inputRow(ctx: AppContext, title: string, attribs: any) {
+    return row(ctx, title, attribs, "input");
+}
+
+function textareaRow(ctx: AppContext, title: string, attribs: any) {
+    return row(ctx, title, attribs, "textarea");
 }
 
 export function opinionInputRow(
@@ -35,6 +43,26 @@ export function opinionInputRow(
             },
         ]);
     return inputRow(ctx, title, { ...attribs, oninput: cb });
+}
+
+export function opinionTextareaRow(
+    ctx: AppContext,
+    title: string,
+    key: string,
+    id: string,
+    attribs: any
+) {
+    const bus = ctx.bus;
+    const cb = (e: InputEvent) =>
+        bus.dispatch([
+            SET_OPINION,
+            {
+                id,
+                key,
+                value: (<HTMLTextAreaElement>e.target).value,
+            },
+        ]);
+    return textareaRow(ctx, title, { ...attribs, oninput: cb });
 }
 
 export function entryInputRow(

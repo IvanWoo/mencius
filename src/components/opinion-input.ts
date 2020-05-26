@@ -6,7 +6,7 @@ import {
     UPDATE_OPINION,
 } from "../events";
 import { eventBtn } from "./event-btn";
-import { opinionInputRow } from "./input-row";
+import { opinionInputRow, opinionTextareaRow } from "./input-row";
 
 const isEmpty = (x: any): x is object => Object.keys(x).length === 0;
 
@@ -73,9 +73,10 @@ export function opinionInput(ctx: AppContext) {
                               value: opinion.translation,
                               placeholder: id,
                           }),
-                          opinionInputRow(ctx, "论据:", "details", id, {
+                          opinionTextareaRow(ctx, "论据:", "details", id, {
                               value: opinion.details,
                               placeholder: id,
+                              rows: "5",
                           }),
                           [
                               eventBtn,
