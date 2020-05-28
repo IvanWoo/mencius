@@ -19,8 +19,10 @@
         "@thi.ng/hdom": "^8.0.20",
         "@thi.ng/hdom-components": "^3.2.9",
         "@thi.ng/hiccup-carbon-icons": "^1.0.22",
+        "@thi.ng/hiccup-markdown": "^1.2.12",
         "@thi.ng/interceptors": "^2.2.14",
-        "@thi.ng/router": "^2.0.17"
+        "@thi.ng/router": "^2.0.17",
+        "@thi.ng/transducers": "^6.5.0"
     },
     "devDependencies": {
         "autoprefixer": "^9.5.1",

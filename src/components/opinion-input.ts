@@ -7,6 +7,7 @@ import {
 } from "../events";
 import { eventBtn } from "./event-btn";
 import { opinionInputRow, opinionTextareaRow } from "./input-row";
+import { parser } from "./markdown-parser";
 
 const isEmpty = (x: any): x is object => Object.keys(x).length === 0;
 
@@ -78,6 +79,19 @@ export function opinionInput(ctx: AppContext) {
                               placeholder: id,
                               rows: "5",
                           }),
+                          [
+                              "div",
+                              { class: "leading-relaxed" },
+                              ["div", "preview:"],
+                              [
+                                  "div",
+                                  {
+                                      class:
+                                          "leading-relaxed text-gray-700 mt-1 text-sm md:text-base",
+                                  },
+                                  parser(views.opinions.deref()![id].details),
+                              ],
+                          ],
                           [
                               eventBtn,
                               isEmpty(tempOpinion)

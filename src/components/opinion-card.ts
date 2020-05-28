@@ -2,6 +2,7 @@ import type { AppContext, Opinion, OpinionMessenger } from "../api";
 import { eventBtn } from "./event-btn";
 import { DELETE_OPINION, EDIT_OPINION } from "../events";
 import { withSize, EDIT, DELETE } from "@thi.ng/hiccup-carbon-icons";
+import { parser } from "./markdown-parser";
 
 export function opinionCard(ctx: AppContext, opinion: Opinion) {
     const views = ctx.views;
@@ -97,13 +98,13 @@ export function opinionCard(ctx: AppContext, opinion: Opinion) {
                 { class: "leading-relaxed flex flex-col" },
                 [
                     "h2",
-                    { class: "font-medium text-gray-800 text-lg" },
+                    { class: "font-bold text-gray-800 text-xl md:text-2xl" },
                     opinion.translation,
                 ],
                 [
                     "p",
-                    { class: "text-gray-600 mt-1 text-sm md:text-base" },
-                    opinion.details,
+                    { class: "text-gray-700 mt-1 text-sm md:text-base" },
+                    parser(opinion.details),
                 ],
             ],
             [

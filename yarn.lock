@@ -891,6 +891,13 @@
     "@thi.ng/paths" "^4.0.7"
     tslib "^1.12.0"
 
+"@thi.ng/binary@^2.0.7":
+  version "2.0.7"
+  resolved "https://registry.yarnpkg.com/@thi.ng/binary/-/binary-2.0.7.tgz#d7fb98e1cd3d5e4d079d5c4c9271574311737e9b"
+  integrity sha512-IgApvl8mieTy152zDppytFCM71OcDeDpzVhDkDZiD1CUbvOiucgG2w4FdcbAspsVLo8EEI6i0bN2yZyS75NrgQ==
+  dependencies:
+    tslib "^1.12.0"
+
 "@thi.ng/checks@^2.6.2", "@thi.ng/checks@^2.7.0":
   version "2.7.0"
   resolved "https://registry.yarnpkg.com/@thi.ng/checks/-/checks-2.7.0.tgz#6fdf9307a3cbf5d019556112e71fa9c4bffc4181"
@@ -929,6 +936,15 @@
     "@thi.ng/transducers" "^6.5.0"
     tslib "^1.12.0"
 
+"@thi.ng/defmulti@^1.2.15":
+  version "1.2.15"
+  resolved "https://registry.yarnpkg.com/@thi.ng/defmulti/-/defmulti-1.2.15.tgz#475f91142c4da4bad1059179a5be3ef6e7e362d8"
+  integrity sha512-5S3FEZA6LMxOh1WQQj4yzcEiFwc2+xp7mM728zved2aloAeVvqnaW+RKc7GhO0GGpj3ps6mb1xpGjbtkQCJCrQ==
+  dependencies:
+    "@thi.ng/api" "^6.10.5"
+    "@thi.ng/errors" "^1.2.14"
+    tslib "^1.12.0"
+
 "@thi.ng/diff@^3.2.21":
   version "3.2.21"
   resolved "https://registry.yarnpkg.com/@thi.ng/diff/-/diff-3.2.21.tgz#0c4f9c7e71969a8bbb11332aaba9b42cd499e681"
@@ -950,6 +966,27 @@
   resolved "https://registry.yarnpkg.com/@thi.ng/errors/-/errors-1.2.14.tgz#15220c3492da56aa2bb5de6127bd2e21b3e9e35c"
   integrity sha512-IR1QMoKI/fIxq17pO+/MXvc1MPuRVMz9IWqBZ78ZQ2mVIgceB3f4bA9HB8AX0f8wgI+MWkDjJlSxpywamCn7/g==
   dependencies:
+    tslib "^1.12.0"
+
+"@thi.ng/fsm@^2.4.9":
+  version "2.4.9"
+  resolved "https://registry.yarnpkg.com/@thi.ng/fsm/-/fsm-2.4.9.tgz#bfc0fac4eb687d8e184013d1909cc96ccafac5be"
+  integrity sha512-NjhR75SL4WpdKJmA69dDBoIW8X34L3QFyFYszQahCShx9d9/0214vUSoD7WsrjiR5Or8ZnyvD0hFPnsPkw1ZLQ==
+  dependencies:
+    "@thi.ng/api" "^6.10.5"
+    "@thi.ng/arrays" "^0.6.7"
+    "@thi.ng/equiv" "^1.0.23"
+    "@thi.ng/errors" "^1.2.14"
+    "@thi.ng/strings" "^1.8.8"
+    "@thi.ng/transducers" "^6.5.0"
+    tslib "^1.12.0"
+
+"@thi.ng/geom-clip-line@^1.0.15":
+  version "1.0.15"
+  resolved "https://registry.yarnpkg.com/@thi.ng/geom-clip-line/-/geom-clip-line-1.0.15.tgz#ca4325b78000bb119ebcc17f61635a6deaf98775"
+  integrity sha512-dNF0kHUBpVSdy3m4rfHKTyLY4vkIG7yEYFfCF/hjF485BMR/cMnJgQcLVXMwRunQ/ewrwdajCvEciCz1re13ow==
+  dependencies:
+    "@thi.ng/vectors" "^4.4.0"
     tslib "^1.12.0"
 
 "@thi.ng/hdom-components@^3.2.9":
@@ -982,6 +1019,22 @@
   resolved "https://registry.yarnpkg.com/@thi.ng/hiccup-carbon-icons/-/hiccup-carbon-icons-1.0.38.tgz#08caa80b38ab8eace229be69994dc3e707e8c8a2"
   integrity sha512-qfhCvpF+HUvbsv6jiJR5DIK2BJO8krYtDHma6NpFAeQL6dvMPuZsNT0h+gspX4b7YgQRjHNxT7XzbK16iQws3A==
   dependencies:
+    tslib "^1.12.0"
+
+"@thi.ng/hiccup-markdown@^1.2.12":
+  version "1.2.12"
+  resolved "https://registry.yarnpkg.com/@thi.ng/hiccup-markdown/-/hiccup-markdown-1.2.12.tgz#97206925dd64c8de7286fbf3cc015b9d1d842f85"
+  integrity sha512-gZNL0v1jYavs51i7vo94QxsNZGPts1ShrPX/T+9naeVS9MQzIoOYf10+w7Bj4BubjDEcCEDrnFl7hnNbhnEqyQ==
+  dependencies:
+    "@thi.ng/arrays" "^0.6.7"
+    "@thi.ng/checks" "^2.7.0"
+    "@thi.ng/defmulti" "^1.2.15"
+    "@thi.ng/errors" "^1.2.14"
+    "@thi.ng/fsm" "^2.4.9"
+    "@thi.ng/hiccup" "^3.2.23"
+    "@thi.ng/strings" "^1.8.8"
+    "@thi.ng/text-canvas" "^0.2.12"
+    "@thi.ng/transducers" "^6.5.0"
     tslib "^1.12.0"
 
 "@thi.ng/hiccup@^3.2.23":
@@ -1059,6 +1112,19 @@
     "@thi.ng/memoize" "^2.0.11"
     tslib "^1.12.0"
 
+"@thi.ng/text-canvas@^0.2.12":
+  version "0.2.12"
+  resolved "https://registry.yarnpkg.com/@thi.ng/text-canvas/-/text-canvas-0.2.12.tgz#add15edc07bf2df949286f2d813e6f09a45c0928"
+  integrity sha512-3GpC12lWoUjLVvcNjB/KCUZjaB3nkfT7krcKSh0IMOzflhjSRY/D5rBrKPnXUjMCAVSpj0m2vbxpKBnkHA5EcQ==
+  dependencies:
+    "@thi.ng/api" "^6.10.5"
+    "@thi.ng/arrays" "^0.6.7"
+    "@thi.ng/geom-clip-line" "^1.0.15"
+    "@thi.ng/math" "^1.7.10"
+    "@thi.ng/memoize" "^2.0.11"
+    "@thi.ng/transducers" "^6.5.0"
+    tslib "^1.12.0"
+
 "@thi.ng/transducers-stats@^1.1.23":
   version "1.1.23"
   resolved "https://registry.yarnpkg.com/@thi.ng/transducers-stats/-/transducers-stats-1.1.23.tgz#56444366647af4a02ab5c8508ae83f42b6176f9a"
@@ -1085,6 +1151,22 @@
     "@thi.ng/math" "^1.7.10"
     "@thi.ng/random" "^1.4.9"
     "@thi.ng/strings" "^1.8.8"
+    tslib "^1.12.0"
+
+"@thi.ng/vectors@^4.4.0":
+  version "4.4.0"
+  resolved "https://registry.yarnpkg.com/@thi.ng/vectors/-/vectors-4.4.0.tgz#3eacb1311ab9625fdd4e3efb7b08f708a0be496b"
+  integrity sha512-dRGUG6kgYUllxGl373GT66Te5QVia/OuS/Cz1mR0YmLhkQyMwSq+JNqjXHyTmYbHVRCDWHRJNdE0s+BRTVdfNA==
+  dependencies:
+    "@thi.ng/api" "^6.10.5"
+    "@thi.ng/binary" "^2.0.7"
+    "@thi.ng/checks" "^2.7.0"
+    "@thi.ng/equiv" "^1.0.23"
+    "@thi.ng/errors" "^1.2.14"
+    "@thi.ng/math" "^1.7.10"
+    "@thi.ng/memoize" "^2.0.11"
+    "@thi.ng/random" "^1.4.9"
+    "@thi.ng/transducers" "^6.5.0"
     tslib "^1.12.0"
 
 "@types/color-name@^1.1.1":
