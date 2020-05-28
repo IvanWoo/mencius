@@ -306,7 +306,8 @@ export const CONFIG: AppConfig = {
         [ev.CANCEL_EDIT_OPINION]: (_, [__, json]) => ({
             [FX_DISPATCH_NOW]: [
                 [ev.APPEND_OPINION, json],
-                [ev.SET_TEMP_OPINION, {}],
+                [ev.SET_OPINION_TEMPLATE, { ...json, data: {} }],
+                [ev.SET_TEMP_OPINION, { data: {} }],
             ],
         }),
 
