@@ -9,3 +9,4 @@ export const UPDATE_OPINION = "update-opinion";
 export const GET_WIKI = "get-wiki";
 export const CREATE_ENTRY = "create-entry";
 export const UPDATE_ENTRY = "update-entry";
+export const SEARCH_ENTRY = "search-entry";

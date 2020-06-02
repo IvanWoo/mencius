@@ -11,7 +11,7 @@ import type { AppConfig, Opinion } from "./api";
 import { StatusType } from "./api";
 import { about } from "./components/about";
 import { contact } from "./components/contact";
-// import { search } from "./components/search";
+import { search } from "./components/search";
 import { entryDetail } from "./components/entry-detail";
 import { newEntry } from "./components/new-entry";
 import { editEntry } from "./components/edit-entry";
@@ -38,7 +38,7 @@ export const CONFIG: AppConfig = {
         routes: [
             routes.ABOUT,
             routes.CONTACT,
-            // routes.SEARCH,
+            routes.SEARCH,
             routes.ENTRY_DETAIL,
             routes.NEW_ENTRY,
             routes.EDIT_ENTRY,
@@ -67,7 +67,7 @@ export const CONFIG: AppConfig = {
         // sets status to thrown error's message
         [ev.ERROR]: (_, [__, err]) => ({
             [FX_DISPATCH_NOW]:
-                err.message === "Unauthorized"
+                err.message === "Unauthorized" || err.message === "Bad Request"
                     ? [
                           [ev.SET_STATUS, [StatusType.ERROR, err.message]],
                           [ev.ROUTE_TO, [routes.SIGN_IN.id, {}]],
@@ -137,6 +137,12 @@ export const CONFIG: AppConfig = {
 
         [ev.ROUTE_TO_EDIT_ENTRY]: (_, [__, id]) => ({
             [FX_DISPATCH_NOW]: [[ev.ROUTE_TO, [routes.EDIT_ENTRY.id, { id }]]],
+        }),
+
+        [ev.ROUTE_TO_SEARCH_ENTRY]: (_, [__, id, page]) => ({
+            [FX_DISPATCH_NOW]: [
+                [ev.ROUTE_TO, [routes.SEARCH.id, { id, page }]],
+            ],
         }),
 
         [ev.GET_USER]: () => ({
@@ -449,6 +455,35 @@ export const CONFIG: AppConfig = {
         [ev.SET_TEMP_ENTRY_TEMPLATE]: (_, [__, json]) => ({
             [FX_DISPATCH_NOW]: [EV_SET_VALUE, ["tempEntry", json.data]],
         }),
+
+        [ev.SEARCH_ENTRY]: (_, [__, json]) => ({
+            [FX_DISPATCH_NOW]: [
+                [ev.SET_STATUS, [StatusType.INFO, "searching entries..."]],
+            ],
+            [FX_DISPATCH_ASYNC]: [
+                fx.SEARCH_ENTRY,
+                json,
+                ev.SEARCH_ENTRY_SUCCESS,
+                ev.ERROR,
+            ],
+        }),
+
+        [ev.SEARCH_ENTRY_SUCCESS]: (_, [__, json]) => ({
+            [FX_DISPATCH_NOW]: [
+                [EV_SET_VALUE, ["search", json.data]],
+                [
+                    ev.SET_STATUS,
+                    [StatusType.SUCCESS, "searched successfully", true],
+                ],
+            ],
+        }),
+
+        [ev.ROUTE_TO_SEARCH_ENTRY_PAGE]: (_, [__, json]) => ({
+            [FX_DISPATCH_NOW]: [
+                [ev.SEARCH_ENTRY, json],
+                [ev.ROUTE_TO_SEARCH_ENTRY, json.id, json.page],
+            ],
+        }),
     },
 
     // side effects
@@ -603,6 +638,24 @@ export const CONFIG: AppConfig = {
                 }
                 return resp.json();
             }),
+        [fx.SEARCH_ENTRY]: (json) =>
+            fetch(
+                API_HOST +
+                    `/api/v1/search/entry?id=${json.id}&page=${json.page}`,
+                {
+                    method: "GET",
+                    headers: [
+                        ["Content-Type", "application/json"],
+                        ["Content-Type", "text/plain"],
+                    ],
+                    credentials: "include",
+                }
+            ).then((resp) => {
+                if (!resp.ok) {
+                    throw new Error(resp.statusText);
+                }
+                return resp.json();
+            }),
     },
 
     // mapping route IDs to their respective UI component functions
@@ -611,7 +664,7 @@ export const CONFIG: AppConfig = {
     components: {
         [routes.ABOUT.id]: about,
         [routes.CONTACT.id]: contact,
-        // [routes.SEARCH.id]: search,
+        [routes.SEARCH.id]: search,
         [routes.ENTRY_DETAIL.id]: entryDetail,
         [routes.NEW_ENTRY.id]: newEntry,
         [routes.EDIT_ENTRY.id]: editEntry,
@@ -650,6 +703,7 @@ export const CONFIG: AppConfig = {
             opinions: [],
         },
         tempEntry: {},
+        search: {},
     },
 
     // derived view declarations
@@ -670,6 +724,7 @@ export const CONFIG: AppConfig = {
         tempOpinion: "tempOpinion",
         newEntry: "newEntry",
         tempEntry: "tempEntry",
+        search: "search",
     },
 
     // component CSS class config using tailwind-css

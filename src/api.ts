@@ -50,6 +50,7 @@ export interface AppViews extends Record<keyof AppViews, IView<any>> {
     tempOpinion: IView<Opinion>;
     newEntry: IView<Entry>;
     tempEntry: IView<Entry>;
+    search: IView<Search>;
 }
 
 export interface AppContext {
@@ -129,6 +130,11 @@ export interface User {
     bio?: any;
     created_at: string;
     updated_at: string;
+}
+
+export interface Search {
+    total_count: number;
+    entries: string[];
 }
 
 /**

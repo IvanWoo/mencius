@@ -1,4 +1,5 @@
 import { Route } from "@thi.ng/router";
+import { isNumeric } from "@thi.ng/checks/is-alphanum";
 
 export const ABOUT: Route = {
     id: "about",
@@ -12,7 +13,12 @@ export const CONTACT: Route = {
 
 export const SEARCH: Route = {
     id: "search",
-    match: ["search"],
+    match: ["search", "?id", "?page"],
+    validate: {
+        page: {
+            check: (x) => isNumeric(x),
+        },
+    },
 };
 
 export const ENTRY_DETAIL: Route = {

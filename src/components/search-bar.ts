@@ -1,5 +1,5 @@
-import { AppContext, StatusType } from "../api";
-import { SET_INPUT, GET_ENTRY, SET_STATUS, ROUTE_TO_ENTRY } from "../events";
+import { AppContext } from "../api";
+import { SET_INPUT, ROUTE_TO_SEARCH_ENTRY_PAGE } from "../events";
 
 import { SEARCH } from "@thi.ng/hiccup-carbon-icons";
 
@@ -31,19 +31,10 @@ export function searchBar(ctx: AppContext) {
                     },
                     onkeyup: (e: KeyboardEvent) => {
                         if (e.key === "Enter") {
-                            bus.dispatch(
-                                entries[input]
-                                    ? [
-                                          SET_STATUS,
-                                          [
-                                              StatusType.SUCCESS,
-                                              "loaded from cache",
-                                              true,
-                                          ],
-                                      ]
-                                    : [GET_ENTRY, input]
-                            );
-                            bus.dispatch([ROUTE_TO_ENTRY, input]);
+                            bus.dispatch([
+                                ROUTE_TO_SEARCH_ENTRY_PAGE,
+                                { id: input, page: 1 },
+                            ]);
                         }
                     },
                 },
