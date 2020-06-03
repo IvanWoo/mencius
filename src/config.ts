@@ -92,6 +92,11 @@ export const CONFIG: AppConfig = {
 
         [ev.CLOSE_ACCOUNT]: valueUpdater<boolean>("accountOpen", (x) => false),
 
+        // prettier-ignore
+        [ev.TOGGLE_DELETE_OPINION]: valueUpdater<boolean>("deleteOpinionOpen", (x) => !x),
+        // prettier-ignore
+        [ev.CLOSE_DELETE_OPINION]: valueUpdater<boolean>("deleteOpinionOpen", (x) => false),
+
         // toggles debug state flag on/off
         [ev.TOGGLE_DEBUG]: valueUpdater<boolean>("debug", (x) => !x),
 
@@ -683,6 +688,7 @@ export const CONFIG: AppConfig = {
         debug: false,
         isNavOpen: false,
         accountOpen: false,
+        deleteOpinionOpen: false,
         input: "",
         entries: {},
         opinions: {},
@@ -718,6 +724,7 @@ export const CONFIG: AppConfig = {
         debug: "debug",
         isNavOpen: "isNavOpen",
         accountOpen: "accountOpen",
+        deleteOpinionOpen: "deleteOpinionOpen",
         input: "input",
         entries: "entries",
         opinions: "opinions",

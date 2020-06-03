@@ -43,7 +43,7 @@ export function metadata(ctx: AppContext, entry: Entry) {
             ],
             [
                 "div",
-                { class: "flex flex-row" },
+                { class: "flex flex-wrap" },
                 [
                     entry.alias,
                     entry.author,
@@ -60,11 +60,16 @@ export function metadata(ctx: AppContext, entry: Entry) {
                         class: "ml-2 focus:outline-none hover:text-gray-700",
                     },
                     [
-                        "span",
-                        {
-                            class: "inline-block w-full fill-current",
-                        },
-                        withSize(EDIT, "20"),
+                        "div",
+                        { class: "flex flex-row" },
+                        [
+                            "div",
+                            {
+                                class: "inline-block w-full fill-current pr-2",
+                            },
+                            withSize(EDIT, "20"),
+                        ],
+                        ["div", "edit"],
                     ],
                 ],
             ],

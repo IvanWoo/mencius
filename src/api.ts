@@ -44,6 +44,7 @@ export interface AppViews extends Record<keyof AppViews, IView<any>> {
     json: IView<string>;
     isNavOpen: IView<boolean>;
     accountOpen: IView<boolean>;
+    deleteOpinionOpen: IView<boolean>;
     input: IView<string>;
     entries: IView<IObjectOf<Entry>>;
     opinions: IView<IObjectOf<Opinion>>;

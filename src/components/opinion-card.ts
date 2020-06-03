@@ -1,6 +1,11 @@
 import type { AppContext, Opinion, OpinionMessenger } from "../api";
 import { eventBtn } from "./event-btn";
-import { DELETE_OPINION, EDIT_OPINION } from "../events";
+import {
+    DELETE_OPINION,
+    EDIT_OPINION,
+    TOGGLE_DELETE_OPINION,
+    CLOSE_DELETE_OPINION,
+} from "../events";
 import { withSize, EDIT, DELETE } from "@thi.ng/hiccup-carbon-icons";
 import { parser } from "./markdown-parser";
 
@@ -8,6 +13,7 @@ export function opinionCard(ctx: AppContext, opinion: Opinion) {
     const views = ctx.views;
     const id = decodeURI(ctx.views.route.deref()!.params.id);
     const user = views.user.deref()!;
+    const deleteOpinionOpen = ctx.views.deleteOpinionOpen.deref()!;
     return [
         "div",
         {
@@ -60,36 +66,64 @@ export function opinionCard(ctx: AppContext, opinion: Opinion) {
                               ],
                               {
                                   class:
-                                      "ml-2 focus:outline-none hover:text-gray-700",
+                                      "ml-2 focus:outline-none hover:text-gray-700 p-2",
                               },
                               [
-                                  "span",
-                                  {
-                                      class: "inline-block w-full fill-current",
-                                  },
-                                  withSize(EDIT, "20"),
+                                  "div",
+                                  { class: "flex flex-row" },
+                                  [
+                                      "div",
+                                      {
+                                          class:
+                                              "inline-block w-full fill-current pr-2",
+                                      },
+                                      withSize(EDIT, "20"),
+                                  ],
+                                  ["div", "edit"],
                               ],
                           ],
                           [
                               eventBtn,
-                              [
-                                  DELETE_OPINION,
-                                  <OpinionMessenger>{
-                                      id,
-                                      data: opinion,
-                                      userName: user.login,
-                                  },
-                              ],
+                              deleteOpinionOpen
+                                  ? [
+                                        DELETE_OPINION,
+                                        <OpinionMessenger>{
+                                            id,
+                                            data: opinion,
+                                            userName: user.login,
+                                        },
+                                    ]
+                                  : [TOGGLE_DELETE_OPINION],
                               {
-                                  class:
-                                      "ml-4 focus:outline-none hover:text-gray-700",
+                                  class: deleteOpinionOpen
+                                      ? "focus:outline-none hover:text-black text-gray-700 bg-red-500 fill-current z-30 p-2"
+                                      : "focus:outline-none hover:text-gray-700 fill-current p-2",
                               },
                               [
                                   "div",
-                                  { class: "inline-block w-full fill-current" },
-                                  withSize(DELETE, "20"),
+                                  { class: "flex flex-row" },
+                                  [
+                                      "div",
+                                      { class: "pr-2" },
+                                      withSize(DELETE, "20"),
+                                  ],
+                                  [
+                                      "div",
+                                      deleteOpinionOpen ? "confirm?" : "delete",
+                                  ],
                               ],
                           ],
+                          deleteOpinionOpen
+                              ? [
+                                    eventBtn,
+                                    [CLOSE_DELETE_OPINION],
+                                    {
+                                        tabindex: "-1",
+                                        class:
+                                            "fixed inset-0 h-full w-full cursor-default bg-black bg-opacity-50 z-20",
+                                    },
+                                ]
+                              : [],
                       ]
                     : [],
             ],
