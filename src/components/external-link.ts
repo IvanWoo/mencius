@@ -14,5 +14,5 @@ export function externalLink(
     uri: string,
     body: any
 ) {
-    return ["a", { ...attribs, href: uri }, body];
+    return ["a", { ...attribs, href: uri, target: "_blank" }, body];
 }

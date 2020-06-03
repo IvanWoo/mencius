@@ -16,7 +16,7 @@ const CUSTOM_TAGS: Partial<TagFactories> = {
     ],
     link: (href, body) => [
         "a.font-bold.text-purple-900.hover:bg-purple-900.hover:text-white.transition.duration-300.ease-in-out",
-        { href },
+        { href, target: "_blank" },
         body,
     ],
     strike: (body) => ["del.line-through.bg-red-200", body],
