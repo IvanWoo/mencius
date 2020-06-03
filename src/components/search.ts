@@ -6,7 +6,79 @@ import {
 } from "../events";
 import { status } from "./status";
 import { eventBtn } from "./event-btn";
-import { CARET_LEFT, CARET_RIGHT } from "@thi.ng/hiccup-carbon-icons";
+import { CHEVRON_LEFT, CHEVRON_RIGHT } from "@thi.ng/hiccup-carbon-icons";
+
+function nav(ctx: AppContext, attribs: any) {
+    const views = ctx.views;
+    const id = decodeURI(views.route.deref()!.params.id);
+    const page = +views.route.deref()!.params.page;
+    const search = views.search.deref()!;
+    return [
+        "div",
+        { ...attribs },
+        [
+            "div",
+            [
+                eventBtn,
+                [ROUTE_TO_SEARCH_ENTRY_PAGE, { id, page: page - 1 }],
+                page > 1
+                    ? {
+                          class: "block m-1",
+                      }
+                    : {
+                          class: "block m-1 disabled:opacity-50",
+                          disabled: true,
+                      },
+                [
+                    "div",
+                    {
+                        class: "flex flex-row items-center text-justify",
+                    },
+                    [
+                        "div",
+                        {
+                            class:
+                                "w-2 object-fill object-center items-baseline m-2 fill-current",
+                        },
+                        CHEVRON_LEFT,
+                    ],
+                    "Prev",
+                ],
+            ],
+        ],
+        [
+            "div",
+            { class: "pl-2" },
+            [
+                eventBtn,
+                [ROUTE_TO_SEARCH_ENTRY_PAGE, { id, page: page + 1 }],
+                page < Math.ceil(search.total_count / 30)
+                    ? {
+                          class: "block m-1",
+                      }
+                    : {
+                          class: "block m-1 disabled:opacity-50",
+                          disabled: true,
+                      },
+                [
+                    "div",
+                    {
+                        class: "flex flex-row items-center text-justify",
+                    },
+                    "Next",
+                    [
+                        "div",
+                        {
+                            class:
+                                "w-2 object-fill object-center items-baseline m-2 fill-current",
+                        },
+                        CHEVRON_RIGHT,
+                    ],
+                ],
+            ],
+        ],
+    ];
+}
 
 /**
  * Search page.
@@ -29,14 +101,61 @@ export function search(ctx: AppContext) {
             [
                 "div",
                 { class: "p-6" },
-                ["h2", ctx.ui.newsletterForm.title, `Search results of ${id}:`],
+                [
+                    "h2",
+                    ctx.ui.newsletterForm.title,
+                    `Search results for `,
+                    ["span", { class: "font-bold" }, id],
+                ],
+                ["hr"],
                 search.entries
                     ? [
                           "div",
-                          { class: "flex flex-col" },
+                          { class: "flex flex-col text-gray-600 font-light" },
                           [
                               "div",
-                              { class: "flex flex-wrap" },
+                              {
+                                  class:
+                                      "flex flex-row justify-between my-2 align-middle items-center",
+                              },
+                              [
+                                  "span",
+                                  "Showing ",
+                                  search.total_count > 30
+                                      ? [
+                                            "span",
+                                            [
+                                                "span",
+                                                {
+                                                    class:
+                                                        "text-black font-normal",
+                                                },
+                                                `${(page - 1) * 30}-${Math.min(
+                                                    page * 30,
+                                                    search.total_count
+                                                )} `,
+                                            ],
+                                            "of ",
+                                        ]
+                                      : ["span", "all "],
+                                  [
+                                      "span",
+                                      { class: "text-black font-normal" },
+                                      search.total_count + " ",
+                                  ],
+                                  "entries",
+                              ],
+                              search.total_count > 30
+                                  ? nav(ctx, {
+                                        class: "flex flex-row",
+                                    })
+                                  : [],
+                          ],
+                          [
+                              "div",
+                              {
+                                  class: "flex flex-wrap",
+                              },
                               search.entries.map((x) => [
                                   "div",
                                   [
@@ -56,54 +175,12 @@ export function search(ctx: AppContext) {
                                   ],
                               ]),
                           ],
-                          [
-                              "div",
-                              {
-                                  class:
-                                      "flex flex-row px-4 justify-center my-4",
-                              },
-                              page > 1
-                                  ? [
-                                        "div",
-                                        [
-                                            eventBtn,
-                                            [
-                                                ROUTE_TO_SEARCH_ENTRY_PAGE,
-                                                { id, page: page - 1 },
-                                            ],
-                                            {
-                                                class: "block m-1",
-                                            },
-                                            [
-                                                "div",
-                                                { class: "h-4 w-4" },
-                                                CARET_LEFT,
-                                            ],
-                                        ],
-                                    ]
-                                  : [],
-                              page < Math.ceil(search.total_count / 30)
-                                  ? [
-                                        "div",
-                                        { class: "pl-2" },
-                                        [
-                                            eventBtn,
-                                            [
-                                                ROUTE_TO_SEARCH_ENTRY_PAGE,
-                                                { id, page: page + 1 },
-                                            ],
-                                            {
-                                                class: "block m-1",
-                                            },
-                                            [
-                                                "div",
-                                                { class: "h-4 w-4" },
-                                                CARET_RIGHT,
-                                            ],
-                                        ],
-                                    ]
-                                  : [],
-                          ],
+                          search.total_count > 30
+                              ? nav(ctx, {
+                                    class:
+                                        "flex flex-row px-4 justify-center my-4",
+                                })
+                              : [],
                       ]
                     : [
                           "div",
