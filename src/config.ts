@@ -135,6 +135,7 @@ export const CONFIG: AppConfig = {
                     ev.SET_STATUS,
                     [StatusType.SUCCESS, "reported successfully", true],
                 ],
+                [ev.CLOSE_REPORT],
             ],
         }),
 
