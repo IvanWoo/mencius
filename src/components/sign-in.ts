@@ -22,7 +22,7 @@ export function signIn(ctx: AppContext) {
                 "p",
                 [
                     [
-                        `https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}`,
+                        `https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}&scope=user%20public_repo&redirect_uri=${REDIRECT_URI}`,
                         "Sign in with GitHub",
                     ],
                 ].map((link) => [externalLink, ctx.ui.contact.link, ...link]),

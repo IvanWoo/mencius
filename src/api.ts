@@ -45,6 +45,8 @@ export interface AppViews extends Record<keyof AppViews, IView<any>> {
     isNavOpen: IView<boolean>;
     accountOpen: IView<boolean>;
     deleteOpinionOpen: IView<boolean>;
+    reportOpen: IView<boolean>;
+    report: IView<Report>;
     input: IView<string>;
     entries: IView<IObjectOf<Entry>>;
     opinions: IView<IObjectOf<Opinion>>;
@@ -136,6 +138,16 @@ export interface User {
 export interface Search {
     total_count: number;
     entries: string[];
+}
+
+export enum ReportType {
+    OPINION = "OPINION",
+}
+export interface Report {
+    url: string;
+    context: any;
+    reason: string;
+    type: ReportType;
 }
 
 /**

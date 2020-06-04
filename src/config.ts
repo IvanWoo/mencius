@@ -8,7 +8,7 @@ import {
     valueUpdater,
 } from "@thi.ng/interceptors";
 import type { AppConfig, Opinion } from "./api";
-import { StatusType } from "./api";
+import { StatusType, ReportType } from "./api";
 import { about } from "./components/about";
 import { contact } from "./components/contact";
 import { search } from "./components/search";
@@ -97,17 +97,56 @@ export const CONFIG: AppConfig = {
         // prettier-ignore
         [ev.CLOSE_DELETE_OPINION]: valueUpdater<boolean>("deleteOpinionOpen", (x) => false),
 
+        [ev.TOGGLE_REPORT]: valueUpdater<boolean>("reportOpen", (x) => !x),
+
+        [ev.CLOSE_REPORT]: valueUpdater<boolean>("reportOpen", (x) => false),
+
+        [ev.SET_REPORT]: (_, [__, json]) => ({
+            [FX_DISPATCH_NOW]: [
+                EV_SET_VALUE,
+                [["report", json.key], json.value],
+            ],
+        }),
+
+        [ev.SET_OPINION_REPORT]: (_, [__, opinion]) => ({
+            [FX_DISPATCH_NOW]: [
+                [ev.TOGGLE_REPORT],
+                [ev.SET_REPORT, { key: "type", value: ReportType.OPINION }],
+                [ev.SET_REPORT, { key: "context", value: opinion }],
+                [
+                    ev.SET_REPORT,
+                    { key: "url", value: decodeURI(window.location.href) },
+                ],
+            ],
+        }),
+
+        [ev.CREATE_REPORT]: (_, [__, json]) => ({
+            [FX_DISPATCH_NOW]: [
+                [ev.SET_STATUS, [StatusType.INFO, "reporting..."]],
+            ],
+            [FX_DISPATCH_ASYNC]: [
+                fx.CREATE_REPORT,
+                json,
+                ev.CREATE_REPORT_SUCCESS,
+                ev.ERROR,
+            ],
+        }),
+
+        [ev.CREATE_REPORT_SUCCESS]: () => ({
+            [FX_DISPATCH_NOW]: [
+                [
+                    ev.SET_STATUS,
+                    [StatusType.SUCCESS, "reported successfully", true],
+                ],
+            ],
+        }),
+
         // toggles debug state flag on/off
         [ev.TOGGLE_DEBUG]: valueUpdater<boolean>("debug", (x) => !x),
 
-        [ev.SET_INPUT]: [
-            (_, [__, input]) => ({
-                [FX_DISPATCH_NOW]: [
-                    EV_SET_VALUE,
-                    ["input", input.toLowerCase()],
-                ],
-            }),
-        ],
+        [ev.SET_INPUT]: (_, [__, input]) => ({
+            [FX_DISPATCH_NOW]: [EV_SET_VALUE, ["input", input.toLowerCase()]],
+        }),
 
         [ev.GET_ENTRY]: (_, [__, id]) => ({
             [FX_DISPATCH_NOW]: [
@@ -661,6 +700,21 @@ export const CONFIG: AppConfig = {
                 }
                 return resp.json();
             }),
+        [fx.CREATE_REPORT]: (json) =>
+            fetch(API_HOST + "/api/v1/report", {
+                method: "POST",
+                headers: [
+                    ["Content-Type", "application/json"],
+                    ["Content-Type", "text/plain"],
+                ],
+                credentials: "include",
+                body: JSON.stringify(json.data),
+            }).then((resp) => {
+                if (!resp.ok) {
+                    throw new Error(resp.statusText);
+                }
+                return resp.json();
+            }),
     },
 
     // mapping route IDs to their respective UI component functions
@@ -689,6 +743,8 @@ export const CONFIG: AppConfig = {
         isNavOpen: false,
         accountOpen: false,
         deleteOpinionOpen: false,
+        reportOpen: false,
+        report: {},
         input: "",
         entries: {},
         opinions: {},
@@ -725,6 +781,8 @@ export const CONFIG: AppConfig = {
         isNavOpen: "isNavOpen",
         accountOpen: "accountOpen",
         deleteOpinionOpen: "deleteOpinionOpen",
+        reportOpen: "reportOpen",
+        report: "report",
         input: "input",
         entries: "entries",
         opinions: "opinions",

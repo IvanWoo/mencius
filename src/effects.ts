@@ -10,3 +10,4 @@ export const GET_WIKI = "get-wiki";
 export const CREATE_ENTRY = "create-entry";
 export const UPDATE_ENTRY = "update-entry";
 export const SEARCH_ENTRY = "search-entry";
+export const CREATE_REPORT = "create-report";
