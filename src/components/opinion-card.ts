@@ -14,7 +14,27 @@ import { withSize, EDIT, DELETE, WARNING } from "@thi.ng/hiccup-carbon-icons";
 import { parser } from "./markdown-parser";
 import { dropdown, DropDownOption } from "@thi.ng/hdom-components";
 
+function model() {
+    // [frame, [content, footer], cancel_btn]
+}
+
+function modalFrame(content: any) {
+    return [
+        "div",
+        { class: "fixed inset-0 flex items-center justify-center z-30" },
+        [
+            "div",
+            {
+                class:
+                    "fixed flex flex-col items-center justify-between mt-2 py-2 md:w-1/3 w-2/4 bg-white rounded-lg shadow-xl z-40",
+            },
+            content,
+        ],
+    ];
+}
+
 const LANG_OPTS: DropDownOption[] = [
+    ["", "Select reason..."],
     [
         "Unwanted commercial content or spam",
         "Unwanted commercial content or spam",
@@ -76,7 +96,7 @@ export function opinionCard(ctx: AppContext, opinion: Opinion) {
                         // ],
                     ],
                 ],
-                // TODO: refactor modal into separate file
+                // TODO: refactor modal into separate function
                 user.login == opinion.github_handler
                     ? [
                           "div",
@@ -105,23 +125,12 @@ export function opinionCard(ctx: AppContext, opinion: Opinion) {
                                   ["div", "edit"],
                               ],
                           ],
-                          // TODO: use modal like report
                           [
                               eventBtn,
-                              deleteOpinionOpen
-                                  ? [
-                                        DELETE_OPINION,
-                                        <OpinionMessenger>{
-                                            id,
-                                            data: opinion,
-                                            userName: user.login,
-                                        },
-                                    ]
-                                  : [TOGGLE_DELETE_OPINION],
+                              [TOGGLE_DELETE_OPINION],
                               {
-                                  class: deleteOpinionOpen
-                                      ? "focus:outline-none hover:text-black text-gray-700 bg-red-500 fill-current z-30 p-2"
-                                      : "focus:outline-none hover:text-gray-700 fill-current p-2",
+                                  class:
+                                      "focus:outline-none hover:text-gray-700 fill-current p-2",
                               },
                               [
                                   "div",
@@ -131,21 +140,84 @@ export function opinionCard(ctx: AppContext, opinion: Opinion) {
                                       { class: "pr-2" },
                                       withSize(DELETE, "20"),
                                   ],
-                                  [
-                                      "div",
-                                      deleteOpinionOpen ? "confirm?" : "delete",
-                                  ],
+                                  ["div", "delete"],
                               ],
                           ],
                           deleteOpinionOpen
                               ? [
-                                    eventBtn,
-                                    [CLOSE_DELETE_OPINION],
+                                    "div",
                                     {
-                                        tabindex: "-1",
                                         class:
-                                            "fixed inset-0 h-full w-full cursor-default bg-black bg-opacity-50 z-20",
+                                            "fixed inset-0 flex items-center justify-center z-30",
                                     },
+                                    [
+                                        "div",
+                                        {
+                                            class:
+                                                "fixed flex flex-col items-center justify-between mt-2 pt-2 lg:w-1/3 md:w-1/2 w-3/4 bg-white rounded-lg shadow-xl z-40",
+                                        },
+                                        [
+                                            "div",
+                                            {
+                                                class:
+                                                    "block font-medium text-gray-800 text-lg p-4 border-b border-b-2 w-full",
+                                            },
+                                            [
+                                                "div",
+                                                { class: "mb-2" },
+                                                "Delete opinion",
+                                            ],
+                                            [
+                                                "div",
+                                                {
+                                                    class:
+                                                        "text-sm text-gray-500",
+                                                },
+                                                "Are you sure you want to delete your opinion? This action cannot be undone.",
+                                            ],
+                                        ],
+                                        [
+                                            "div",
+                                            {
+                                                class:
+                                                    "flex flex-row self-end m-2",
+                                            },
+                                            [
+                                                eventBtn,
+                                                [CLOSE_DELETE_OPINION],
+                                                {
+                                                    class:
+                                                        "block px-4 py-2 text-black text-left font-medium",
+                                                },
+                                                "CANCEL",
+                                            ],
+                                            [
+                                                eventBtn,
+                                                [
+                                                    DELETE_OPINION,
+                                                    <OpinionMessenger>{
+                                                        id,
+                                                        data: opinion,
+                                                        userName: user.login,
+                                                    },
+                                                ],
+                                                {
+                                                    class:
+                                                        "block px-4 py-2 text-white text-left bg-red-600 rounded-lg font-medium hover:bg-red-500 transition ease-in-out duration-150",
+                                                },
+                                                "DELETE",
+                                            ],
+                                        ],
+                                    ],
+                                    [
+                                        eventBtn,
+                                        [CLOSE_DELETE_OPINION],
+                                        {
+                                            tabindex: "-1",
+                                            class:
+                                                "fixed inset-0 h-full w-full cursor-default bg-black bg-opacity-50 z-20",
+                                        },
+                                    ],
                                 ]
                               : [],
                       ]
@@ -192,7 +264,7 @@ export function opinionCard(ctx: AppContext, opinion: Opinion) {
                                         "div",
                                         {
                                             class:
-                                                "fixed flex flex-col items-center justify-between mt-2 py-2 md:w-1/3 w-2/4 bg-white rounded-lg shadow-xl z-40",
+                                                "fixed flex flex-col items-center justify-between mt-2 pt-2 md:w-1/3 w-2/4 bg-white rounded-lg shadow-xl z-40",
                                         },
                                         [
                                             "div",
@@ -229,14 +301,15 @@ export function opinionCard(ctx: AppContext, opinion: Opinion) {
                                         [
                                             "div",
                                             {
-                                                class: "flex flex-row self-end",
+                                                class:
+                                                    "flex flex-row self-end m-2",
                                             },
                                             [
                                                 eventBtn,
                                                 [CLOSE_REPORT],
                                                 {
                                                     class:
-                                                        "block px-4 py-2 text-black text-left",
+                                                        "block px-4 py-2 text-black text-left font-medium",
                                                 },
                                                 "CANCEL",
                                             ],
@@ -248,7 +321,7 @@ export function opinionCard(ctx: AppContext, opinion: Opinion) {
                                                 ],
                                                 {
                                                     class:
-                                                        "block px-4 py-2 text-black text-left disabled:opacity-50 transition ease-in-out duration-300",
+                                                        "block px-4 py-2 text-black text-left font-medium disabled:opacity-50 transition ease-in-out duration-300",
                                                     disabled: report.reason
                                                         ? false
                                                         : true,
