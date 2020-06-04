@@ -134,7 +134,7 @@ export function entryInputForm(
             ],
             [
                 eventBtn,
-                [mainEvent, { data: entry }],
+                [mainEvent, { id: entry.id, data: entry }],
                 // disable the btn when the name is empty
                 entry.name
                     ? {

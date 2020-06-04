@@ -457,8 +457,9 @@ export const CONFIG: AppConfig = {
             ],
         }),
 
-        [ev.CREATE_ENTRY_SUCCESS]: () => ({
+        [ev.CREATE_ENTRY_SUCCESS]: (_, [__, json]) => ({
             [FX_DISPATCH_NOW]: [
+                [ev.ROUTE_TO_ENTRY, json.id],
                 [
                     ev.SET_STATUS,
                     [StatusType.SUCCESS, "entry submitted successfully", true],
@@ -478,8 +479,10 @@ export const CONFIG: AppConfig = {
             ],
         }),
 
-        [ev.UPDATE_ENTRY_SUCCESS]: () => ({
+        [ev.UPDATE_ENTRY_SUCCESS]: (_, [__, json]) => ({
             [FX_DISPATCH_NOW]: [
+                [EV_SET_VALUE, [["entries", json.id], ""]],
+                [ev.ROUTE_TO_ENTRY, json.id],
                 [
                     ev.SET_STATUS,
                     [StatusType.SUCCESS, "entry updated successfully", true],
