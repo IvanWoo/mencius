@@ -154,7 +154,15 @@ export function opinionCard(ctx: AppContext, opinion: Opinion) {
                           { class: "flex flex-row items-top text-gray-500" },
                           [
                               eventBtn,
-                              [SET_OPINION_REPORT, opinion],
+                              [
+                                  SET_OPINION_REPORT,
+                                  opinion,
+                                  window.location.origin +
+                                      window.location.pathname +
+                                      `#/entry/${decodeURI(
+                                          ctx.views.route.deref()!.params.id
+                                      )}`,
+                              ],
                               {
                                   class:
                                       "ml-2 focus:outline-none hover:text-gray-700 p-2",

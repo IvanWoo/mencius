@@ -108,15 +108,12 @@ export const CONFIG: AppConfig = {
             ],
         }),
 
-        [ev.SET_OPINION_REPORT]: (_, [__, opinion]) => ({
+        [ev.SET_OPINION_REPORT]: (_, [__, opinion, url]) => ({
             [FX_DISPATCH_NOW]: [
                 [ev.TOGGLE_REPORT],
                 [ev.SET_REPORT, { key: "type", value: ReportType.OPINION }],
                 [ev.SET_REPORT, { key: "context", value: opinion }],
-                [
-                    ev.SET_REPORT,
-                    { key: "url", value: decodeURI(window.location.href) },
-                ],
+                [ev.SET_REPORT, { key: "url", value: url }],
             ],
         }),
 
