@@ -806,14 +806,17 @@ export const CONFIG: AppConfig = {
                 return resp.json();
             }),
         [fx.GET_VOTE]: (id: string) =>
-            fetch(API_HOST + "/api/v1/entries/" + id + "//vote", {
-                method: "GET",
-                headers: [
-                    ["Content-Type", "application/json"],
-                    ["Content-Type", "text/plain"],
-                ],
-                credentials: "include",
-            }).then((resp) => {
+            fetch(
+                API_HOST + `/api/v1/entries/${id}/placeholder/vote/placeholder`,
+                {
+                    method: "GET",
+                    headers: [
+                        ["Content-Type", "application/json"],
+                        ["Content-Type", "text/plain"],
+                    ],
+                    credentials: "include",
+                }
+            ).then((resp) => {
                 if (!resp.ok) {
                     throw new Error(resp.statusText);
                 }
