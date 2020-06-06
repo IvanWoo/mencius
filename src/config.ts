@@ -7,7 +7,7 @@ import {
     FX_DISPATCH_NOW,
     valueUpdater,
 } from "@thi.ng/interceptors";
-import type { AppConfig, Opinion } from "./api";
+import type { AppConfig, Opinion, Vote } from "./api";
 import { StatusType, ReportType } from "./api";
 import { about } from "./components/about";
 import { contact } from "./components/contact";
@@ -297,8 +297,8 @@ export const CONFIG: AppConfig = {
                 [
                     EV_UPDATE_VALUE,
                     [
-                        `entries.${json.id}.opinions`,
-                        (x: [Opinion]) => [...x, json.data],
+                        ["entries", json.id, "opinions"],
+                        (x: Opinion[]) => [...x, json.data],
                     ],
                 ],
             ],
@@ -309,8 +309,8 @@ export const CONFIG: AppConfig = {
                 [
                     EV_UPDATE_VALUE,
                     [
-                        `entries.${json.id}.opinions`,
-                        (x: [Opinion]) =>
+                        ["entries", json.id, "opinions"],
+                        (x: Opinion[]) =>
                             x.filter((y: Opinion) => y !== json.data),
                     ],
                 ],
@@ -529,24 +529,99 @@ export const CONFIG: AppConfig = {
                 [ev.ROUTE_TO_SEARCH_ENTRY, json.id, json.page],
             ],
         }),
+
+        [ev.GET_VOTE]: (_, [__, id]) => ({
+            [FX_DISPATCH_ASYNC]: [fx.GET_VOTE, id, ev.RECEIVE_VOTE, ev.ERROR],
+        }),
+
+        [ev.RECEIVE_VOTE]: (_, [__, json]) => ({
+            [FX_DISPATCH_NOW]: [
+                [
+                    EV_SET_VALUE,
+                    [["votes", decodeURI(json.id)], json.data ? json.data : []],
+                ],
+                [
+                    ev.SET_STATUS,
+                    [StatusType.SUCCESS, "vote data successfully loaded", true],
+                ],
+            ],
+        }),
+
+        [ev.CREATE_VOTE]: (_, [__, json]) => ({
+            [FX_DISPATCH_NOW]: [
+                [ev.SET_STATUS, [StatusType.INFO, "voting..."]],
+            ],
+            [FX_DISPATCH_ASYNC]: [
+                fx.CREATE_VOTE,
+                json,
+                ev.CREATE_VOTE_SUCCESS,
+                ev.ERROR,
+            ],
+        }),
+
+        [ev.CREATE_VOTE_SUCCESS]: (_, [__, json]) => ({
+            [FX_DISPATCH_NOW]: [
+                [
+                    ev.SET_STATUS,
+                    [StatusType.SUCCESS, "voted successfully", true],
+                ],
+                [ev.APPEND_VOTE, json],
+            ],
+        }),
+
+        [ev.DELETE_VOTE]: (_, [__, json]) => ({
+            [FX_DISPATCH_NOW]: [
+                [ev.SET_STATUS, [StatusType.INFO, "deleting vote..."]],
+                [ev.REMOVE_VOTE, json],
+            ],
+            [FX_DISPATCH_ASYNC]: [
+                fx.DELETE_VOTE,
+                json,
+                ev.DELETE_VOTE_SUCCESS,
+                ev.ERROR,
+            ],
+        }),
+
+        [ev.DELETE_VOTE_SUCCESS]: () => ({
+            [FX_DISPATCH_NOW]: [
+                [
+                    ev.SET_STATUS,
+                    [StatusType.SUCCESS, "vote deleted successfully", true],
+                ],
+            ],
+        }),
+
+        [ev.APPEND_VOTE]: (_, [__, json]) => ({
+            [FX_DISPATCH_NOW]: [
+                [
+                    EV_UPDATE_VALUE,
+                    [["votes", json.id], (x: Vote[]) => [...x, ...json.data]],
+                ],
+            ],
+        }),
+
+        [ev.REMOVE_VOTE]: (_, [__, json]) => ({
+            [FX_DISPATCH_NOW]: [
+                [
+                    EV_UPDATE_VALUE,
+                    [
+                        ["votes", json.id],
+                        (x: Vote[]) => x.filter((y: Vote) => y !== json.data),
+                    ],
+                ],
+            ],
+        }),
+
+        [ev.GET_ENTRY_W_VOTE]: (_, [__, id]) => ({
+            [FX_DISPATCH_NOW]: [
+                [ev.GET_ENTRY, id],
+                [ev.GET_VOTE, id],
+            ],
+        }),
     },
 
     // side effects
     effects: {
-        [fx.GET_ENTRY]: (id: string) =>
-            fetch(API_HOST + "/api/v1/entries/" + id, {
-                method: "GET",
-                headers: [
-                    ["Content-Type", "application/json"],
-                    ["Content-Type", "text/plain"],
-                ],
-                credentials: "include",
-            }).then((resp) => {
-                if (!resp.ok) {
-                    throw new Error(resp.statusText);
-                }
-                return resp.json();
-            }),
         [fx.GET_USER]: () =>
             fetch(API_HOST + "/api/v1/user", {
                 method: "GET",
@@ -653,6 +728,20 @@ export const CONFIG: AppConfig = {
                 }
                 return resp.json();
             }),
+        [fx.GET_ENTRY]: (id: string) =>
+            fetch(API_HOST + "/api/v1/entries/" + id, {
+                method: "GET",
+                headers: [
+                    ["Content-Type", "application/json"],
+                    ["Content-Type", "text/plain"],
+                ],
+                credentials: "include",
+            }).then((resp) => {
+                if (!resp.ok) {
+                    throw new Error(resp.statusText);
+                }
+                return resp.json();
+            }),
         [fx.CREATE_ENTRY]: (json) =>
             fetch(API_HOST + "/api/v1/entries", {
                 method: "POST",
@@ -716,6 +805,58 @@ export const CONFIG: AppConfig = {
                 }
                 return resp.json();
             }),
+        [fx.GET_VOTE]: (id: string) =>
+            fetch(API_HOST + "/api/v1/entries/" + id + "//vote", {
+                method: "GET",
+                headers: [
+                    ["Content-Type", "application/json"],
+                    ["Content-Type", "text/plain"],
+                ],
+                credentials: "include",
+            }).then((resp) => {
+                if (!resp.ok) {
+                    throw new Error(resp.statusText);
+                }
+                return resp.json();
+            }),
+        [fx.CREATE_VOTE]: (json) =>
+            fetch(
+                API_HOST +
+                    `/api/v1/entries/${json.id}/${json.data.opinion_github_handler}/vote`,
+                {
+                    method: "POST",
+                    headers: [
+                        ["Content-Type", "application/json"],
+                        ["Content-Type", "text/plain"],
+                    ],
+                    credentials: "include",
+                    body: JSON.stringify(json.data),
+                }
+            ).then((resp) => {
+                if (!resp.ok) {
+                    throw new Error(resp.statusText);
+                }
+                return resp.json();
+            }),
+        [fx.DELETE_VOTE]: (json) =>
+            fetch(
+                API_HOST +
+                    `/api/v1/entries/${json.id}/${json.data.opinion_github_handler}/vote/${json.voteID}`,
+                {
+                    method: "DELETE",
+                    headers: [
+                        ["Content-Type", "application/json"],
+                        ["Content-Type", "text/plain"],
+                    ],
+                    credentials: "include",
+                    body: JSON.stringify(json.data),
+                }
+            ).then((resp) => {
+                if (!resp.ok) {
+                    throw new Error(resp.statusText);
+                }
+                return resp.json();
+            }),
     },
 
     // mapping route IDs to their respective UI component functions
@@ -748,6 +889,7 @@ export const CONFIG: AppConfig = {
         report: {},
         input: "",
         entries: {},
+        votes: {},
         opinions: {},
         tempOpinion: {},
         newEntry: {
@@ -786,6 +928,7 @@ export const CONFIG: AppConfig = {
         report: "report",
         input: "input",
         entries: "entries",
+        votes: "votes",
         opinions: "opinions",
         tempOpinion: "tempOpinion",
         newEntry: "newEntry",

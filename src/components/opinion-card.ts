@@ -10,8 +10,9 @@ import {
     SET_OPINION_REPORT,
     CREATE_REPORT,
 } from "../events";
-import { withSize, EDIT, DELETE, WARNING } from "@thi.ng/hiccup-carbon-icons";
 import { parser } from "./markdown-parser";
+import { voteZone } from "./vote-zone";
+import { withSize, EDIT, DELETE, WARNING } from "@thi.ng/hiccup-carbon-icons";
 import { dropdown, DropDownOption } from "@thi.ng/hdom-components";
 
 function model() {
@@ -357,26 +358,7 @@ export function opinionCard(ctx: AppContext, opinion: Opinion) {
                     parser(opinion.details),
                 ],
             ],
-            [
-                "div",
-                { class: "mt-4" },
-                [
-                    "button",
-                    {
-                        class:
-                            "bg-transparent hover:bg-purple-300 text-purple-700 font-semibold hover:text-white py-2 px-4 border border-purple-500 hover:border-transparent rounded",
-                    },
-                    "👍42",
-                ],
-                [
-                    "button",
-                    {
-                        class:
-                            "bg-transparent hover:bg-purple-300 text-purple-700 font-semibold hover:text-white py-2 px-4 border border-purple-500 hover:border-transparent rounded mx-2",
-                    },
-                    "👎0",
-                ],
-            ],
+            voteZone(ctx, opinion),
         ],
     ];
 }

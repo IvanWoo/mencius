@@ -1,5 +1,4 @@
 export const ROUTE_TO = "route-to";
-export const GET_ENTRY = "get-entry";
 export const GET_USER = "get-user";
 export const GET_TOKEN = "get-token";
 export const SIGN_OUT = "sign-out";
@@ -7,7 +6,11 @@ export const CREATE_OPINION = "create-opinion";
 export const DELETE_OPINION = "delete-opinion";
 export const UPDATE_OPINION = "update-opinion";
 export const GET_WIKI = "get-wiki";
+export const GET_ENTRY = "get-entry";
 export const CREATE_ENTRY = "create-entry";
 export const UPDATE_ENTRY = "update-entry";
 export const SEARCH_ENTRY = "search-entry";
 export const CREATE_REPORT = "create-report";
+export const GET_VOTE = "get-vote";
+export const CREATE_VOTE = "create-vote";
+export const DELETE_VOTE = "delete-vote";

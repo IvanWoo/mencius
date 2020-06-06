@@ -49,6 +49,7 @@ export interface AppViews extends Record<keyof AppViews, IView<any>> {
     report: IView<Report>;
     input: IView<string>;
     entries: IView<IObjectOf<Entry>>;
+    votes: IView<IObjectOf<Array<Vote>>>;
     opinions: IView<IObjectOf<Opinion>>;
     tempOpinion: IView<Opinion>;
     newEntry: IView<Entry>;
@@ -119,6 +120,19 @@ export interface Opinion {
     user_avatar_url: string;
 }
 
+export interface Vote {
+    id: string;
+    entry_id: string;
+    opinion_github_handler: string;
+    github_handler: string;
+    type: string;
+}
+
+export enum ActivityType {
+    UPVOTE = "upvote",
+    DOWNVOTE = "downvote",
+}
+
 export interface User {
     login: string;
     avatar_url: string;
@@ -157,6 +171,15 @@ export interface OpinionMessenger {
     id: string;
     data: Opinion;
     userName?: string;
+}
+
+/**
+ * Types for vote related events payload
+ */
+export interface VoteMessenger {
+    id: string;
+    data: Vote;
+    voteID?: string;
 }
 
 /**
