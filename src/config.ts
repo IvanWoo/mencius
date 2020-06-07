@@ -612,7 +612,7 @@ export const CONFIG: AppConfig = {
             ],
         }),
 
-        [ev.GET_ENTRY_W_VOTE]: (_, [__, id]) => ({
+        [ev.GET_ENTRY_W_ACTIVITY]: (_, [__, id]) => ({
             [FX_DISPATCH_NOW]: [
                 [ev.GET_NOTIFICATION, id],
                 [ev.GET_VOTE, id],

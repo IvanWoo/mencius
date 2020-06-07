@@ -1,6 +1,10 @@
 import type { AppContext } from "../api";
 import { StatusType } from "../api";
-import { GET_ENTRY_W_VOTE, SET_STATUS, ROUTE_TO_NEW_ENTRY } from "../events";
+import {
+    GET_ENTRY_W_ACTIVITY,
+    SET_STATUS,
+    ROUTE_TO_NEW_ENTRY,
+} from "../events";
 import { opinionCard } from "./opinion-card";
 import { opinionInput } from "./opinion-input";
 import { metadata } from "./metadata";
@@ -20,7 +24,7 @@ export function entryDetail(ctx: AppContext) {
     bus.dispatch(
         views.entries.deref()![id]
             ? [SET_STATUS, [StatusType.SUCCESS, "loaded from cache", true]]
-            : [GET_ENTRY_W_VOTE, id]
+            : [GET_ENTRY_W_ACTIVITY, id]
     );
     return () => {
         const id = decodeURI(views.route.deref()!.params.id);
