@@ -1,7 +1,16 @@
-import type { AppContext, Entry } from "../api";
+import type { AppContext, Entry, NotificationMessenger } from "../api";
 import { eventBtn } from "./event-btn";
-import { ROUTE_TO_EDIT_ENTRY } from "../events";
-import { withSize, EDIT } from "@thi.ng/hiccup-carbon-icons";
+import {
+    ROUTE_TO_EDIT_ENTRY,
+    CREATE_NOTIFICATION,
+    DELETE_NOTIFICATION,
+} from "../events";
+import {
+    withSize,
+    EDIT,
+    VISIBILITY_ON,
+    VISIBILITY_OFF,
+} from "@thi.ng/hiccup-carbon-icons";
 
 function tag(_: AppContext, x: string) {
     return [
@@ -19,6 +28,8 @@ function tag(_: AppContext, x: string) {
 
 export function metadata(ctx: AppContext, entry: Entry) {
     const id = decodeURI(ctx.views.route.deref()!.params.id);
+    const user = ctx.views.user.deref()!;
+    const notification = ctx.views.notifications.deref()![id];
     return [
         "div",
         { class: "flex flex-col justify-center p-8" },
@@ -40,6 +51,69 @@ export function metadata(ctx: AppContext, entry: Entry) {
                 //     { class: "mv-2 text-base text-gray-700" },
                 //     `${entry.date}`,
                 // ],
+                notification && notification[0] && notification[0].entry_id
+                    ? [
+                          "div",
+                          { class: "flex flex-row" },
+                          [
+                              eventBtn,
+                              [
+                                  DELETE_NOTIFICATION,
+                                  <NotificationMessenger>{
+                                      id,
+                                      data: notification[0],
+                                  },
+                              ],
+                              {
+                                  class:
+                                      "p-2 mb-2 focus:outline-none hover:text-gray-700 border border-purple-300 hover:border-purple-900 font-semibold rounded",
+                              },
+                              [
+                                  "div",
+                                  { class: "flex flex-row" },
+                                  [
+                                      "div",
+                                      {
+                                          class:
+                                              "inline-block w-full fill-current pr-2 self-center",
+                                      },
+                                      withSize(VISIBILITY_OFF, "20"),
+                                  ],
+                                  ["div", "unwatch"],
+                              ],
+                          ],
+                      ]
+                    : [
+                          "div",
+                          { class: "flex flex-row" },
+                          [
+                              eventBtn,
+                              [
+                                  CREATE_NOTIFICATION,
+                                  <NotificationMessenger>{
+                                      id,
+                                      data: { github_handler: user.login },
+                                  },
+                              ],
+                              {
+                                  class:
+                                      "p-2 mb-2 focus:outline-none hover:text-gray-700 border border-purple-300 hover:border-purple-900 font-semibold rounded",
+                              },
+                              [
+                                  "div",
+                                  { class: "flex flex-row" },
+                                  [
+                                      "div",
+                                      {
+                                          class:
+                                              "inline-block w-full fill-current pr-2 self-center",
+                                      },
+                                      withSize(VISIBILITY_ON, "20"),
+                                  ],
+                                  ["div", "watch"],
+                              ],
+                          ],
+                      ],
             ],
             [
                 "div",

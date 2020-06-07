@@ -14,3 +14,6 @@ export const CREATE_REPORT = "create-report";
 export const GET_VOTE = "get-vote";
 export const CREATE_VOTE = "create-vote";
 export const DELETE_VOTE = "delete-vote";
+export const GET_NOTIFICATION = "get-notification";
+export const CREATE_NOTIFICATION = "create-notification";
+export const DELETE_NOTIFICATION = "delete-notification";

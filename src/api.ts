@@ -50,6 +50,7 @@ export interface AppViews extends Record<keyof AppViews, IView<any>> {
     input: IView<string>;
     entries: IView<IObjectOf<Entry>>;
     votes: IView<IObjectOf<Array<Vote>>>;
+    notifications: IView<IObjectOf<Array<Notification>>>;
     opinions: IView<IObjectOf<Opinion>>;
     tempOpinion: IView<Opinion>;
     newEntry: IView<Entry>;
@@ -128,9 +129,18 @@ export interface Vote {
     type: string;
 }
 
+export interface Notification {
+    id: string;
+    entry_id: string;
+    github_handler: string;
+    type: string;
+    status: string;
+}
+
 export enum ActivityType {
     UPVOTE = "upvote",
     DOWNVOTE = "downvote",
+    NOTIFICATION = "notification",
 }
 
 export interface User {
@@ -180,6 +190,14 @@ export interface VoteMessenger {
     id: string;
     data: Vote;
     voteID?: string;
+}
+
+/**
+ * Types for notification related events payload
+ */
+export interface NotificationMessenger {
+    id: string;
+    data: Notification;
 }
 
 /**

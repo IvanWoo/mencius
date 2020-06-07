@@ -614,8 +614,110 @@ export const CONFIG: AppConfig = {
 
         [ev.GET_ENTRY_W_VOTE]: (_, [__, id]) => ({
             [FX_DISPATCH_NOW]: [
-                [ev.GET_ENTRY, id],
+                [ev.GET_NOTIFICATION, id],
                 [ev.GET_VOTE, id],
+                [ev.GET_ENTRY, id],
+            ],
+        }),
+
+        [ev.GET_NOTIFICATION]: (_, [__, id]) => ({
+            [FX_DISPATCH_ASYNC]: [
+                fx.GET_NOTIFICATION,
+                id,
+                ev.RECEIVE_NOTIFICATION,
+                ev.ERROR,
+            ],
+        }),
+
+        [ev.RECEIVE_NOTIFICATION]: (_, [__, json]) => ({
+            [FX_DISPATCH_NOW]: [
+                [
+                    EV_SET_VALUE,
+                    [
+                        ["notifications", decodeURI(json.id)],
+                        json.data[0].entry_id ? json.data : [],
+                    ],
+                ],
+                [
+                    ev.SET_STATUS,
+                    [
+                        StatusType.SUCCESS,
+                        "notification successfully loaded",
+                        true,
+                    ],
+                ],
+            ],
+        }),
+
+        [ev.CREATE_NOTIFICATION]: (_, [__, json]) => ({
+            [FX_DISPATCH_NOW]: [
+                [ev.SET_STATUS, [StatusType.INFO, "watching the entry..."]],
+            ],
+            [FX_DISPATCH_ASYNC]: [
+                fx.CREATE_NOTIFICATION,
+                json,
+                ev.CREATE_NOTIFICATION_SUCCESS,
+                ev.ERROR,
+            ],
+        }),
+
+        [ev.CREATE_NOTIFICATION_SUCCESS]: (_, [__, json]) => ({
+            [FX_DISPATCH_NOW]: [
+                [
+                    ev.SET_STATUS,
+                    [StatusType.SUCCESS, "watched successfully", true],
+                ],
+                [ev.APPEND_NOTIFICATION, json],
+            ],
+        }),
+
+        [ev.DELETE_NOTIFICATION]: (_, [__, json]) => ({
+            [FX_DISPATCH_NOW]: [
+                [ev.SET_STATUS, [StatusType.INFO, "deleting notification..."]],
+                [ev.REMOVE_NOTIFICATION, json],
+            ],
+            [FX_DISPATCH_ASYNC]: [
+                fx.DELETE_NOTIFICATION,
+                json,
+                ev.DELETE_NOTIFICATION_SUCCESS,
+                ev.ERROR,
+            ],
+        }),
+
+        [ev.DELETE_NOTIFICATION_SUCCESS]: () => ({
+            [FX_DISPATCH_NOW]: [
+                [
+                    ev.SET_STATUS,
+                    [
+                        StatusType.SUCCESS,
+                        "notification deleted successfully",
+                        true,
+                    ],
+                ],
+            ],
+        }),
+
+        [ev.APPEND_NOTIFICATION]: (_, [__, json]) => ({
+            [FX_DISPATCH_NOW]: [
+                [
+                    EV_UPDATE_VALUE,
+                    [
+                        ["notifications", json.id],
+                        (x: Vote[]) => [...x, ...json.data],
+                    ],
+                ],
+            ],
+        }),
+
+        [ev.REMOVE_NOTIFICATION]: (_, [__, json]) => ({
+            [FX_DISPATCH_NOW]: [
+                [
+                    EV_UPDATE_VALUE,
+                    [
+                        ["notifications", json.id],
+                        (x: Vote[]) => x.filter((y: Vote) => y !== json.data),
+                    ],
+                ],
             ],
         }),
     },
@@ -860,6 +962,54 @@ export const CONFIG: AppConfig = {
                 }
                 return resp.json();
             }),
+        [fx.GET_NOTIFICATION]: (id: string) =>
+            fetch(API_HOST + `/api/v1/notification/${id}/placeholder`, {
+                method: "GET",
+                headers: [
+                    ["Content-Type", "application/json"],
+                    ["Content-Type", "text/plain"],
+                ],
+                credentials: "include",
+            }).then((resp) => {
+                if (!resp.ok) {
+                    throw new Error(resp.statusText);
+                }
+                return resp.json();
+            }),
+        [fx.CREATE_NOTIFICATION]: (json) =>
+            fetch(API_HOST + `/api/v1/notification/${json.id}`, {
+                method: "POST",
+                headers: [
+                    ["Content-Type", "application/json"],
+                    ["Content-Type", "text/plain"],
+                ],
+                credentials: "include",
+                body: JSON.stringify(json.data),
+            }).then((resp) => {
+                if (!resp.ok) {
+                    throw new Error(resp.statusText);
+                }
+                return resp.json();
+            }),
+        [fx.DELETE_NOTIFICATION]: (json) =>
+            fetch(
+                API_HOST +
+                    `/api/v1/notification/${json.id}/${json.data.github_handler}`,
+                {
+                    method: "DELETE",
+                    headers: [
+                        ["Content-Type", "application/json"],
+                        ["Content-Type", "text/plain"],
+                    ],
+                    credentials: "include",
+                    body: JSON.stringify(json.data),
+                }
+            ).then((resp) => {
+                if (!resp.ok) {
+                    throw new Error(resp.statusText);
+                }
+                return resp.json();
+            }),
     },
 
     // mapping route IDs to their respective UI component functions
@@ -893,6 +1043,7 @@ export const CONFIG: AppConfig = {
         input: "",
         entries: {},
         votes: {},
+        notifications: {},
         opinions: {},
         tempOpinion: {},
         newEntry: {
@@ -932,6 +1083,7 @@ export const CONFIG: AppConfig = {
         input: "input",
         entries: "entries",
         votes: "votes",
+        notifications: "notifications",
         opinions: "opinions",
         tempOpinion: "tempOpinion",
         newEntry: "newEntry",
