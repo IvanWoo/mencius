@@ -134,7 +134,7 @@ export class App {
                     "div",
                     { class: "w-full" },
                     nav,
-                    [frame(this.ctx.views.routeComponent)],
+                    [frame, this.ctx.views.routeComponent],
                 ],
                 ENV && ENV === "debug"
                     ? [debugContainer, debug, this.ctx.views.json]

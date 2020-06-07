@@ -30,6 +30,7 @@ const myDownvote = (user: User, vs: Vote[], op: Opinion) =>
     myVote(user, vs, op, ActivityType.DOWNVOTE);
 
 function createBtn(
+    _: AppContext,
     id: string,
     user: User,
     opinion: Opinion,
@@ -58,7 +59,13 @@ function createBtn(
     ];
 }
 
-function deleteBtn(mv: Vote, opinion: Opinion, attribs: any, content: string) {
+function deleteBtn(
+    _: AppContext,
+    mv: Vote,
+    opinion: Opinion,
+    attribs: any,
+    content: string
+) {
     return [
         eventBtn,
         [
@@ -87,16 +94,18 @@ export function voteZone(ctx: AppContext, opinion: Opinion) {
                   "div",
                   { class: "flex flex-row items-center mt-4 space-x-2" },
                   myUpvote(user, votes, opinion).length > 0
-                      ? deleteBtn(
+                      ? [
+                            deleteBtn,
                             myUpvote(user, votes, opinion)[0],
                             opinion,
                             {
                                 class:
                                     "hover:bg-transparent bg-purple-300 hover:text-purple-700 text-white font-semibold py-2 px-4 border hover:border-purple-500 border-transparent rounded",
                             },
-                            "👍 " + upvoteSum(votes, opinion)
-                        )
-                      : createBtn(
+                            "👍 " + upvoteSum(votes, opinion),
+                        ]
+                      : [
+                            createBtn,
                             id,
                             user,
                             opinion,
@@ -105,19 +114,21 @@ export function voteZone(ctx: AppContext, opinion: Opinion) {
                                 class:
                                     "bg-transparent hover:bg-purple-300 text-purple-700 font-semibold hover:text-white py-2 px-4 border border-purple-500 hover:border-transparent rounded",
                             },
-                            "👍 " + upvoteSum(votes, opinion)
-                        ),
+                            "👍 " + upvoteSum(votes, opinion),
+                        ],
                   myDownvote(user, votes, opinion).length > 0
-                      ? deleteBtn(
+                      ? [
+                            deleteBtn,
                             myDownvote(user, votes, opinion)[0],
                             opinion,
                             {
                                 class:
                                     "hover:bg-transparent bg-purple-300 hover:text-purple-700 text-white font-semibold py-2 px-4 border hover:border-purple-500 border-transparent rounded",
                             },
-                            "👎 " + downvoteSum(votes, opinion)
-                        )
-                      : createBtn(
+                            "👎 " + downvoteSum(votes, opinion),
+                        ]
+                      : [
+                            createBtn,
                             id,
                             user,
                             opinion,
@@ -126,13 +137,14 @@ export function voteZone(ctx: AppContext, opinion: Opinion) {
                                 class:
                                     "bg-transparent hover:bg-purple-300 text-purple-700 font-semibold hover:text-white py-2 px-4 border border-purple-500 hover:border-transparent rounded",
                             },
-                            "👎 " + downvoteSum(votes, opinion)
-                        ),
+                            "👎 " + downvoteSum(votes, opinion),
+                        ],
               ]
             : [
                   "div",
                   { class: "flex flex-row items-center mt-4 space-x-2" },
-                  createBtn(
+                  [
+                      createBtn,
                       id,
                       user,
                       opinion,
@@ -141,9 +153,10 @@ export function voteZone(ctx: AppContext, opinion: Opinion) {
                           class:
                               "bg-transparent hover:bg-purple-300 text-purple-700 font-semibold hover:text-white py-2 px-4 border border-purple-500 hover:border-transparent rounded",
                       },
-                      "👍 0"
-                  ),
-                  createBtn(
+                      "👍 0",
+                  ],
+                  [
+                      createBtn,
                       id,
                       user,
                       opinion,
@@ -152,8 +165,8 @@ export function voteZone(ctx: AppContext, opinion: Opinion) {
                           class:
                               "bg-transparent hover:bg-purple-300 text-purple-700 font-semibold hover:text-white py-2 px-4 border border-purple-500 hover:border-transparent rounded",
                       },
-                      "👎 0"
-                  ),
+                      "👎 0",
+                  ],
               ],
     ];
 }

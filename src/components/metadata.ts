@@ -3,7 +3,7 @@ import { eventBtn } from "./event-btn";
 import { ROUTE_TO_EDIT_ENTRY } from "../events";
 import { withSize, EDIT } from "@thi.ng/hiccup-carbon-icons";
 
-function tag(x: string) {
+function tag(_: AppContext, x: string) {
     return [
         "div",
         [
@@ -52,7 +52,7 @@ export function metadata(ctx: AppContext, entry: Entry) {
                     entry.group,
                     entry.language,
                     entry.romanization,
-                ].map((x) => (x ? tag(x) : [])),
+                ].map((x) => (x ? [tag, x] : [])),
                 [
                     eventBtn,
                     [ROUTE_TO_EDIT_ENTRY, id],

@@ -30,13 +30,13 @@ export function editEntry(ctx: AppContext) {
             "div",
             status,
             user.name
-                ? entryInputForm(
-                      ctx,
+                ? [
+                      entryInputForm,
                       "tempEntry",
                       SET_TEMP_ENTRY,
                       GET_WIKI_TEMP,
-                      UPDATE_ENTRY
-                  )
+                      UPDATE_ENTRY,
+                  ]
                 : [
                       "div",
                       { class: "flex flex-col p-12" },

@@ -33,8 +33,8 @@ export function entryDetail(ctx: AppContext) {
                 ? [
                       "div",
                       { class: "flex flex-col" },
-                      metadata(ctx, entry),
-                      entry.opinions.map((x) => opinionCard(ctx, x)),
+                      [metadata, entry],
+                      entry.opinions.map((x) => [opinionCard, x]),
                       user.login &&
                       entry.opinions
                           .map((x) => x.github_handler.toLowerCase())

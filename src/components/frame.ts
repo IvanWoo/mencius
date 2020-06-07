@@ -1,9 +1,11 @@
+import { AppContext } from "../api";
+
 /**
  * Basic frame component.
  *
  * @param ctx injected context object
  */
-export function frame(content: any) {
+export function frame(_: AppContext, content: any) {
     return [
         "div",
         { class: "mt-4" },

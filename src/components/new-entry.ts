@@ -30,13 +30,13 @@ export function newEntry(ctx: AppContext) {
             "div",
             status,
             user.name
-                ? entryInputForm(
-                      ctx,
+                ? [
+                      entryInputForm,
                       "newEntry",
                       SET_NEW_ENTRY,
                       GET_WIKI_NEW,
-                      CREATE_ENTRY
-                  )
+                      CREATE_ENTRY,
+                  ]
                 : [
                       "div",
                       { class: "flex flex-col p-12" },
