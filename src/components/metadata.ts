@@ -1,16 +1,4 @@
-import type { AppContext, Entry, NotificationMessenger } from "../api";
-import { eventBtn } from "./event-btn";
-import {
-    ROUTE_TO_EDIT_ENTRY,
-    CREATE_NOTIFICATION,
-    DELETE_NOTIFICATION,
-} from "../events";
-import {
-    withSize,
-    EDIT,
-    VISIBILITY_ON,
-    VISIBILITY_OFF,
-} from "@thi.ng/hiccup-carbon-icons";
+import type { AppContext, Entry } from "../api";
 
 function tag(_: AppContext, x: string) {
     return [
@@ -32,89 +20,23 @@ export function metadata(ctx: AppContext, entry: Entry) {
     const notification = ctx.views.notifications.deref()![id];
     return [
         "div",
-        { class: "flex flex-col justify-center p-8" },
+        { class: "flex flex-col justify-center px-12 pb-10" },
         [
             "div",
-            { class: " px-12 md:pl-12" },
+            { class: "ml-4 md:ml-6" },
             [
-                "div",
-                [
-                    "h3",
-                    {
-                        class:
-                            "sm:font-light text-2xl sm:text-3xl md:text-4xl text-gray-900 mt-2",
-                    },
-                    `${entry.name} ・ ${entry.consensus_translation}`,
-                ],
-                // [
-                //     "div",
-                //     { class: "mv-2 text-base text-gray-700" },
-                //     `${entry.date}`,
-                // ],
-                notification && notification[0] && notification[0].entry_id
-                    ? [
-                          "div",
-                          { class: "flex flex-row" },
-                          [
-                              eventBtn,
-                              [
-                                  DELETE_NOTIFICATION,
-                                  <NotificationMessenger>{
-                                      id,
-                                      data: notification[0],
-                                  },
-                              ],
-                              {
-                                  class:
-                                      "p-2 mb-2 focus:outline-none hover:text-gray-700 border border-purple-300 hover:border-purple-900 font-semibold rounded focus:outline-none",
-                              },
-                              [
-                                  "div",
-                                  { class: "flex flex-row" },
-                                  [
-                                      "div",
-                                      {
-                                          class:
-                                              "inline-block w-full fill-current pr-2 self-center",
-                                      },
-                                      withSize(VISIBILITY_OFF, "20"),
-                                  ],
-                                  ["div", "unwatch"],
-                              ],
-                          ],
-                      ]
-                    : [
-                          "div",
-                          { class: "flex flex-row" },
-                          [
-                              eventBtn,
-                              [
-                                  CREATE_NOTIFICATION,
-                                  <NotificationMessenger>{
-                                      id,
-                                      data: { github_handler: user.login },
-                                  },
-                              ],
-                              {
-                                  class:
-                                      "p-2 mb-2 focus:outline-none hover:text-gray-700 border border-purple-300 hover:border-purple-900 font-semibold rounded focus:outline-none",
-                              },
-                              [
-                                  "div",
-                                  { class: "flex flex-row" },
-                                  [
-                                      "div",
-                                      {
-                                          class:
-                                              "inline-block w-full fill-current pr-2 self-center",
-                                      },
-                                      withSize(VISIBILITY_ON, "20"),
-                                  ],
-                                  ["div", "watch"],
-                              ],
-                          ],
-                      ],
+                "h3",
+                {
+                    class:
+                        "sm:font-light text-xl sm:text-2xl md:text-3xl text-gray-900 mt-2",
+                },
+                `${entry.name} ・ ${entry.consensus_translation}`,
             ],
+            // [
+            //     "div",
+            //     { class: "mv-2 text-base text-gray-700" },
+            //     `${entry.date}`,
+            // ],
             [
                 "div",
                 { class: "flex flex-wrap" },
@@ -126,26 +48,8 @@ export function metadata(ctx: AppContext, entry: Entry) {
                     entry.group,
                     entry.language,
                     entry.romanization,
+                    entry.album,
                 ].map((x) => (x ? [tag, x] : [])),
-                [
-                    eventBtn,
-                    [ROUTE_TO_EDIT_ENTRY, id],
-                    {
-                        class: "ml-2 focus:outline-none hover:text-gray-700",
-                    },
-                    [
-                        "div",
-                        { class: "flex flex-row" },
-                        [
-                            "div",
-                            {
-                                class: "inline-block w-full fill-current pr-2",
-                            },
-                            withSize(EDIT, "20"),
-                        ],
-                        ["div", "edit"],
-                    ],
-                ],
             ],
             entry.wikipedia.pageid ? wikipedia(entry) : [],
         ],

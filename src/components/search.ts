@@ -130,7 +130,9 @@ export function search(ctx: AppContext) {
                                                     class:
                                                         "text-black font-normal",
                                                 },
-                                                `${(page - 1) * 30}-${Math.min(
+                                                `${
+                                                    (page - 1) * 30 + 1
+                                                }-${Math.min(
                                                     page * 30,
                                                     search.total_count
                                                 )} `,

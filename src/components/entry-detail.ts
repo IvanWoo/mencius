@@ -10,6 +10,7 @@ import { opinionInput } from "./opinion-input";
 import { metadata } from "./metadata";
 import { status } from "./status";
 import { eventBtn } from "./event-btn";
+import { entryHeader } from "./entry-header";
 
 /**
  * Single entry detail page. Triggers JSON I/O request on init if entry
@@ -37,6 +38,8 @@ export function entryDetail(ctx: AppContext) {
                 ? [
                       "div",
                       { class: "flex flex-col" },
+                      [entryHeader, entry],
+                      // ["hr"],
                       [metadata, entry],
                       entry.opinions.map((x) => [opinionCard, x]),
                       user.login &&
