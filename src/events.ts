@@ -73,3 +73,5 @@ export const DELETE_NOTIFICATION = "delete-notification";
 export const DELETE_NOTIFICATION_SUCCESS = "delete-notification-success";
 export const APPEND_NOTIFICATION = "append-notification";
 export const REMOVE_NOTIFICATION = "remove-notification";
+export const GET_NEW_NOTIFICATIONS = "get-new-notifications";
+export const RECEIVE_NEW_NOTIFICATIONS = "receive-new-notifications";

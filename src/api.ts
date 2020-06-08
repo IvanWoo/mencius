@@ -39,6 +39,7 @@ export interface AppViews extends Record<keyof AppViews, IView<any>> {
     route: IView<RouteMatch>;
     routeComponent: IView<any>;
     user: IView<User>;
+    newNotifications: IView<Array<Notification>>;
     status: IView<Status>;
     debug: IView<boolean>;
     json: IView<string>;

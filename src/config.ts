@@ -201,6 +201,7 @@ export const CONFIG: AppConfig = {
                     ev.SET_STATUS,
                     [StatusType.SUCCESS, "user data successfully loaded", true],
                 ],
+                [ev.GET_NEW_NOTIFICATIONS],
             ],
         }),
 
@@ -722,6 +723,29 @@ export const CONFIG: AppConfig = {
                 ],
             ],
         }),
+
+        [ev.GET_NEW_NOTIFICATIONS]: () => ({
+            [FX_DISPATCH_ASYNC]: [
+                fx.GET_NEW_NOTIFICATIONS,
+                null,
+                ev.RECEIVE_NEW_NOTIFICATIONS,
+                ev.ERROR,
+            ],
+        }),
+
+        [ev.RECEIVE_NEW_NOTIFICATIONS]: (_, [__, json]) => ({
+            [FX_DISPATCH_NOW]: [
+                [EV_SET_VALUE, ["newNotifications", json.data]],
+                [
+                    ev.SET_STATUS,
+                    [
+                        StatusType.SUCCESS,
+                        "new notifications successfully loaded",
+                        true,
+                    ],
+                ],
+            ],
+        }),
     },
 
     // side effects
@@ -1012,6 +1036,20 @@ export const CONFIG: AppConfig = {
                 }
                 return resp.json();
             }),
+        [fx.GET_NEW_NOTIFICATIONS]: () =>
+            fetch(API_HOST + `/api/v1/notifications`, {
+                method: "GET",
+                headers: [
+                    ["Content-Type", "application/json"],
+                    ["Content-Type", "text/plain"],
+                ],
+                credentials: "include",
+            }).then((resp) => {
+                if (!resp.ok) {
+                    throw new Error(resp.statusText);
+                }
+                return resp.json();
+            }),
     },
 
     // mapping route IDs to their respective UI component functions
@@ -1035,6 +1073,7 @@ export const CONFIG: AppConfig = {
     initialState: {
         status: [StatusType.INFO, "running"],
         user: {},
+        newNotifications: [],
         route: {},
         debug: false,
         isNavOpen: false,
@@ -1075,6 +1114,7 @@ export const CONFIG: AppConfig = {
     views: {
         json: ["", (state) => JSON.stringify(state, null, 2)],
         user: ["user", (user) => user || {}],
+        newNotifications: "newNotifications",
         status: "status",
         debug: "debug",
         isNavOpen: "isNavOpen",
