@@ -54,7 +54,7 @@ export function notificationDropdown(ctx: AppContext) {
                             {
                                 class:
                                     newNotifications && newNotifications.length
-                                        ? "absolute top-0 right-0 text-xs text-center rounded-full p-1 transition eas-in-out duration-300 bg-red-500"
+                                        ? "absolute top-0 right-0 text-xs text-center rounded-full p-1 transition eas-in-out duration-300 bg-red-500 border-2 border-gray-200"
                                         : "absolute top-0 right-0 text-xs text-center rounded-full p-1 transition eas-in-out duration-300 bg-transparent",
                             },
                         ],
