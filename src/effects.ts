@@ -16,5 +16,6 @@ export const CREATE_VOTE = "create-vote";
 export const DELETE_VOTE = "delete-vote";
 export const GET_NOTIFICATION = "get-notification";
 export const CREATE_NOTIFICATION = "create-notification";
+export const UPDATE_NOTIFICATION = "update-notification";
 export const DELETE_NOTIFICATION = "delete-notification";
 export const GET_NEW_NOTIFICATIONS = "get-new-notifications";

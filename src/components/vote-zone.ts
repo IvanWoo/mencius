@@ -100,7 +100,7 @@ export function voteZone(ctx: AppContext, opinion: Opinion) {
                             opinion,
                             {
                                 class:
-                                    "hover:bg-transparent bg-purple-300 hover:text-purple-700 text-white font-semibold py-2 px-4 border hover:border-purple-500 border-transparent rounded",
+                                    "hover:bg-transparent bg-purple-300 hover:text-purple-700 text-white font-semibold py-2 px-4 border hover:border-purple-500 border-transparent rounded focus:outline-none",
                             },
                             "👍 " + upvoteSum(votes, opinion),
                         ]
@@ -112,7 +112,7 @@ export function voteZone(ctx: AppContext, opinion: Opinion) {
                             ActivityType.UPVOTE,
                             {
                                 class:
-                                    "bg-transparent hover:bg-purple-300 text-purple-700 font-semibold hover:text-white py-2 px-4 border border-purple-500 hover:border-transparent rounded",
+                                    "bg-transparent hover:bg-purple-300 text-purple-700 font-semibold hover:text-white py-2 px-4 border border-purple-500 hover:border-transparent rounded focus:outline-none",
                             },
                             "👍 " + upvoteSum(votes, opinion),
                         ],
@@ -123,7 +123,7 @@ export function voteZone(ctx: AppContext, opinion: Opinion) {
                             opinion,
                             {
                                 class:
-                                    "hover:bg-transparent bg-purple-300 hover:text-purple-700 text-white font-semibold py-2 px-4 border hover:border-purple-500 border-transparent rounded",
+                                    "hover:bg-transparent bg-purple-300 hover:text-purple-700 text-white font-semibold py-2 px-4 border hover:border-purple-500 border-transparent rounded focus:outline-none",
                             },
                             "👎 " + downvoteSum(votes, opinion),
                         ]
@@ -135,7 +135,7 @@ export function voteZone(ctx: AppContext, opinion: Opinion) {
                             ActivityType.DOWNVOTE,
                             {
                                 class:
-                                    "bg-transparent hover:bg-purple-300 text-purple-700 font-semibold hover:text-white py-2 px-4 border border-purple-500 hover:border-transparent rounded",
+                                    "bg-transparent hover:bg-purple-300 text-purple-700 font-semibold hover:text-white py-2 px-4 border border-purple-500 hover:border-transparent rounded focus:outline-none",
                             },
                             "👎 " + downvoteSum(votes, opinion),
                         ],
@@ -151,7 +151,7 @@ export function voteZone(ctx: AppContext, opinion: Opinion) {
                       ActivityType.UPVOTE,
                       {
                           class:
-                              "bg-transparent hover:bg-purple-300 text-purple-700 font-semibold hover:text-white py-2 px-4 border border-purple-500 hover:border-transparent rounded",
+                              "bg-transparent hover:bg-purple-300 text-purple-700 font-semibold hover:text-white py-2 px-4 border border-purple-500 hover:border-transparent rounded focus:outline-none",
                       },
                       "👍 0",
                   ],
@@ -163,7 +163,7 @@ export function voteZone(ctx: AppContext, opinion: Opinion) {
                       ActivityType.UPVOTE,
                       {
                           class:
-                              "bg-transparent hover:bg-purple-300 text-purple-700 font-semibold hover:text-white py-2 px-4 border border-purple-500 hover:border-transparent rounded",
+                              "bg-transparent hover:bg-purple-300 text-purple-700 font-semibold hover:text-white py-2 px-4 border border-purple-500 hover:border-transparent rounded focus:outline-none",
                       },
                       "👎 0",
                   ],

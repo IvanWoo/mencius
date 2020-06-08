@@ -66,7 +66,7 @@ export function metadata(ctx: AppContext, entry: Entry) {
                               ],
                               {
                                   class:
-                                      "p-2 mb-2 focus:outline-none hover:text-gray-700 border border-purple-300 hover:border-purple-900 font-semibold rounded",
+                                      "p-2 mb-2 focus:outline-none hover:text-gray-700 border border-purple-300 hover:border-purple-900 font-semibold rounded focus:outline-none",
                               },
                               [
                                   "div",
@@ -97,7 +97,7 @@ export function metadata(ctx: AppContext, entry: Entry) {
                               ],
                               {
                                   class:
-                                      "p-2 mb-2 focus:outline-none hover:text-gray-700 border border-purple-300 hover:border-purple-900 font-semibold rounded",
+                                      "p-2 mb-2 focus:outline-none hover:text-gray-700 border border-purple-300 hover:border-purple-900 font-semibold rounded focus:outline-none",
                               },
                               [
                                   "div",

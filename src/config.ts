@@ -7,7 +7,7 @@ import {
     FX_DISPATCH_NOW,
     valueUpdater,
 } from "@thi.ng/interceptors";
-import type { AppConfig, Opinion, Vote } from "./api";
+import type { AppConfig, Opinion, Vote, Notification } from "./api";
 import { StatusType, ReportType } from "./api";
 import { about } from "./components/about";
 import { contact } from "./components/contact";
@@ -91,6 +91,11 @@ export const CONFIG: AppConfig = {
         [ev.TOGGLE_ACCOUNT]: valueUpdater<boolean>("accountOpen", (x) => !x),
 
         [ev.CLOSE_ACCOUNT]: valueUpdater<boolean>("accountOpen", (x) => false),
+
+        // prettier-ignore
+        [ev.TOGGLE_NOTIFICATION]: valueUpdater<boolean>("notificationOpen", (x) => !x),
+        // prettier-ignore
+        [ev.CLOSE_NOTIFICATION]: valueUpdater<boolean>("notificationOpen", (x) => false),
 
         // prettier-ignore
         [ev.TOGGLE_DELETE_OPINION]: valueUpdater<boolean>("deleteOpinionOpen", (x) => !x),
@@ -674,6 +679,35 @@ export const CONFIG: AppConfig = {
             ],
         }),
 
+        [ev.UPDATE_NOTIFICATION]: (_, [__, json]) => ({
+            [FX_DISPATCH_NOW]: [
+                [
+                    ev.SET_STATUS,
+                    [StatusType.INFO, "updating the notification..."],
+                ],
+            ],
+            [FX_DISPATCH_ASYNC]: [
+                fx.UPDATE_NOTIFICATION,
+                json,
+                ev.UPDATE_NOTIFICATION_SUCCESS,
+                ev.ERROR,
+            ],
+        }),
+
+        [ev.UPDATE_NOTIFICATION_SUCCESS]: (_, [__, json]) => ({
+            [FX_DISPATCH_NOW]: [
+                [
+                    ev.SET_STATUS,
+                    [
+                        StatusType.SUCCESS,
+                        "notification updated successfully",
+                        true,
+                    ],
+                ],
+                // [ev.APPEND_NOTIFICATION, json],
+            ],
+        }),
+
         [ev.DELETE_NOTIFICATION]: (_, [__, json]) => ({
             [FX_DISPATCH_NOW]: [
                 [ev.SET_STATUS, [StatusType.INFO, "deleting notification..."]],
@@ -744,6 +778,28 @@ export const CONFIG: AppConfig = {
                         true,
                     ],
                 ],
+            ],
+        }),
+
+        [ev.MARK_NEW_NOTIFICATIONS]: (_, [__, json]) => ({
+            [FX_DISPATCH_NOW]: [
+                EV_UPDATE_VALUE,
+                [
+                    ["newNotifications"],
+                    (x: Notification[]) => [
+                        ...x.filter((y) => y.entry_id != json.id),
+                        json.data,
+                    ],
+                ],
+            ],
+        }),
+
+        [ev.VIEW_NEW_NOTIFICATIONS]: (_, [__, json]) => ({
+            [FX_DISPATCH_NOW]: [
+                [ev.UPDATE_NOTIFICATION, json],
+                [ev.ROUTE_TO_ENTRY, json.id],
+                [ev.GET_ENTRY_W_ACTIVITY, json.id],
+                [ev.MARK_NEW_NOTIFICATIONS, json],
             ],
         }),
     },
@@ -989,7 +1045,7 @@ export const CONFIG: AppConfig = {
                 return resp.json();
             }),
         [fx.GET_NOTIFICATION]: (id: string) =>
-            fetch(API_HOST + `/api/v1/notification/${id}/placeholder`, {
+            fetch(API_HOST + `/api/v1/notification/${id}`, {
                 method: "GET",
                 headers: [
                     ["Content-Type", "application/json"],
@@ -1017,20 +1073,31 @@ export const CONFIG: AppConfig = {
                 }
                 return resp.json();
             }),
-        [fx.DELETE_NOTIFICATION]: (json) =>
-            fetch(
-                API_HOST +
-                    `/api/v1/notification/${json.id}/${json.data.github_handler}`,
-                {
-                    method: "DELETE",
-                    headers: [
-                        ["Content-Type", "application/json"],
-                        ["Content-Type", "text/plain"],
-                    ],
-                    credentials: "include",
-                    body: JSON.stringify(json.data),
+        [fx.UPDATE_NOTIFICATION]: (json) =>
+            fetch(API_HOST + `/api/v1/notification/${json.id}`, {
+                method: "PUT",
+                headers: [
+                    ["Content-Type", "application/json"],
+                    ["Content-Type", "text/plain"],
+                ],
+                credentials: "include",
+                body: JSON.stringify(json.data),
+            }).then((resp) => {
+                if (!resp.ok) {
+                    throw new Error(resp.statusText);
                 }
-            ).then((resp) => {
+                return resp.json();
+            }),
+        [fx.DELETE_NOTIFICATION]: (json) =>
+            fetch(API_HOST + `/api/v1/notification/${json.id}`, {
+                method: "DELETE",
+                headers: [
+                    ["Content-Type", "application/json"],
+                    ["Content-Type", "text/plain"],
+                ],
+                credentials: "include",
+                body: JSON.stringify(json.data),
+            }).then((resp) => {
                 if (!resp.ok) {
                     throw new Error(resp.statusText);
                 }
@@ -1078,6 +1145,7 @@ export const CONFIG: AppConfig = {
         debug: false,
         isNavOpen: false,
         accountOpen: false,
+        notificationOpen: false,
         deleteOpinionOpen: false,
         reportOpen: false,
         report: {},
@@ -1119,6 +1187,7 @@ export const CONFIG: AppConfig = {
         debug: "debug",
         isNavOpen: "isNavOpen",
         accountOpen: "accountOpen",
+        notificationOpen: "notificationOpen",
         deleteOpinionOpen: "deleteOpinionOpen",
         reportOpen: "reportOpen",
         report: "report",
@@ -1205,7 +1274,7 @@ export const CONFIG: AppConfig = {
                 class: "sm:px-4 sm:pt-2 sm:pb-6 flex items-center",
             },
             m: { class: "h-10" },
-            mxs: { class: "h-10 ml-4" },
+            mxs: { class: "h-10 ml-4 hidden md:block" },
         },
         nav: {
             outer: {},

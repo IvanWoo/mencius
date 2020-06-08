@@ -7,6 +7,7 @@ import { routeLink } from "./route-link";
 import { eventBtn } from "./event-btn";
 import { searchBar } from "./search-bar";
 import { accountDropdown } from "./account-dropdown";
+import { notificationDropdown } from "./notification-dropdown";
 import {
     HEADER_HAMBURGER,
     ADD_OUTLINE,
@@ -36,22 +37,31 @@ export function nav(ctx: AppContext) {
             logo,
             [
                 "div",
-                { class: "flex items-center justify-end" },
+                { class: "flex items-center justify-end space-x-2" },
                 [
                     eventBtn,
                     [TOGGLE_NAV],
                     { class: "block sm:hidden" },
                     [
                         "div",
-                        { class: "h-8 w-8 md:h-10 md:w-10 md:-my-1" },
+                        { class: "h-8 w-8 md:h-10 md:w-10" },
                         isNavOpen ? HEADER_CLOSE : HEADER_HAMBURGER,
                     ],
                 ],
                 user.name !== undefined
                     ? [
                           "div",
-                          { class: "block sm:hidden z-10" },
-                          accountDropdown,
+                          { class: "flex flex-row" },
+                          [
+                              "div",
+                              { class: "block sm:hidden z-10 self-center" },
+                              notificationDropdown,
+                          ],
+                          [
+                              "div",
+                              { class: "block sm:hidden z-10" },
+                              accountDropdown,
+                          ],
                       ]
                     : [],
             ],
@@ -68,10 +78,10 @@ export function nav(ctx: AppContext) {
                 [
                     "div",
                     {
-                        class: "flex flex-row items-center",
+                        class: "flex flex-row items-center space-x-2",
                     },
-                    ["div", { class: "h-4 w-4 mr-2" }, ADD_OUTLINE],
-                    "New",
+                    ["div", { class: "h-4 w-4" }, ADD_OUTLINE],
+                    ["div", "New"],
                 ],
             ],
             [
@@ -82,10 +92,10 @@ export function nav(ctx: AppContext) {
                 [
                     "div",
                     {
-                        class: "flex flex-row items-center",
+                        class: "flex flex-row items-center space-x-2",
                     },
-                    ["div", { class: "h-4 w-4 mr-2" }, INFO_OUTLINE],
-                    "About",
+                    ["div", { class: "h-4 w-4" }, INFO_OUTLINE],
+                    ["div", "About"],
                 ],
             ],
             [
@@ -96,10 +106,10 @@ export function nav(ctx: AppContext) {
                 [
                     "div",
                     {
-                        class: "flex flex-row items-center",
+                        class: "flex flex-row items-center space-x-2",
                     },
-                    ["div", { class: "h-4 w-4 mr-2" }, CHAT],
-                    "Contact",
+                    ["div", { class: "h-4 w-4" }, CHAT],
+                    ["div", "Contact"],
                 ],
             ],
             user.name === undefined
@@ -111,14 +121,28 @@ export function nav(ctx: AppContext) {
                       [
                           "div",
                           {
-                              class: "flex flex-row items-center",
+                              class:
+                                  "flex flex-row items-center justify-center self-center",
                           },
                           ["div", { class: "h-4 w-4 mr-2" }, USER],
                           // TODO: figure out why "sign in" will break the ui
-                          "Sign_in",
+                          ["div", "Sign_in"],
                       ],
                   ]
-                : ["div", { class: "hidden sm:block" }, accountDropdown],
+                : [
+                      "div",
+                      { class: "flex flex-row space-x" },
+                      [
+                          "div",
+                          { class: "hidden sm:block self-center" },
+                          notificationDropdown,
+                      ],
+                      [
+                          "div",
+                          { class: "hidden sm:block self-center" },
+                          accountDropdown,
+                      ],
+                  ],
         ],
     ];
 }
