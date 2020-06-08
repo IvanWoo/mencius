@@ -279,7 +279,7 @@ export const CONFIG: AppConfig = {
             ],
         }),
 
-        [ev.CREATE_OPINION_SUCCESS]: () => ({
+        [ev.CREATE_OPINION_SUCCESS]: (_, [__, json]) => ({
             [FX_DISPATCH_NOW]: [
                 [
                     ev.SET_STATUS,
@@ -289,6 +289,7 @@ export const CONFIG: AppConfig = {
                         true,
                     ],
                 ],
+                [ev.CREATE_NOTIFICATION, json],
             ],
         }),
 
@@ -336,6 +337,7 @@ export const CONFIG: AppConfig = {
                     ev.SET_STATUS,
                     [StatusType.SUCCESS, "opinion deleted successfully", true],
                 ],
+                [ev.CLOSE_DELETE_OPINION],
             ],
         }),
 
