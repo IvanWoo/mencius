@@ -15,9 +15,6 @@ function tag(_: AppContext, x: string) {
 }
 
 export function metadata(ctx: AppContext, entry: Entry) {
-    const id = decodeURI(ctx.views.route.deref()!.params.id);
-    const user = ctx.views.user.deref()!;
-    const notification = ctx.views.notifications.deref()![id];
     return [
         "div",
         { class: "flex flex-col justify-center px-12 pb-10" },
@@ -30,7 +27,9 @@ export function metadata(ctx: AppContext, entry: Entry) {
                     class:
                         "sm:font-light text-xl sm:text-2xl md:text-3xl text-gray-900 mt-2",
                 },
-                `${entry.name} ・ ${entry.consensus_translation}`,
+                ["span", entry.name],
+                // ["span", "・"],
+                // ["span", entry.consensus_translation],
             ],
             // [
             //     "div",
