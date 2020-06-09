@@ -1,5 +1,5 @@
-import type { AppContext } from "../api";
-import { StatusType } from "../api";
+import type { AppContext, Vote } from "../api";
+import { StatusType, ActivityType } from "../api";
 import {
     GET_ENTRY_W_ACTIVITY,
     SET_STATUS,
@@ -11,6 +11,17 @@ import { metadata } from "./metadata";
 import { status } from "./status";
 import { eventBtn } from "./event-btn";
 import { entryHeader } from "./entry-header";
+import { transduce, comp, map, add, filter } from "@thi.ng/transducers";
+
+const getVoteSum = (ogh: string, votes: Vote[]) =>
+    transduce(
+        comp(
+            filter((x: Vote) => x.opinion_github_handler === ogh),
+            map((x) => (x.type === ActivityType.UPVOTE ? 1 : -1))
+        ),
+        add(0),
+        votes
+    );
 
 /**
  * Single entry detail page. Triggers JSON I/O request on init if entry
@@ -30,18 +41,25 @@ export function entryDetail(ctx: AppContext) {
     return () => {
         const id = decodeURI(views.route.deref()!.params.id);
         const entry = views.entries.deref()![id];
+        const votes = views.votes.deref()![id];
+        const sortByVotes = (a, b) =>
+            getVoteSum(b.github_handler, votes) -
+            getVoteSum(a.github_handler, votes);
         const user = views.user.deref()!;
         return [
             "div",
             status,
-            entry && entry.id
+            entry && entry.id && votes
                 ? [
                       "div",
                       { class: "flex flex-col" },
                       [entryHeader, entry],
                       // ["hr"],
                       [metadata, entry],
-                      entry.opinions.map((x) => [opinionCard, x]),
+                      // sort opinions by votes
+                      entry.opinions
+                          .sort(sortByVotes)
+                          .map((x) => [opinionCard, x]),
                       user.login &&
                       entry.opinions
                           .map((x) => x.github_handler.toLowerCase())
