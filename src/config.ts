@@ -106,6 +106,8 @@ export const CONFIG: AppConfig = {
 
         [ev.CLOSE_REPORT]: valueUpdater<boolean>("reportOpen", (x) => false),
 
+        [ev.TOGGLE_VOTE_LOCK]: valueUpdater<boolean>("voteLock", (x) => !x),
+
         [ev.SET_REPORT]: (_, [__, json]) => ({
             [FX_DISPATCH_NOW]: [
                 EV_SET_VALUE,
@@ -558,6 +560,7 @@ export const CONFIG: AppConfig = {
         [ev.CREATE_VOTE]: (_, [__, json]) => ({
             [FX_DISPATCH_NOW]: [
                 [ev.SET_STATUS, [StatusType.INFO, "voting..."]],
+                [ev.TOGGLE_VOTE_LOCK],
             ],
             [FX_DISPATCH_ASYNC]: [
                 fx.CREATE_VOTE,
@@ -574,6 +577,7 @@ export const CONFIG: AppConfig = {
                     [StatusType.SUCCESS, "voted successfully", true],
                 ],
                 [ev.APPEND_VOTE, json],
+                [ev.TOGGLE_VOTE_LOCK],
             ],
         }),
 
@@ -581,6 +585,7 @@ export const CONFIG: AppConfig = {
             [FX_DISPATCH_NOW]: [
                 [ev.SET_STATUS, [StatusType.INFO, "deleting vote..."]],
                 [ev.REMOVE_VOTE, json],
+                [ev.TOGGLE_VOTE_LOCK],
             ],
             [FX_DISPATCH_ASYNC]: [
                 fx.DELETE_VOTE,
@@ -596,6 +601,7 @@ export const CONFIG: AppConfig = {
                     ev.SET_STATUS,
                     [StatusType.SUCCESS, "vote deleted successfully", true],
                 ],
+                [ev.TOGGLE_VOTE_LOCK],
             ],
         }),
 
@@ -1152,6 +1158,7 @@ export const CONFIG: AppConfig = {
         input: "",
         entries: {},
         votes: {},
+        voteLock: false,
         notifications: {},
         opinions: {},
         tempOpinion: {},
@@ -1194,6 +1201,7 @@ export const CONFIG: AppConfig = {
         input: "input",
         entries: "entries",
         votes: "votes",
+        voteLock: "voteLock",
         notifications: "notifications",
         opinions: "opinions",
         tempOpinion: "tempOpinion",

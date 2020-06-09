@@ -52,6 +52,7 @@ export interface AppViews extends Record<keyof AppViews, IView<any>> {
     input: IView<string>;
     entries: IView<IObjectOf<Entry>>;
     votes: IView<IObjectOf<Array<Vote>>>;
+    voteLock: IView<boolean>;
     notifications: IView<IObjectOf<Array<Notification>>>;
     opinions: IView<IObjectOf<Opinion>>;
     tempOpinion: IView<Opinion>;

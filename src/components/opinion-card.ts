@@ -358,7 +358,7 @@ export function opinionCard(ctx: AppContext, opinion: Opinion) {
                     parser(opinion.details),
                 ],
             ],
-            voteZone(ctx, opinion),
+            [voteZone, opinion],
         ],
     ];
 }

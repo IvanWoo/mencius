@@ -81,3 +81,4 @@ export const GET_NEW_NOTIFICATIONS = "get-new-notifications";
 export const RECEIVE_NEW_NOTIFICATIONS = "receive-new-notifications";
 export const MARK_NEW_NOTIFICATIONS = "mark-new-notifications";
 export const VIEW_NEW_NOTIFICATIONS = "view-new-notifications";
+export const TOGGLE_VOTE_LOCK = "toggle-vote-lock";

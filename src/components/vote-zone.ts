@@ -30,7 +30,7 @@ const myDownvote = (user: User, vs: Vote[], op: Opinion) =>
     myVote(user, vs, op, ActivityType.DOWNVOTE);
 
 function createBtn(
-    _: AppContext,
+    ctx: AppContext,
     id: string,
     user: User,
     opinion: Opinion,
@@ -38,6 +38,7 @@ function createBtn(
     attribs: any,
     content: string
 ) {
+    const voteLock = ctx.views.voteLock.deref()!;
     return [
         eventBtn,
         [
@@ -53,19 +54,22 @@ function createBtn(
             },
         ],
         {
-            class: "block transition ease-in-out duration-700",
+            class:
+                "block transition ease-in-out duration-700 focus:outline-none disabled:opacity-50",
+            disabled: voteLock,
         },
         ["div", { ...attribs }, content],
     ];
 }
 
 function deleteBtn(
-    _: AppContext,
+    ctx: AppContext,
     mv: Vote,
     opinion: Opinion,
     attribs: any,
     content: string
 ) {
+    const voteLock = ctx.views.voteLock.deref()!;
     return [
         eventBtn,
         [
@@ -77,7 +81,9 @@ function deleteBtn(
             },
         ],
         {
-            class: "block transition ease-in-out duration-700",
+            class:
+                "block transition ease-in-out duration-700 focus:outline-none disabled:opacity-50",
+            disabled: voteLock,
         },
         ["div", { ...attribs }, content],
     ];
@@ -89,7 +95,8 @@ export function voteZone(ctx: AppContext, opinion: Opinion) {
     const user = views.user.deref()!;
     const votes = ctx.views.votes.deref()![id];
     return [
-        votes
+        "div",
+        votes != undefined
             ? [
                   "div",
                   { class: "flex flex-row items-center mt-4 space-x-2" },
@@ -100,7 +107,7 @@ export function voteZone(ctx: AppContext, opinion: Opinion) {
                             opinion,
                             {
                                 class:
-                                    "hover:bg-transparent bg-purple-300 hover:text-purple-700 text-white font-semibold py-2 px-4 border hover:border-purple-500 border-transparent rounded focus:outline-none",
+                                    "hover:bg-transparent bg-purple-300 hover:text-purple-700 text-white font-semibold py-2 px-4 border hover:border-purple-500 border-transparent rounded",
                             },
                             "👍 " + upvoteSum(votes, opinion),
                         ]
@@ -112,7 +119,7 @@ export function voteZone(ctx: AppContext, opinion: Opinion) {
                             ActivityType.UPVOTE,
                             {
                                 class:
-                                    "bg-transparent hover:bg-purple-300 text-purple-700 font-semibold hover:text-white py-2 px-4 border border-purple-500 hover:border-transparent rounded focus:outline-none",
+                                    "bg-transparent hover:bg-purple-300 text-purple-700 font-semibold hover:text-white py-2 px-4 border border-purple-500 hover:border-transparent rounded",
                             },
                             "👍 " + upvoteSum(votes, opinion),
                         ],
@@ -123,7 +130,7 @@ export function voteZone(ctx: AppContext, opinion: Opinion) {
                             opinion,
                             {
                                 class:
-                                    "hover:bg-transparent bg-purple-300 hover:text-purple-700 text-white font-semibold py-2 px-4 border hover:border-purple-500 border-transparent rounded focus:outline-none",
+                                    "hover:bg-transparent bg-purple-300 hover:text-purple-700 text-white font-semibold py-2 px-4 border hover:border-purple-500 border-transparent rounded",
                             },
                             "👎 " + downvoteSum(votes, opinion),
                         ]
@@ -140,33 +147,6 @@ export function voteZone(ctx: AppContext, opinion: Opinion) {
                             "👎 " + downvoteSum(votes, opinion),
                         ],
               ]
-            : [
-                  "div",
-                  { class: "flex flex-row items-center mt-4 space-x-2" },
-                  [
-                      createBtn,
-                      id,
-                      user,
-                      opinion,
-                      ActivityType.UPVOTE,
-                      {
-                          class:
-                              "bg-transparent hover:bg-purple-300 text-purple-700 font-semibold hover:text-white py-2 px-4 border border-purple-500 hover:border-transparent rounded focus:outline-none",
-                      },
-                      "👍 0",
-                  ],
-                  [
-                      createBtn,
-                      id,
-                      user,
-                      opinion,
-                      ActivityType.UPVOTE,
-                      {
-                          class:
-                              "bg-transparent hover:bg-purple-300 text-purple-700 font-semibold hover:text-white py-2 px-4 border border-purple-500 hover:border-transparent rounded focus:outline-none",
-                      },
-                      "👎 0",
-                  ],
-              ],
+            : [],
     ];
 }
