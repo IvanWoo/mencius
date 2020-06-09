@@ -146,6 +146,11 @@ export enum ActivityType {
     NOTIFICATION = "notification",
 }
 
+export enum NotificationStatus {
+    NEW = "new",
+    VIEWED = "viewed",
+}
+
 export interface User {
     login: string;
     avatar_url: string;

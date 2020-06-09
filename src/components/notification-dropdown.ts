@@ -1,4 +1,4 @@
-import { AppContext, NotificationMessenger } from "../api";
+import { AppContext, NotificationMessenger, NotificationStatus } from "../api";
 import {
     TOGGLE_NOTIFICATION,
     CLOSE_NOTIFICATION,
@@ -19,7 +19,7 @@ export function notificationDropdown(ctx: AppContext) {
         let newNotifications = ctx.views.newNotifications.deref()!;
         if (newNotifications !== null) {
             newNotifications = newNotifications.filter(
-                (x) => x.status === "new"
+                (x) => x.status === NotificationStatus.NEW
             );
         }
         return [
