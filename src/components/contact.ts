@@ -16,9 +16,9 @@ export function contact(ctx: AppContext) {
             [
                 ["mailto:townb.production@gmail.com", "Email"],
                 ["https://github.com/noprostudio", "GitHub"],
-                ["/", "Twitter"],
-                ["/", "Weibo"],
-                ["/", "Medium"],
+                // ["/", "Twitter"],
+                // ["/", "Weibo"],
+                // ["/", "Medium"],
             ].map((link) => [externalLink, ctx.ui.contact.link, ...link]),
         ],
     ];

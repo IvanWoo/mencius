@@ -69,25 +69,25 @@ export function accountDropdown(ctx: AppContext) {
                   ],
                   ["div", { class: "block my-2 border-b bg-grey-400" }],
                   // TODO: add settings
-                  [
-                      routeLink,
-                      ABOUT.id,
-                      null,
-                      {
-                          class: "block px-4 py-2 text-black hover:bg-gray-200",
-                      },
-                      "Settings",
-                  ],
+                  //   [
+                  //       routeLink,
+                  //       ABOUT.id,
+                  //       null,
+                  //       {
+                  //           class: "block px-4 py-2 text-black hover:bg-gray-200",
+                  //       },
+                  //       "Settings",
+                  //   ],
                   // TODO: add help
-                  [
-                      routeLink,
-                      ABOUT.id,
-                      null,
-                      {
-                          class: "block px-4 py-2 text-black hover:bg-gray-200",
-                      },
-                      "Help",
-                  ],
+                  //   [
+                  //       routeLink,
+                  //       ABOUT.id,
+                  //       null,
+                  //       {
+                  //           class: "block px-4 py-2 text-black hover:bg-gray-200",
+                  //       },
+                  //       "Help",
+                  //   ],
                   [
                       eventBtn,
                       [SIGN_OUT],
