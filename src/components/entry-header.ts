@@ -78,7 +78,7 @@ export function entryHeader(ctx: AppContext, entry: Entry) {
                                   CREATE_NOTIFICATION,
                                   <NotificationMessenger>{
                                       id,
-                                      data: { github_handler: user.login },
+                                      data: { github_handle: user.login },
                                   },
                               ],
                               {

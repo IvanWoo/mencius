@@ -6,7 +6,7 @@ import {} from "@thi.ng/hiccup-carbon-icons";
 
 const voteSum = (vs: Vote[], op: Opinion, type: string) =>
     vs.filter(
-        (x) => x.opinion_github_handler === op.github_handler && x.type === type
+        (x) => x.opinion_github_handle === op.github_handle && x.type === type
     ).length;
 
 const upvoteSum = (vs: Vote[], op: Opinion) =>
@@ -18,9 +18,9 @@ const downvoteSum = (vs: Vote[], op: Opinion) =>
 const myVote = (user: User, vs: Vote[], op: Opinion, type: string) =>
     vs.filter(
         (x) =>
-            x.opinion_github_handler === op.github_handler &&
+            x.opinion_github_handle === op.github_handle &&
             x.type === type &&
-            x.github_handler == user.login
+            x.github_handle == user.login
     );
 
 const myUpvote = (user: User, vs: Vote[], op: Opinion) =>
@@ -47,8 +47,8 @@ function createBtn(
                 id,
                 data: {
                     entry_id: id,
-                    opinion_github_handler: opinion.github_handler,
-                    github_handler: user.login,
+                    opinion_github_handle: opinion.github_handle,
+                    github_handle: user.login,
                     type,
                 },
             },

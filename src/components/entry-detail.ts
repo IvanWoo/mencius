@@ -16,7 +16,7 @@ import { transduce, comp, map, add, filter } from "@thi.ng/transducers";
 const getVoteSum = (ogh: string, votes: Vote[]) =>
     transduce(
         comp(
-            filter((x: Vote) => x.opinion_github_handler === ogh),
+            filter((x: Vote) => x.opinion_github_handle === ogh),
             map((x) => (x.type === ActivityType.UPVOTE ? 1 : -1))
         ),
         add(0),
@@ -43,8 +43,8 @@ export function entryDetail(ctx: AppContext) {
         const entry = views.entries.deref()![id];
         const votes = views.votes.deref()![id];
         const sortByVotes = (a, b) =>
-            getVoteSum(b.github_handler, votes) -
-            getVoteSum(a.github_handler, votes);
+            getVoteSum(b.github_handle, votes) -
+            getVoteSum(a.github_handle, votes);
         const user = views.user.deref()!;
         return [
             "div",
@@ -62,7 +62,7 @@ export function entryDetail(ctx: AppContext) {
                           .map((x) => [opinionCard, x]),
                       user.login &&
                       entry.opinions
-                          .map((x) => x.github_handler.toLowerCase())
+                          .map((x) => x.github_handle.toLowerCase())
                           .indexOf(user.login.toLowerCase()) < 0
                           ? opinionInput
                           : [],

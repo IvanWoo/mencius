@@ -22,7 +22,7 @@ export function opinionInput(ctx: AppContext) {
 
     if (!opinions[id]) {
         const data: Opinion = {
-            github_handler: user.login,
+            github_handle: user.login,
             user_avatar_url: user.avatar_url,
             user_bio: user.bio,
             user_name: user.name,

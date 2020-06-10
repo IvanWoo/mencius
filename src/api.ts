@@ -117,7 +117,7 @@ export interface Wikipedia {
 
 export interface Opinion {
     details: string;
-    github_handler: string;
+    github_handle: string;
     translation: string;
     user_name: string;
     user_bio: string;
@@ -127,15 +127,15 @@ export interface Opinion {
 export interface Vote {
     id: string;
     entry_id: string;
-    opinion_github_handler: string;
-    github_handler: string;
+    opinion_github_handle: string;
+    github_handle: string;
     type: string;
 }
 
 export interface Notification {
     id: string;
     entry_id: string;
-    github_handler: string;
+    github_handle: string;
     type: string;
     status: string;
 }

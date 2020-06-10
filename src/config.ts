@@ -1015,7 +1015,7 @@ export const CONFIG: AppConfig = {
         [fx.CREATE_VOTE]: (json) =>
             fetch(
                 API_HOST +
-                    `/api/v1/entries/${json.id}/${json.data.opinion_github_handler}/vote`,
+                    `/api/v1/entries/${json.id}/${json.data.opinion_github_handle}/vote`,
                 {
                     method: "POST",
                     headers: [
@@ -1034,7 +1034,7 @@ export const CONFIG: AppConfig = {
         [fx.DELETE_VOTE]: (json) =>
             fetch(
                 API_HOST +
-                    `/api/v1/entries/${json.id}/${json.data.opinion_github_handler}/vote/${json.voteID}`,
+                    `/api/v1/entries/${json.id}/${json.data.opinion_github_handle}/vote/${json.voteID}`,
                 {
                     method: "DELETE",
                     headers: [

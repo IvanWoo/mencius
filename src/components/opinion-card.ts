@@ -88,7 +88,7 @@ export function opinionCard(ctx: AppContext, opinion: Opinion) {
                         [
                             "div",
                             { class: "text-gray-700 text-sm" },
-                            `@${opinion.github_handler.toLowerCase()}`,
+                            `@${opinion.github_handle.toLowerCase()}`,
                         ],
                         // [
                         //     "div",
@@ -98,7 +98,7 @@ export function opinionCard(ctx: AppContext, opinion: Opinion) {
                     ],
                 ],
                 // TODO: refactor modal into separate function
-                user.login == opinion.github_handler
+                user.login == opinion.github_handle
                     ? [
                           "div",
                           { class: "flex flex-row items-top text-gray-500" },
