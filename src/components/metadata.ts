@@ -1,15 +1,23 @@
 import type { AppContext, Entry } from "../api";
+import { eventLink } from "./event-link";
+import { ROUTE_TO_SEARCH_ENTRY_PAGE } from "../events";
 
 function tag(_: AppContext, x: string) {
     return [
         "div",
+        { class: "cursor-pointer" },
         [
-            "span",
-            {
-                class:
-                    " py-2, bg-purple-200 text-sm sm:text-base text-gray-700 subpixel-antialiased px-1 rounded mr-2",
-            },
-            `# ${x}`,
+            eventLink,
+            [ROUTE_TO_SEARCH_ENTRY_PAGE, { id: x, page: 1 }],
+            {},
+            [
+                "span",
+                {
+                    class:
+                        " py-2, bg-purple-200 text-sm sm:text-base text-gray-700 subpixel-antialiased px-1 rounded mr-2",
+                },
+                `# ${x}`,
+            ],
         ],
     ];
 }
