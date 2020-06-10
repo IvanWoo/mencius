@@ -105,7 +105,7 @@ export function entryHeader(ctx: AppContext, entry: Entry) {
                     [ROUTE_TO_EDIT_ENTRY, id],
                     {
                         class:
-                            "p-2 mb-2 hover:text-gray-700 border border-purple-300 hover:border-purple-900 font-semibold rounded focus:outline-none ",
+                            "p-2 mb-2 hover:text-gray-700 border border-purple-300 hover:border-purple-900 font-semibold rounded focus:outline-none",
                     },
                     [
                         "div",

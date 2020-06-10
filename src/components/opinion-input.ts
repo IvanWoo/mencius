@@ -9,7 +9,8 @@ import { eventBtn } from "./event-btn";
 import { opinionInputRow, opinionTextareaRow } from "./input-row";
 import { parser } from "./markdown-parser";
 
-const isEmpty = (x: any): x is object => Object.keys(x).length === 0;
+const isEmpty = (x: any): x is Record<string, unknown> =>
+    Object.keys(x).length === 0;
 
 export function opinionInput(ctx: AppContext) {
     const bus = ctx.bus;
