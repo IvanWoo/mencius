@@ -40,7 +40,7 @@ export function accountDropdown(ctx: AppContext) {
                     "img",
                     {
                         src: user.avatar_url,
-                        alt: user.name,
+                        alt: user.login,
                     },
                 ],
             ],

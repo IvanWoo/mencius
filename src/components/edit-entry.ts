@@ -29,7 +29,7 @@ export function editEntry(ctx: AppContext) {
         return [
             "div",
             status,
-            user.name
+            user.login
                 ? [
                       entryInputForm,
                       "tempEntry",

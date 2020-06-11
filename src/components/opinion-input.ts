@@ -25,7 +25,7 @@ export function opinionInput(ctx: AppContext) {
             github_handle: user.login,
             user_avatar_url: user.avatar_url,
             user_bio: user.bio,
-            user_name: user.name,
+            user_name: user.name ? user.name : user.login,
             translation: "",
             details: "",
         };

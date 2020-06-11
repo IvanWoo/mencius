@@ -48,7 +48,7 @@ export function nav(ctx: AppContext) {
                         isNavOpen ? HEADER_CLOSE : HEADER_HAMBURGER,
                     ],
                 ],
-                user.name !== undefined
+                user.login
                     ? [
                           "div",
                           { class: "flex flex-row" },
@@ -112,8 +112,22 @@ export function nav(ctx: AppContext) {
                     ["div", "Contact"],
                 ],
             ],
-            user.name === undefined
+            user.login
                 ? [
+                      "div",
+                      { class: "flex flex-row space-x" },
+                      [
+                          "div",
+                          { class: "hidden sm:block self-center" },
+                          notificationDropdown,
+                      ],
+                      [
+                          "div",
+                          { class: "hidden sm:block self-center" },
+                          accountDropdown,
+                      ],
+                  ]
+                : [
                       routeLink,
                       SIGN_IN.id,
                       null,
@@ -127,20 +141,6 @@ export function nav(ctx: AppContext) {
                           ["div", { class: "h-4 w-4 mr-2" }, USER],
                           // TODO: figure out why "sign in" will break the ui
                           ["div", "Sign_in"],
-                      ],
-                  ]
-                : [
-                      "div",
-                      { class: "flex flex-row space-x" },
-                      [
-                          "div",
-                          { class: "hidden sm:block self-center" },
-                          notificationDropdown,
-                      ],
-                      [
-                          "div",
-                          { class: "hidden sm:block self-center" },
-                          accountDropdown,
                       ],
                   ],
         ],

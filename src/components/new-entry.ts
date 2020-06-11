@@ -29,7 +29,7 @@ export function newEntry(ctx: AppContext) {
         return [
             "div",
             status,
-            user.name
+            user.login
                 ? [
                       entryInputForm,
                       "newEntry",
