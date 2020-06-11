@@ -1,7 +1,6 @@
-import { AppContext, StatusType } from "../api";
-import { ABOUT, CONTACT, SIGN_IN, NEW_ENTRY } from "../routes";
+import { AppContext } from "../api";
+import { ABOUT, CONTACT, SIGN_IN, NEW_ENTRY, FAQ } from "../routes";
 import { TOGGLE_NAV } from "../events";
-
 import { logo } from "./logo";
 import { routeLink } from "./route-link";
 import { eventBtn } from "./event-btn";
@@ -15,6 +14,7 @@ import {
     INFO_OUTLINE,
     CHAT,
     USER,
+    HELP_OUTLINE,
 } from "@thi.ng/hiccup-carbon-icons";
 
 /**
@@ -110,6 +110,20 @@ export function nav(ctx: AppContext) {
                     },
                     ["div", { class: "h-4 w-4" }, CHAT],
                     ["div", "Contact"],
+                ],
+            ],
+            [
+                routeLink,
+                FAQ.id,
+                null,
+                ui.link,
+                [
+                    "div",
+                    {
+                        class: "flex flex-row items-center space-x-2",
+                    },
+                    ["div", { class: "h-4 w-4" }, HELP_OUTLINE],
+                    ["div", "FAQ"],
                 ],
             ],
             user.login

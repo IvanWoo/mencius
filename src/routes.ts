@@ -66,3 +66,8 @@ export const GITHUB_OAUTH_CB: Route = {
     id: "github-oauth-cb",
     match: ["github_oauth_cb"],
 };
+
+export const FAQ: Route = {
+    id: "faq",
+    match: ["faq"],
+};

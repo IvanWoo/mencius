@@ -17,6 +17,7 @@ import { newEntry } from "./components/new-entry";
 import { editEntry } from "./components/edit-entry";
 import { signIn } from "./components/sign-in";
 import { githubOauth } from "./components/github-oauth";
+import { faq } from "./components/faq";
 import * as fx from "./effects";
 import * as ev from "./events";
 import * as routes from "./routes";
@@ -44,6 +45,7 @@ export const CONFIG: AppConfig = {
             routes.EDIT_ENTRY,
             routes.SIGN_IN,
             routes.GITHUB_OAUTH_CB,
+            routes.FAQ,
         ],
     },
 
@@ -1137,6 +1139,7 @@ export const CONFIG: AppConfig = {
         [routes.EDIT_ENTRY.id]: editEntry,
         [routes.SIGN_IN.id]: signIn,
         [routes.GITHUB_OAUTH_CB.id]: githubOauth,
+        [routes.FAQ.id]: faq,
     },
 
     // DOM root element (or ID)
