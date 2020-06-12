@@ -1,6 +1,7 @@
 import { AppContext } from "../api";
 import { newsletterForm } from "./newsletter-form";
 import { characterCard } from "./character-card";
+import { redirect } from "./utils";
 
 import {
     CODE,
@@ -15,6 +16,7 @@ import {
  * @param ctx injected context object
  */
 export function about(ctx: AppContext) {
+    redirect();
     return [
         "div",
         [
