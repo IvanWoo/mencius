@@ -39,6 +39,7 @@ export function entryInputForm(
             entryInputRow(ctx, "原文", "name", setEvent, {
                 value: entry.name,
                 placeholder: "Mencius",
+                disabled: entryType !== "newEntry",
             }),
             [
                 "div",
@@ -93,7 +94,14 @@ export function entryInputForm(
             entry.wikipedia
                 ? [
                       "div",
-                      ["div", { class: "block" }, "维基"],
+                      [
+                          "div",
+                          {
+                              class:
+                                  "block font-medium text-gray-800 text-lg mb-2",
+                          },
+                          "维基",
+                      ],
                       [
                           "div",
                           {
