@@ -88,28 +88,41 @@ export const CONFIG: AppConfig = {
                     : undefined,
         }),
 
+        // toggles isNavOpen state flag on/off to control the nav dropdown for small screen
         [ev.TOGGLE_NAV]: valueUpdater<boolean>("isNavOpen", (x) => !x),
 
+        // toggles accountOpen state flag on/off to control the account dropdown
         [ev.TOGGLE_ACCOUNT]: valueUpdater<boolean>("accountOpen", (x) => !x),
 
+        // sets accountOpen to false
         [ev.CLOSE_ACCOUNT]: valueUpdater<boolean>("accountOpen", (x) => false),
 
+        // toggles notificationOpen state flag on/off to control the notification dropdown
         // prettier-ignore
         [ev.TOGGLE_NOTIFICATION]: valueUpdater<boolean>("notificationOpen", (x) => !x),
+
+        // sets notificationOpen to false
         // prettier-ignore
         [ev.CLOSE_NOTIFICATION]: valueUpdater<boolean>("notificationOpen", (x) => false),
 
+        // toggles deleteOpinionOpen state flag on/off to display delete opinion modal
         // prettier-ignore
         [ev.TOGGLE_DELETE_OPINION]: valueUpdater<boolean>("deleteOpinionOpen", (x) => !x),
+
+        // sets deleteOpinionOpen to false
         // prettier-ignore
         [ev.CLOSE_DELETE_OPINION]: valueUpdater<boolean>("deleteOpinionOpen", (x) => false),
 
+        // toggles reportOpen state flag on/off to display report modal
         [ev.TOGGLE_REPORT]: valueUpdater<boolean>("reportOpen", (x) => !x),
 
+        // sets reportOpen to false
         [ev.CLOSE_REPORT]: valueUpdater<boolean>("reportOpen", (x) => false),
 
+        // toggles voteLock state flag on/off to prevent double voting
         [ev.TOGGLE_VOTE_LOCK]: valueUpdater<boolean>("voteLock", (x) => !x),
 
+        // sets report in app state
         [ev.SET_REPORT]: (_, [__, json]) => ({
             [FX_DISPATCH_NOW]: [
                 EV_SET_VALUE,
@@ -117,6 +130,8 @@ export const CONFIG: AppConfig = {
             ],
         }),
 
+        // triggered after click report btn on opinion
+        // sets report with opinion metadata
         [ev.SET_OPINION_REPORT]: (_, [__, opinion, url]) => ({
             [FX_DISPATCH_NOW]: [
                 [ev.TOGGLE_REPORT],
@@ -126,6 +141,7 @@ export const CONFIG: AppConfig = {
             ],
         }),
 
+        // triggers creating report on backend, sets status
         [ev.CREATE_REPORT]: (_, [__, json]) => ({
             [FX_DISPATCH_NOW]: [
                 [ev.SET_STATUS, [StatusType.INFO, "reporting..."]],
@@ -138,6 +154,7 @@ export const CONFIG: AppConfig = {
             ],
         }),
 
+        // triggered after successful creating report
         [ev.CREATE_REPORT_SUCCESS]: () => ({
             [FX_DISPATCH_NOW]: [
                 [
@@ -151,10 +168,12 @@ export const CONFIG: AppConfig = {
         // toggles debug state flag on/off
         [ev.TOGGLE_DEBUG]: valueUpdater<boolean>("debug", (x) => !x),
 
+        // sets input value in app state
         [ev.SET_INPUT]: (_, [__, input]) => ({
             [FX_DISPATCH_NOW]: [EV_SET_VALUE, ["input", input.toLowerCase()]],
         }),
 
+        // triggers getting entry data on backend, sets status
         [ev.GET_ENTRY]: (_, [__, id]) => ({
             [FX_DISPATCH_NOW]: [
                 [ev.SET_STATUS, [StatusType.INFO, "getting entry data..."]],
@@ -162,6 +181,7 @@ export const CONFIG: AppConfig = {
             [FX_DISPATCH_ASYNC]: [fx.GET_ENTRY, id, ev.RECEIVE_ENTRY, ev.ERROR],
         }),
 
+        // triggered after successful getting entry data
         [ev.RECEIVE_ENTRY]: (_, [__, json]) => ({
             [FX_DISPATCH_NOW]: [
                 [EV_SET_VALUE, [["entries", decodeURI(json.id)], json.data]],
@@ -176,26 +196,31 @@ export const CONFIG: AppConfig = {
             ],
         }),
 
+        // routes to entries by id
         [ev.ROUTE_TO_ENTRY]: (_, [__, id]) => ({
             [FX_DISPATCH_NOW]: [
                 [ev.ROUTE_TO, [routes.ENTRY_DETAIL.id, { id }]],
             ],
         }),
 
+        // routes to new entry creating page
         [ev.ROUTE_TO_NEW_ENTRY]: (_, [__, id]) => ({
             [FX_DISPATCH_NOW]: [[ev.ROUTE_TO, [routes.NEW_ENTRY.id, { id }]]],
         }),
 
+        // routes to exist entry editing page
         [ev.ROUTE_TO_EDIT_ENTRY]: (_, [__, id]) => ({
             [FX_DISPATCH_NOW]: [[ev.ROUTE_TO, [routes.EDIT_ENTRY.id, { id }]]],
         }),
 
+        // routes to entries searching page
         [ev.ROUTE_TO_SEARCH_ENTRY]: (_, [__, id, page]) => ({
             [FX_DISPATCH_NOW]: [
                 [ev.ROUTE_TO, [routes.SEARCH.id, { id, page }]],
             ],
         }),
 
+        // triggers getting user data on backend, sets status
         [ev.GET_USER]: () => ({
             [FX_DISPATCH_NOW]: [
                 [ev.SET_STATUS, [StatusType.INFO, "getting user data..."]],
@@ -203,6 +228,7 @@ export const CONFIG: AppConfig = {
             [FX_DISPATCH_ASYNC]: [fx.GET_USER, null, ev.RECEIVE_USER, ev.ERROR],
         }),
 
+        // triggered after successful getting user data
         [ev.RECEIVE_USER]: (_, [__, json]) => ({
             [FX_DISPATCH_NOW]: [
                 [EV_SET_VALUE, ["user", json.data]],
@@ -214,6 +240,7 @@ export const CONFIG: AppConfig = {
             ],
         }),
 
+        // triggers getting JWT token on backend, sets status
         [ev.GET_TOKEN]: (_, [__, code]) => ({
             [FX_DISPATCH_NOW]: [
                 [ev.SET_STATUS, [StatusType.INFO, "getting token..."]],
@@ -226,6 +253,7 @@ export const CONFIG: AppConfig = {
             ],
         }),
 
+        // triggered after successful getting JWT token
         [ev.RECEIVE_TOKEN]: (_, [__, json]) => ({
             [FX_DISPATCH_NOW]: [
                 [
@@ -238,6 +266,7 @@ export const CONFIG: AppConfig = {
             ],
         }),
 
+        // triggers sign_out event on backend to remove JWT token cookie, sets status
         [ev.SIGN_OUT]: () => ({
             [FX_DISPATCH_NOW]: [
                 [ev.SET_STATUS, [StatusType.INFO, "signing out..."]],
@@ -250,6 +279,7 @@ export const CONFIG: AppConfig = {
             ],
         }),
 
+        // triggered after successful removing JWT token, redirect to home page
         [ev.SIGN_OUT_SUCCESS]: () => ({
             [FX_DISPATCH_NOW]: [
                 [
@@ -262,6 +292,7 @@ export const CONFIG: AppConfig = {
             ],
         }),
 
+        // sets whole opinions template in app state
         [ev.SET_OPINION_TEMPLATE]: (_, [__, json]) => ({
             [FX_DISPATCH_NOW]: [
                 EV_SET_VALUE,
@@ -269,6 +300,7 @@ export const CONFIG: AppConfig = {
             ],
         }),
 
+        // sets part of opinions in app state
         [ev.SET_OPINION]: (_, [__, json]) => ({
             [FX_DISPATCH_NOW]: [
                 EV_SET_VALUE,
@@ -276,6 +308,9 @@ export const CONFIG: AppConfig = {
             ],
         }),
 
+        // triggers creating opinion on backend
+        // append new opinion in app state
+        // sets status
         [ev.CREATE_OPINION]: (_, [__, json]) => ({
             [FX_DISPATCH_NOW]: [
                 [ev.SET_STATUS, [StatusType.INFO, "submitting opinion..."]],
@@ -289,6 +324,8 @@ export const CONFIG: AppConfig = {
             ],
         }),
 
+        // triggered after successful creating opinion
+        // triggers creating notification on backend
         [ev.CREATE_OPINION_SUCCESS]: (_, [__, json]) => ({
             [FX_DISPATCH_NOW]: [
                 [
@@ -303,6 +340,7 @@ export const CONFIG: AppConfig = {
             ],
         }),
 
+        // appends new opinion or updates exist opinion
         [ev.APPEND_OPINION]: (_, [__, json]) => ({
             [FX_DISPATCH_NOW]: [
                 [
@@ -315,6 +353,7 @@ export const CONFIG: AppConfig = {
             ],
         }),
 
+        // remove opinion in entries
         [ev.REMOVE_OPINION]: (_, [__, json]) => ({
             [FX_DISPATCH_NOW]: [
                 [
@@ -328,6 +367,9 @@ export const CONFIG: AppConfig = {
             ],
         }),
 
+        // triggers deleting opinion on backend
+        // remove the opinion
+        // sets status
         [ev.DELETE_OPINION]: (_, [__, json]) => ({
             [FX_DISPATCH_NOW]: [
                 [ev.SET_STATUS, [StatusType.INFO, "deleting opinion..."]],
@@ -341,6 +383,8 @@ export const CONFIG: AppConfig = {
             ],
         }),
 
+        // triggered after successful deleting opinion
+        // close delete opinion modal
         [ev.DELETE_OPINION_SUCCESS]: () => ({
             [FX_DISPATCH_NOW]: [
                 [
@@ -351,10 +395,12 @@ export const CONFIG: AppConfig = {
             ],
         }),
 
+        // sets tempOpinion in app state
         [ev.SET_TEMP_OPINION]: (_, [__, json]) => ({
             [FX_DISPATCH_NOW]: [[EV_SET_VALUE, ["tempOpinion", json.data]]],
         }),
 
+        // sets tempOpinion, sets opinions, remove the opinion
         [ev.EDIT_OPINION]: (_, [__, json]) => ({
             [FX_DISPATCH_NOW]: [
                 [ev.SET_TEMP_OPINION, json],
@@ -363,6 +409,7 @@ export const CONFIG: AppConfig = {
             ],
         }),
 
+        // append the opinion back, resets opinions, resets tempOpinion
         [ev.CANCEL_EDIT_OPINION]: (_, [__, json]) => ({
             [FX_DISPATCH_NOW]: [
                 [ev.APPEND_OPINION, json],
@@ -371,6 +418,9 @@ export const CONFIG: AppConfig = {
             ],
         }),
 
+        // triggers updating opinion on backend
+        // updates the opinion
+        // sets status
         [ev.UPDATE_OPINION]: (_, [__, json]) => ({
             [FX_DISPATCH_NOW]: [
                 [ev.SET_STATUS, [StatusType.INFO, "updating opinion..."]],
@@ -384,6 +434,7 @@ export const CONFIG: AppConfig = {
             ],
         }),
 
+        // triggered after successful updating opinion
         [ev.UPDATE_OPINION_SUCCESS]: () => ({
             [FX_DISPATCH_NOW]: [
                 [
@@ -393,6 +444,7 @@ export const CONFIG: AppConfig = {
             ],
         }),
 
+        // sets part of newEntry in app state
         [ev.SET_NEW_ENTRY]: (_, [__, json]) => ({
             [FX_DISPATCH_NOW]: [
                 EV_SET_VALUE,
@@ -400,10 +452,12 @@ export const CONFIG: AppConfig = {
             ],
         }),
 
+        // sets whole newEntry in app state
         [ev.SET_NEW_ENTRY_TEMPLATE]: (_, [__, json]) => ({
             [FX_DISPATCH_NOW]: [EV_SET_VALUE, ["newEntry", json.data]],
         }),
 
+        // triggers getting wiki on backend, sets status
         // TODO: find way to unify get-wiki
         [ev.GET_WIKI_NEW]: (_, [__, json]) => ({
             [FX_DISPATCH_NOW]: [
@@ -417,6 +471,8 @@ export const CONFIG: AppConfig = {
             ],
         }),
 
+        // triggered after successful getting wiki
+        // sets newEntry.wikipedia
         [ev.RECEIVE_WIKI_NEW]: (_, [__, json]) => ({
             [FX_DISPATCH_NOW]: [
                 [EV_SET_VALUE, ["newEntry.wikipedia", json.data]],
@@ -431,6 +487,7 @@ export const CONFIG: AppConfig = {
             ],
         }),
 
+        // triggers getting wiki on backend, sets status
         [ev.GET_WIKI_TEMP]: (_, [__, json]) => ({
             [FX_DISPATCH_NOW]: [
                 [ev.SET_STATUS, [StatusType.INFO, "getting wikipedia data..."]],
@@ -443,6 +500,8 @@ export const CONFIG: AppConfig = {
             ],
         }),
 
+        // triggered after successful getting wiki
+        // sets tempEntry.wikipedia
         [ev.RECEIVE_WIKI_TEMP]: (_, [__, json]) => ({
             [FX_DISPATCH_NOW]: [
                 [EV_SET_VALUE, ["tempEntry.wikipedia", json.data]],
@@ -457,6 +516,7 @@ export const CONFIG: AppConfig = {
             ],
         }),
 
+        // triggers creating entry on backend, sets status
         [ev.CREATE_ENTRY]: (_, [__, json]) => ({
             [FX_DISPATCH_NOW]: [
                 [ev.SET_STATUS, [StatusType.INFO, "submitting entry..."]],
@@ -469,6 +529,8 @@ export const CONFIG: AppConfig = {
             ],
         }),
 
+        // triggered after successful creating entry
+        // routes to the entry page
         [ev.CREATE_ENTRY_SUCCESS]: (_, [__, json]) => ({
             [FX_DISPATCH_NOW]: [
                 [ev.ROUTE_TO_ENTRY, json.id],
@@ -479,6 +541,7 @@ export const CONFIG: AppConfig = {
             ],
         }),
 
+        // triggers updating entry on backend, sets status
         [ev.UPDATE_ENTRY]: (_, [__, json]) => ({
             [FX_DISPATCH_NOW]: [
                 [ev.SET_STATUS, [StatusType.INFO, "updating entry..."]],
@@ -491,6 +554,9 @@ export const CONFIG: AppConfig = {
             ],
         }),
 
+        // triggered after successful creating entry
+        // resets the entry value in app state to remove local cache
+        // routes to the entry page
         [ev.UPDATE_ENTRY_SUCCESS]: (_, [__, json]) => ({
             [FX_DISPATCH_NOW]: [
                 [EV_SET_VALUE, [["entries", json.id], ""]],
@@ -502,6 +568,7 @@ export const CONFIG: AppConfig = {
             ],
         }),
 
+        // sets part of tempEntry in app state
         [ev.SET_TEMP_ENTRY]: (_, [__, json]) => ({
             [FX_DISPATCH_NOW]: [
                 EV_SET_VALUE,
@@ -509,10 +576,12 @@ export const CONFIG: AppConfig = {
             ],
         }),
 
+        // sets whole tempEntry in app state
         [ev.SET_TEMP_ENTRY_TEMPLATE]: (_, [__, json]) => ({
             [FX_DISPATCH_NOW]: [EV_SET_VALUE, ["tempEntry", json.data]],
         }),
 
+        // triggers searching entry on backend, sets status
         [ev.SEARCH_ENTRY]: (_, [__, json]) => ({
             [FX_DISPATCH_NOW]: [
                 [ev.SET_STATUS, [StatusType.INFO, "searching entries..."]],
@@ -525,6 +594,7 @@ export const CONFIG: AppConfig = {
             ],
         }),
 
+        // triggered after successful searching entry
         [ev.SEARCH_ENTRY_SUCCESS]: (_, [__, json]) => ({
             [FX_DISPATCH_NOW]: [
                 [EV_SET_VALUE, ["search", json.data]],
@@ -535,6 +605,8 @@ export const CONFIG: AppConfig = {
             ],
         }),
 
+        // routes to search entry page
+        // search entry
         [ev.ROUTE_TO_SEARCH_ENTRY_PAGE]: (_, [__, json]) => ({
             [FX_DISPATCH_NOW]: [
                 [ev.SEARCH_ENTRY, json],
@@ -542,10 +614,14 @@ export const CONFIG: AppConfig = {
             ],
         }),
 
+        // triggers getting votes on backend
+        // triggered by GET_ENTRY_W_ACTIVITY
         [ev.GET_VOTE]: (_, [__, id]) => ({
             [FX_DISPATCH_ASYNC]: [fx.GET_VOTE, id, ev.RECEIVE_VOTE, ev.ERROR],
         }),
 
+        // triggered after successful getting votes
+        // sets votes
         [ev.RECEIVE_VOTE]: (_, [__, json]) => ({
             [FX_DISPATCH_NOW]: [
                 [
@@ -559,6 +635,8 @@ export const CONFIG: AppConfig = {
             ],
         }),
 
+        // triggers creating votes on backend, sets status
+        // toggles vote lock
         [ev.CREATE_VOTE]: (_, [__, json]) => ({
             [FX_DISPATCH_NOW]: [
                 [ev.SET_STATUS, [StatusType.INFO, "voting..."]],
@@ -572,6 +650,9 @@ export const CONFIG: AppConfig = {
             ],
         }),
 
+        // triggered after successful creating votes
+        // appends new vote
+        // toggles vote lock
         [ev.CREATE_VOTE_SUCCESS]: (_, [__, json]) => ({
             [FX_DISPATCH_NOW]: [
                 [
@@ -583,6 +664,9 @@ export const CONFIG: AppConfig = {
             ],
         }),
 
+        // triggers deleting votes on backend, sets status
+        // removes vote
+        // toggles vote lock
         [ev.DELETE_VOTE]: (_, [__, json]) => ({
             [FX_DISPATCH_NOW]: [
                 [ev.SET_STATUS, [StatusType.INFO, "deleting vote..."]],
@@ -597,6 +681,8 @@ export const CONFIG: AppConfig = {
             ],
         }),
 
+        // triggered after successful deleting votes
+        // toggles vote lock
         [ev.DELETE_VOTE_SUCCESS]: () => ({
             [FX_DISPATCH_NOW]: [
                 [
@@ -607,6 +693,7 @@ export const CONFIG: AppConfig = {
             ],
         }),
 
+        // appends new votes
         [ev.APPEND_VOTE]: (_, [__, json]) => ({
             [FX_DISPATCH_NOW]: [
                 [
@@ -616,6 +703,7 @@ export const CONFIG: AppConfig = {
             ],
         }),
 
+        // removes votes
         [ev.REMOVE_VOTE]: (_, [__, json]) => ({
             [FX_DISPATCH_NOW]: [
                 [
@@ -628,6 +716,7 @@ export const CONFIG: AppConfig = {
             ],
         }),
 
+        // event wrapper for getting entry with all activity data
         [ev.GET_ENTRY_W_ACTIVITY]: (_, [__, id]) => ({
             [FX_DISPATCH_NOW]: [
                 [ev.GET_NOTIFICATION, id],
@@ -636,6 +725,8 @@ export const CONFIG: AppConfig = {
             ],
         }),
 
+        // triggers getting notification on backend
+        // triggered by GET_ENTRY_W_ACTIVITY
         [ev.GET_NOTIFICATION]: (_, [__, id]) => ({
             [FX_DISPATCH_ASYNC]: [
                 fx.GET_NOTIFICATION,
@@ -645,6 +736,8 @@ export const CONFIG: AppConfig = {
             ],
         }),
 
+        // triggered after successful getting votes
+        // sets notifications
         [ev.RECEIVE_NOTIFICATION]: (_, [__, json]) => ({
             [FX_DISPATCH_NOW]: [
                 [
@@ -665,6 +758,7 @@ export const CONFIG: AppConfig = {
             ],
         }),
 
+        // triggers creating notification on backend, set status
         [ev.CREATE_NOTIFICATION]: (_, [__, json]) => ({
             [FX_DISPATCH_NOW]: [
                 [ev.SET_STATUS, [StatusType.INFO, "watching the entry..."]],
@@ -677,6 +771,7 @@ export const CONFIG: AppConfig = {
             ],
         }),
 
+        // triggered after successful creating notification
         [ev.CREATE_NOTIFICATION_SUCCESS]: (_, [__, json]) => ({
             [FX_DISPATCH_NOW]: [
                 [
@@ -687,6 +782,7 @@ export const CONFIG: AppConfig = {
             ],
         }),
 
+        // triggers updating notification on backend, set status
         [ev.UPDATE_NOTIFICATION]: (_, [__, json]) => ({
             [FX_DISPATCH_NOW]: [
                 [
@@ -702,6 +798,7 @@ export const CONFIG: AppConfig = {
             ],
         }),
 
+        // triggered after successful updating notification
         [ev.UPDATE_NOTIFICATION_SUCCESS]: (_, [__, json]) => ({
             [FX_DISPATCH_NOW]: [
                 [
@@ -716,6 +813,8 @@ export const CONFIG: AppConfig = {
             ],
         }),
 
+        // triggers deleting notification on backend, set status
+        // removes notification in app state
         [ev.DELETE_NOTIFICATION]: (_, [__, json]) => ({
             [FX_DISPATCH_NOW]: [
                 [ev.SET_STATUS, [StatusType.INFO, "deleting notification..."]],
@@ -729,6 +828,7 @@ export const CONFIG: AppConfig = {
             ],
         }),
 
+        // triggered after successful deleting notification
         [ev.DELETE_NOTIFICATION_SUCCESS]: () => ({
             [FX_DISPATCH_NOW]: [
                 [
@@ -742,6 +842,7 @@ export const CONFIG: AppConfig = {
             ],
         }),
 
+        // appends notifications in app state
         [ev.APPEND_NOTIFICATION]: (_, [__, json]) => ({
             [FX_DISPATCH_NOW]: [
                 [
@@ -754,6 +855,7 @@ export const CONFIG: AppConfig = {
             ],
         }),
 
+        // remove notifications in app state
         [ev.REMOVE_NOTIFICATION]: (_, [__, json]) => ({
             [FX_DISPATCH_NOW]: [
                 [
@@ -766,6 +868,7 @@ export const CONFIG: AppConfig = {
             ],
         }),
 
+        // triggers getting new notifications on backend
         [ev.GET_NEW_NOTIFICATIONS]: () => ({
             [FX_DISPATCH_ASYNC]: [
                 fx.GET_NEW_NOTIFICATIONS,
@@ -775,6 +878,7 @@ export const CONFIG: AppConfig = {
             ],
         }),
 
+        // triggered after successful getting new notifications
         [ev.RECEIVE_NEW_NOTIFICATIONS]: (_, [__, json]) => ({
             [FX_DISPATCH_NOW]: [
                 [EV_SET_VALUE, ["newNotifications", json.data]],
@@ -789,6 +893,7 @@ export const CONFIG: AppConfig = {
             ],
         }),
 
+        // removes new notifications in app state
         [ev.MARK_NEW_NOTIFICATIONS]: (_, [__, json]) => ({
             [FX_DISPATCH_NOW]: [
                 EV_UPDATE_VALUE,
@@ -802,6 +907,7 @@ export const CONFIG: AppConfig = {
             ],
         }),
 
+        // event wrapper for viewing new notifications
         [ev.VIEW_NEW_NOTIFICATIONS]: (_, [__, json]) => ({
             [FX_DISPATCH_NOW]: [
                 [ev.UPDATE_NOTIFICATION, json],
