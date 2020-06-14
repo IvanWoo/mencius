@@ -78,7 +78,8 @@ export function nav(ctx: AppContext) {
                 [
                     "div",
                     {
-                        class: "flex flex-row items-center space-x-2",
+                        class:
+                            "flex flex-row items-center space-x-2 cursor-pointer",
                     },
                     ["div", { class: "h-4 w-4" }, ADD_OUTLINE],
                     ["div", "New"],
@@ -92,7 +93,8 @@ export function nav(ctx: AppContext) {
                 [
                     "div",
                     {
-                        class: "flex flex-row items-center space-x-2",
+                        class:
+                            "flex flex-row items-center space-x-2 cursor-pointer",
                     },
                     ["div", { class: "h-4 w-4" }, INFO_OUTLINE],
                     ["div", "About"],
@@ -106,7 +108,8 @@ export function nav(ctx: AppContext) {
                 [
                     "div",
                     {
-                        class: "flex flex-row items-center space-x-2",
+                        class:
+                            "flex flex-row items-center space-x-2 cursor-pointer",
                     },
                     ["div", { class: "h-4 w-4" }, CHAT],
                     ["div", "Contact"],
@@ -120,7 +123,8 @@ export function nav(ctx: AppContext) {
                 [
                     "div",
                     {
-                        class: "flex flex-row items-center space-x-2",
+                        class:
+                            "flex flex-row items-center space-x-2 cursor-pointer",
                     },
                     ["div", { class: "h-4 w-4" }, HELP_OUTLINE],
                     ["div", "FAQ"],
@@ -150,7 +154,7 @@ export function nav(ctx: AppContext) {
                           "div",
                           {
                               class:
-                                  "flex flex-row items-center justify-center self-center",
+                                  "flex flex-row items-center justify-center self-center cursor-pointer",
                           },
                           ["div", { class: "h-4 w-4 mr-2" }, USER],
                           // TODO: figure out why "sign in" will break the ui
