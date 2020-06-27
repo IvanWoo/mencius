@@ -53,7 +53,7 @@ export function about(ctx: AppContext) {
                     [
                         "sm:border-r sm:border-b",
                         "开放的数据",
-                        "所有的词条以及相关翻译都以开源的形式保存于 Github",
+                        "所有的词条以及相关翻译都以开源的形式保存于 GitHub",
                         CODE,
                     ],
                     [

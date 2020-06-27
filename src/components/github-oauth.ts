@@ -3,7 +3,7 @@ import { GET_TOKEN } from "../events";
 import { status } from "./status";
 
 /**
- * Github OAuth callback page.
+ * GitHub OAuth callback page.
  *
  * @param ctx injected context object
  */
@@ -14,6 +14,6 @@ export function githubOauth(ctx: AppContext) {
     return [
         "div",
         status,
-        ["div", { class: "text-4xl m-auto p-6" }, "Signing-in with Github..."],
+        ["div", { class: "text-4xl m-auto p-6" }, "Signing-in with GitHub..."],
     ];
 }
