@@ -71,13 +71,13 @@ export function opinionInput(ctx: AppContext) {
                       [
                           "div",
                           { class: "leading-relaxed flex flex-col" },
-                          opinionInputRow(ctx, "翻译:", "translation", id, {
+                          opinionInputRow(ctx, "翻译:", "", "translation", id, {
                               value: opinion.translation,
                               placeholder: id,
                           }),
-                          opinionTextareaRow(ctx, "论据:", "details", id, {
+                          opinionTextareaRow(ctx, "论据:", "", "details", id, {
                               value: opinion.details,
-                              placeholder: id,
+                              placeholder: "* Markdown supported",
                               rows: "5",
                           }),
                           [

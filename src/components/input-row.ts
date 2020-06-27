@@ -1,11 +1,24 @@
 import type { AppContext } from "../api";
 import { SET_OPINION } from "../events";
 
-function row(ctx: AppContext, title: string, attribs: any, tag: string) {
+function row(
+    ctx: AppContext,
+    title: string,
+    description: string,
+    attribs: any,
+    tag: string
+) {
     return [
         "div",
         { class: "block font-medium text-gray-800 text-lg mb-2" },
-        title,
+        [
+            "div",
+            { class: "flex flex-col" },
+            title,
+            description
+                ? ["div", { class: "text-xs text-gray-500" }, description]
+                : [],
+        ],
         [
             tag,
             {
@@ -17,17 +30,28 @@ function row(ctx: AppContext, title: string, attribs: any, tag: string) {
     ];
 }
 
-function inputRow(ctx: AppContext, title: string, attribs: any) {
-    return row(ctx, title, attribs, "input");
+function inputRow(
+    ctx: AppContext,
+    title: string,
+    description: string,
+    attribs: any
+) {
+    return row(ctx, title, description, attribs, "input");
 }
 
-function textareaRow(ctx: AppContext, title: string, attribs: any) {
-    return row(ctx, title, attribs, "textarea");
+function textareaRow(
+    ctx: AppContext,
+    title: string,
+    description: string,
+    attribs: any
+) {
+    return row(ctx, title, description, attribs, "textarea");
 }
 
 export function opinionInputRow(
     ctx: AppContext,
     title: string,
+    description: string,
     key: string,
     id: string,
     attribs: any
@@ -42,12 +66,13 @@ export function opinionInputRow(
                 value: (<HTMLTextAreaElement>e.target).value,
             },
         ]);
-    return inputRow(ctx, title, { ...attribs, oninput: cb });
+    return inputRow(ctx, title, description, { ...attribs, oninput: cb });
 }
 
 export function opinionTextareaRow(
     ctx: AppContext,
     title: string,
+    description: string,
     key: string,
     id: string,
     attribs: any
@@ -62,12 +87,13 @@ export function opinionTextareaRow(
                 value: (<HTMLTextAreaElement>e.target).value,
             },
         ]);
-    return textareaRow(ctx, title, { ...attribs, oninput: cb });
+    return textareaRow(ctx, title, description, { ...attribs, oninput: cb });
 }
 
 export function entryInputRow(
     ctx: AppContext,
     title: string,
+    description: string,
     key: string,
     setEvent: string,
     attribs: any
@@ -91,5 +117,5 @@ export function entryInputRow(
               ])
             : null;
     };
-    return inputRow(ctx, title, { ...attribs, oninput: cb });
+    return inputRow(ctx, title, description, { ...attribs, oninput: cb });
 }

@@ -36,7 +36,7 @@ export function entryInputForm(
                 ctx.ui.newsletterForm.title,
                 entryType === "newEntry" ? "Add new entry" : "Edit entry",
             ],
-            entryInputRow(ctx, "原文", "name", setEvent, {
+            entryInputRow(ctx, "原文", "", "name", setEvent, {
                 value: entry.name,
                 placeholder: "Mencius",
                 disabled: entryType !== "newEntry",
@@ -66,31 +66,59 @@ export function entryInputForm(
                     entry.language,
                 ],
             ],
-            entryInputRow(ctx, "亦名", "alias", setEvent, {
+            entryInputRow(ctx, "亦名", "", "alias", setEvent, {
                 value: entry.alias,
                 placeholder: "Mengzi",
             }),
-            entryInputRow(ctx, "罗马化转写", "romanization", setEvent, {
+            entryInputRow(ctx, "罗马化转写", "", "romanization", setEvent, {
                 value: entry.romanization,
                 placeholder: "Mengzi",
             }),
-            entryInputRow(ctx, "属性", "category", setEvent, {
-                value: entry.category,
-                placeholder: "哲学家",
-            }),
-            entryInputRow(ctx, "作品年份", "date", setEvent, {
+            entryInputRow(ctx, "作品年份", "", "date", setEvent, {
                 value: entry.date,
                 placeholder: "372-289 BC",
             }),
-            entryInputRow(ctx, "团体", "group", setEvent, {
-                value: entry.group,
-            }),
-            entryInputRow(ctx, "作者", "author", setEvent, {
-                value: entry.author,
-            }),
-            entryInputRow(ctx, "专辑", "album", setEvent, {
-                value: entry.album,
-            }),
+            entryInputRow(
+                ctx,
+                "属性",
+                "如：乐人、影人、专辑、歌曲、著作、影片、哲学家……",
+                "category",
+                setEvent,
+                {
+                    value: entry.category,
+                    placeholder: "哲学家",
+                }
+            ),
+            entryInputRow(
+                ctx,
+                "团体",
+                "当“原文“为个人且该人从属于某团体时",
+                "group",
+                setEvent,
+                {
+                    value: entry.group,
+                }
+            ),
+            entryInputRow(
+                ctx,
+                "作者",
+                "当“原文“为某件创作作品时",
+                "author",
+                setEvent,
+                {
+                    value: entry.author,
+                }
+            ),
+            entryInputRow(
+                ctx,
+                "专辑",
+                "当“原文“为收录在某张专辑中的歌曲时",
+                "album",
+                setEvent,
+                {
+                    value: entry.album,
+                }
+            ),
             entry.wikipedia
                 ? [
                       "div",
