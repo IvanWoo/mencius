@@ -84,7 +84,13 @@ export function opinionCard(ctx: AppContext, opinion: Opinion) {
                     [
                         "div",
                         { class: "ml-3 flex flex-col" },
-                        ["div", { class: "font-semibold" }, opinion.user_name],
+                        [
+                            "div",
+                            { class: "font-semibold" },
+                            opinion.user_name
+                                ? opinion.user_name
+                                : opinion.github_handle,
+                        ],
                         [
                             "div",
                             { class: "text-gray-700 text-sm" },
@@ -106,7 +112,17 @@ export function opinionCard(ctx: AppContext, opinion: Opinion) {
                               eventBtn,
                               [
                                   EDIT_OPINION,
-                                  <OpinionMessenger>{ id, data: opinion },
+                                  // update opinion with latest user info
+                                  <OpinionMessenger>{
+                                      id,
+                                      data: {
+                                          ...opinion,
+                                          ...{
+                                              user_avatar_url: user.avatar_url,
+                                              user_name: user.name,
+                                          },
+                                      },
+                                  },
                               ],
                               {
                                   class:

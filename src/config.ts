@@ -361,7 +361,10 @@ export const CONFIG: AppConfig = {
                     [
                         ["entries", json.id, "opinions"],
                         (x: Opinion[]) =>
-                            x.filter((y: Opinion) => y !== json.data),
+                            x.filter(
+                                (y: Opinion) =>
+                                    y.github_handle !== json.data.github_handle
+                            ),
                     ],
                 ],
             ],

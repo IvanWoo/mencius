@@ -25,7 +25,7 @@ export function opinionInput(ctx: AppContext) {
             github_handle: user.login,
             user_avatar_url: user.avatar_url,
             user_bio: user.bio,
-            user_name: user.name ? user.name : user.login,
+            user_name: user.name,
             translation: "",
             details: "",
         };
@@ -59,7 +59,11 @@ export function opinionInput(ctx: AppContext) {
                           [
                               "div",
                               { class: "ml-3 flex flex-col" },
-                              ["div", { class: "font-semibold" }, user.name],
+                              [
+                                  "div",
+                                  { class: "font-semibold" },
+                                  user.name ? user.name : user.login,
+                              ],
                               [
                                   "div",
                                   { class: "text-gray-700 text-sm" },
