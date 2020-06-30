@@ -95,101 +95,116 @@ export function search(ctx: AppContext) {
         const id = decodeURI(ctx.views.route.deref()!.params.id);
         const page = +ctx.views.route.deref()!.params.page;
         const search = views.search.deref()!;
+        const user = views.user.deref()!;
         return [
             "div",
             status,
-            [
-                "div",
-                { class: "p-6" },
-                [
-                    "h2",
-                    ctx.ui.newsletterForm.title,
-                    `Search results for `,
-                    ["span", { class: "font-bold" }, id],
-                ],
-                ["hr"],
-                search.entries
-                    ? [
-                          "div",
-                          { class: "flex flex-col text-gray-600 font-light" },
-                          [
-                              "div",
-                              {
-                                  class:
-                                      "flex flex-row justify-between my-2 align-middle items-center",
-                              },
-                              [
-                                  "span",
-                                  "Showing ",
-                                  search.total_count > 30
-                                      ? [
+            user.login
+                ? [
+                      "div",
+                      { class: "p-6" },
+                      [
+                          "h2",
+                          ctx.ui.newsletterForm.title,
+                          `Search results for `,
+                          ["span", { class: "font-bold" }, id],
+                      ],
+                      ["hr"],
+                      search.entries
+                          ? [
+                                "div",
+                                {
+                                    class:
+                                        "flex flex-col text-gray-600 font-light",
+                                },
+                                [
+                                    "div",
+                                    {
+                                        class:
+                                            "flex flex-row justify-between my-2 align-middle items-center",
+                                    },
+                                    [
+                                        "span",
+                                        "Showing ",
+                                        search.total_count > 30
+                                            ? [
+                                                  "span",
+                                                  [
+                                                      "span",
+                                                      {
+                                                          class:
+                                                              "text-black font-normal",
+                                                      },
+                                                      `${
+                                                          (page - 1) * 30 + 1
+                                                      }-${Math.min(
+                                                          page * 30,
+                                                          search.total_count
+                                                      )} `,
+                                                  ],
+                                                  "of ",
+                                              ]
+                                            : ["span", "all "],
+                                        [
                                             "span",
+                                            { class: "text-black font-normal" },
+                                            search.total_count + " ",
+                                        ],
+                                        "entries",
+                                    ],
+                                    search.total_count > 30
+                                        ? nav(ctx, {
+                                              class: "flex flex-row",
+                                          })
+                                        : [],
+                                ],
+                                [
+                                    "div",
+                                    {
+                                        class: "flex flex-wrap",
+                                    },
+                                    search.entries.map((x) => [
+                                        "div",
+                                        [
+                                            eventBtn,
+                                            [ROUTE_TO_ENTRY, x],
+                                            {
+                                                class: "block m-1",
+                                            },
                                             [
-                                                "span",
+                                                "div",
                                                 {
                                                     class:
-                                                        "text-black font-normal",
+                                                        "shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded",
                                                 },
-                                                `${
-                                                    (page - 1) * 30 + 1
-                                                }-${Math.min(
-                                                    page * 30,
-                                                    search.total_count
-                                                )} `,
+                                                x,
                                             ],
-                                            "of ",
-                                        ]
-                                      : ["span", "all "],
-                                  [
-                                      "span",
-                                      { class: "text-black font-normal" },
-                                      search.total_count + " ",
-                                  ],
-                                  "entries",
-                              ],
-                              search.total_count > 30
-                                  ? nav(ctx, {
-                                        class: "flex flex-row",
-                                    })
-                                  : [],
-                          ],
-                          [
-                              "div",
-                              {
-                                  class: "flex flex-wrap",
-                              },
-                              search.entries.map((x) => [
-                                  "div",
-                                  [
-                                      eventBtn,
-                                      [ROUTE_TO_ENTRY, x],
-                                      {
-                                          class: "block m-1",
-                                      },
-                                      [
-                                          "div",
-                                          {
-                                              class:
-                                                  "shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded",
-                                          },
-                                          x,
-                                      ],
-                                  ],
-                              ]),
-                          ],
-                          search.total_count > 30
-                              ? nav(ctx, {
-                                    class:
-                                        "flex flex-row px-4 justify-center my-4",
-                                })
-                              : [],
-                      ]
-                    : [
-                          "div",
-                          { class: "md:text-4xl text-xl m-auto p-6" },
-                          "no available results",
+                                        ],
+                                    ]),
+                                ],
+                                search.total_count > 30
+                                    ? nav(ctx, {
+                                          class:
+                                              "flex flex-row px-4 justify-center my-4",
+                                      })
+                                    : [],
+                            ]
+                          : [
+                                "div",
+                                { class: "md:text-4xl text-xl m-auto p-6" },
+                                "no available results",
+                            ],
+                  ]
+                : [
+                      "div",
+                      { class: "flex flex-col p-12" },
+                      [
+                          "p",
+                          ctx.ui.newsletterForm.title,
+                          "Please sign in before searching any entries...",
                       ],
-            ],
+                  ],
+            ,
         ];
     };
 }
