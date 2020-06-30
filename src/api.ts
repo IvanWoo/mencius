@@ -83,6 +83,7 @@ export interface UIAttribs {
     contact: any;
     debug: any;
     status: any;
+    footer: any;
 }
 
 /// app related types

@@ -7,6 +7,7 @@ import { EVENT_ROUTE_CHANGED, HTMLRouter } from "@thi.ng/router";
 import { AppConfig, AppContext, AppViews, ViewSpec } from "./api";
 import { debugContainer } from "./components/debug-container";
 import { nav } from "./components/nav";
+import { footer } from "./components/footer";
 import { frame } from "./components/frame";
 import * as fx from "./effects";
 import * as ev from "./events";
@@ -129,12 +130,13 @@ export class App {
             ui.root,
             [
                 "div",
-                { class: "flex" },
+                { class: "flex flex-row" },
                 [
                     "div",
-                    { class: "w-full" },
+                    { class: "w-full min-h-screen flex flex-col" },
                     nav,
                     [frame, this.ctx.views.routeComponent],
+                    footer,
                 ],
                 ENV && ENV === "debug"
                     ? [debugContainer, debug, this.ctx.views.json]

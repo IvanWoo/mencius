@@ -1377,13 +1377,14 @@ export const CONFIG: AppConfig = {
         root: { class: "about_bg" },
         debug: {
             container: {
-                class: "max-w-xs mt-1 flex",
+                class:
+                    "max-w-xs mt-1 flex max-h-screen overflow-y-auto overflow-x-auto",
             },
             debugToggle: {
                 class: "font-bold rotate-270 flex mt-5 focus:outline-none h-10",
             },
             open: {
-                class: "bg-gray-200 text-xs p-2 text-gray-800 rounded-lg",
+                class: "text-xs p-2 text-gray-800 rounded-lg",
             },
             close: {
                 class: "hidden",
@@ -1419,6 +1420,17 @@ export const CONFIG: AppConfig = {
             link: {
                 class:
                     "flex flex-col sm:text-xl text-gray-600 mt-2 leading-relaxed font-bold hover:bg-gray-200 hover:text-gray-900",
+            },
+        },
+        footer: {
+            m: { class: "h-auto" },
+            copyright: {
+                class:
+                    "mt-1 block px-2 py-1 font-normal text-gray-600 text-sm sm:mt-0 sm:ml-2",
+            },
+            link: {
+                class:
+                    "mt-1 block px-2 py-1 font-normal text-gray-600 hover:text-gray-800 text-sm sm:mt-0 sm:ml-2",
             },
         },
     },

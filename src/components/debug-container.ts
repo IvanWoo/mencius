@@ -20,8 +20,8 @@ export function debugContainer(ctx: AppContext, debug: any, json: string) {
             debug ? ui.open : ui.close,
             [
                 "div",
-                { class: "flex-1 flex overflow-hidden" },
-                ["div", { class: "flex-1 overflow-y-scroll" }, json],
+                { class: "flex" },
+                ["div", { class: "flex-1 bg-gray-200" }, json],
             ],
         ],
     ];

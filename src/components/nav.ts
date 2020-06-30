@@ -1,5 +1,5 @@
 import { AppContext } from "../api";
-import { ABOUT, CONTACT, SIGN_IN, NEW_ENTRY, FAQ } from "../routes";
+import { SIGN_IN, NEW_ENTRY } from "../routes";
 import { TOGGLE_NAV } from "../events";
 import { logo } from "./logo";
 import { routeLink } from "./route-link";
@@ -11,10 +11,7 @@ import {
     HEADER_HAMBURGER,
     ADD_OUTLINE,
     HEADER_CLOSE,
-    INFO_OUTLINE,
-    CHAT,
     USER,
-    HELP_OUTLINE,
 } from "@thi.ng/hiccup-carbon-icons";
 
 /**
@@ -83,51 +80,6 @@ export function nav(ctx: AppContext) {
                     },
                     ["div", { class: "h-4 w-4" }, ADD_OUTLINE],
                     ["div", "New"],
-                ],
-            ],
-            [
-                routeLink,
-                ABOUT.id,
-                null,
-                ui.link,
-                [
-                    "div",
-                    {
-                        class:
-                            "flex flex-row items-center space-x-2 cursor-pointer",
-                    },
-                    ["div", { class: "h-4 w-4" }, INFO_OUTLINE],
-                    ["div", "About"],
-                ],
-            ],
-            [
-                routeLink,
-                CONTACT.id,
-                null,
-                ui.link,
-                [
-                    "div",
-                    {
-                        class:
-                            "flex flex-row items-center space-x-2 cursor-pointer",
-                    },
-                    ["div", { class: "h-4 w-4" }, CHAT],
-                    ["div", "Contact"],
-                ],
-            ],
-            [
-                routeLink,
-                FAQ.id,
-                null,
-                ui.link,
-                [
-                    "div",
-                    {
-                        class:
-                            "flex flex-row items-center space-x-2 cursor-pointer",
-                    },
-                    ["div", { class: "h-4 w-4" }, HELP_OUTLINE],
-                    ["div", "FAQ"],
                 ],
             ],
             user.login
