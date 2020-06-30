@@ -204,7 +204,6 @@ export function search(ctx: AppContext) {
                           "Please sign in before searching any entries...",
                       ],
                   ],
-            ,
         ];
     };
 }
