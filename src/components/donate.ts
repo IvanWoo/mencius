@@ -39,7 +39,7 @@ export function donate(ctx: AppContext) {
                         [
                             "h2",
                             { class: "text-2xl md:text-3xl font-bold py-2" },
-                            "Paypal",
+                            "PayPal",
                         ],
                         [
                             "div",
