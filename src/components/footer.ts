@@ -1,7 +1,8 @@
 import { AppContext } from "../api";
 import { ABOUT, CONTACT, FAQ, DONATE } from "../routes";
-import { m } from "./logo";
+import { withSize, M_CHAR, GITHUB } from "./icons";
 import { routeLink } from "./route-link";
+import { externalLink } from "./external-link";
 
 /**
  * Main footer component.
@@ -17,8 +18,14 @@ export function footer(ctx: AppContext) {
         },
         [
             "div",
-            { class: "flex items-center px-4 py-3 sm:p-0" },
-            // ["div", ui.m, m],
+            { class: "flex items-center justify-start px-4 py-3 sm:p-0" },
+            ["div", { ...ui.icon }, withSize(M_CHAR, "16px", "16px")],
+            [
+                externalLink,
+                { title: "See our work on GitHub" },
+                "https://github.com/noprostudio",
+                ["div", { ...ui.icon }, withSize(GITHUB, "16px", "16px")],
+            ],
             ["div", ui.copyright, `© ${new Date().getFullYear()} Mencius`],
         ],
         [

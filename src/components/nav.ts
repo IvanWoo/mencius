@@ -106,7 +106,7 @@ export function nav(ctx: AppContext) {
                           "div",
                           {
                               class:
-                                  "flex flex-row items-center justify-center self-center cursor-pointer",
+                                  "flex flex-row items-center self-center cursor-pointer",
                           },
                           ["div", { class: "h-4 w-4 mr-2" }, USER],
                           // TODO: figure out why "sign in" will break the ui

@@ -1397,8 +1397,8 @@ export const CONFIG: AppConfig = {
             container: {
                 class: "sm:px-4 sm:pt-2 sm:pb-6 flex items-center",
             },
-            m: { class: "h-10" },
-            mxs: { class: "h-10 ml-4 hidden md:block" },
+            m: { class: "h-10 text-purple-900" },
+            mxs: { class: "h-10 ml-4 text-gray-900 hidden md:block" },
         },
         nav: {
             outer: {},
@@ -1426,14 +1426,17 @@ export const CONFIG: AppConfig = {
             },
         },
         footer: {
-            m: { class: "h-auto" },
+            icon: {
+                class:
+                    "mt-1 ml-2 font-normal text-gray-600 hover:text-gray-800 text-xs md:text-sm sm:mt-0",
+            },
             copyright: {
                 class:
-                    "mt-1 block px-2 py-1 font-normal text-gray-600 text-sm sm:mt-0 sm:ml-2",
+                    "mt-1 px-2 py-1 font-normal text-gray-600 text-xs md:text-sm sm:mt-0 sm:ml-2",
             },
             link: {
                 class:
-                    "mt-1 block px-2 py-1 font-normal text-gray-600 hover:text-gray-800 text-sm sm:mt-0 sm:ml-2",
+                    "mt-1 block px-2 py-1 font-normal text-gray-600 hover:text-gray-800 text-xs md:text-sm sm:mt-0 sm:ml-2",
             },
         },
     },
