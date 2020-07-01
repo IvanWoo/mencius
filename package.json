@@ -10,8 +10,7 @@
         "prep": "yarn clean && mkdir -p out",
         "build": "yarn prep && parcel build index.html -d out --no-source-maps --no-cache --experimental-scope-hoisting --detailed-report --public-url ./",
         "start": "yarn prep && parcel index.html -p 8080 --open -d out",
-        "doc": "npx madge --extensions ts --dot ./src/ > ./doc/overview.gv",
-        "lint": "eslint . --quiet --ext .ts"
+        "doc": "npx madge --extensions ts --dot ./src/ > ./doc/overview.gv"
     },
     "dependencies": {
         "@thi.ng/api": "^6.10.1",
@@ -26,13 +25,10 @@
         "@thi.ng/transducers": "^6.5.0"
     },
     "devDependencies": {
-        "@typescript-eslint/eslint-plugin": "^3.2.0",
-        "@typescript-eslint/parser": "^3.2.0",
         "autoprefixer": "^9.5.1",
         "concurrently": "^4.1.0",
         "cross-env": "^5.2.0",
         "cssnano": "^4.1.10",
-        "eslint": "^7.2.0",
         "parcel-bundler": "^1.12.4",
         "postcss-cli": "^6.1.2",
         "rimraf": "^2.6.3",

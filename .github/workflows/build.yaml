@@ -22,7 +22,6 @@ jobs:
         run: |
           echo -en "API_HOST=${API_HOST}\nCLIENT_ID=${CLIENT_ID}\nREDIRECT_URI={$REDIRECT_URI}\n" > .env
           yarn install
-          yarn lint
           yarn build
 
       - name: Checkout Host Repo
