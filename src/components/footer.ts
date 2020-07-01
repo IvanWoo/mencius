@@ -1,5 +1,5 @@
 import { AppContext } from "../api";
-import { ABOUT, CONTACT, FAQ } from "../routes";
+import { ABOUT, CONTACT, FAQ, DONATE } from "../routes";
 import { m } from "./logo";
 import { routeLink } from "./route-link";
 
@@ -64,6 +64,20 @@ export function footer(ctx: AppContext) {
                             "flex flex-row items-center space-x-2 cursor-pointer",
                     },
                     ["div", "FAQ"],
+                ],
+            ],
+            [
+                routeLink,
+                DONATE.id,
+                null,
+                ui.link,
+                [
+                    "div",
+                    {
+                        class:
+                            "flex flex-row items-center space-x-2 cursor-pointer",
+                    },
+                    ["div", "Donate"],
                 ],
             ],
         ],

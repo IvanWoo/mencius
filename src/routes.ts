@@ -15,6 +15,7 @@ export const SEARCH: Route = {
     id: "search",
     match: ["search", "?id", "?page"],
     validate: {
+        id: { check: (x) => x !== "" },
         page: {
             check: (x) => isNumeric(x),
         },
@@ -70,4 +71,9 @@ export const GITHUB_OAUTH_CB: Route = {
 export const FAQ: Route = {
     id: "faq",
     match: ["faq"],
+};
+
+export const DONATE: Route = {
+    id: "donate",
+    match: ["donate"],
 };
