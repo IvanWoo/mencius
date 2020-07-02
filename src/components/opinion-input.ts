@@ -92,7 +92,7 @@ export function opinionInput(ctx: AppContext) {
                                   "div",
                                   {
                                       class:
-                                          "leading-relaxed text-gray-700 mt-1 text-sm md:text-base",
+                                          "leading-relaxed text-gray-700 mt-1 text-sm md:text-base break-all sm:break-words",
                                   },
                                   parser(views.opinions.deref()![id].details),
                               ],
