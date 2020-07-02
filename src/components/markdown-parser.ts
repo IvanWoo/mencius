@@ -10,7 +10,7 @@ const CUSTOM_TAGS: Partial<TagFactories> = {
     ],
     code: (body) => ["code.bg-gray-200", body],
     codeblock: (lang, body) => [
-        "pre.text-xs.bg-purple-100.p-2.overflow-x-scroll",
+        "pre.whitespace-pre-line.text-xs.bg-purple-100.p-2",
         { lang: lang || "code" },
         ["code", body],
     ],

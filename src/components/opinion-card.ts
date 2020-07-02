@@ -341,8 +341,11 @@ export function opinionCard(ctx: AppContext, opinion: Opinion) {
                     opinion.translation,
                 ],
                 [
-                    "p",
-                    { class: "text-gray-700 mt-1 text-sm md:text-base" },
+                    "div",
+                    {
+                        class:
+                            "text-gray-700 mt-1 text-sm md:text-base break-all sm:break-words",
+                    },
                     parser(opinion.details),
                 ],
             ],
