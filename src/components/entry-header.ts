@@ -18,7 +18,7 @@ export function entryHeader(ctx: AppContext, entry: Entry) {
     const notification = ctx.views.notifications.deref()![id];
     return [
         "div",
-        { class: "ml-4 md:ml-6 px-12" },
+        { class: "ml-4 md:ml-6 px-4 md:px-12" },
         [
             "div",
             {

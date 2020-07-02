@@ -17,7 +17,7 @@ export function donate(ctx: AppContext) {
                 "header",
                 [
                     "div",
-                    { class: "px-12 pb-6" },
+                    { class: "px-4 md:px-12 pb-6" },
                     [
                         "h1",
                         {
@@ -32,7 +32,7 @@ export function donate(ctx: AppContext) {
                 "section",
                 [
                     "div",
-                    { class: "flex flex-col items-start px-12" },
+                    { class: "flex flex-col items-start px-4 md:px-12" },
                     [
                         "article",
                         { class: "mb-4" },
@@ -62,7 +62,7 @@ export function donate(ctx: AppContext) {
                 "section",
                 [
                     "div",
-                    { class: "flex flex-col items-start px-12 w-full" },
+                    { class: "flex flex-col items-start px-4 md:px-12 w-full" },
                     [
                         "article",
                         { class: "mb-8 w-full" },

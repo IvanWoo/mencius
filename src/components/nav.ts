@@ -26,7 +26,8 @@ export function nav(ctx: AppContext) {
     return [
         "nav",
         {
-            class: "sm:flex sm:justify-between sm:items-center px-6 py-3",
+            class:
+                "sm:flex sm:justify-between sm:items-center px-4 md:px-6 py-3",
         },
         [
             "div",

@@ -1364,7 +1364,7 @@ export const CONFIG: AppConfig = {
         characterCard: {
             container: {
                 class:
-                    "flex flex-col px-12 py-10 w-full sm:w-1/2 border-gray-200",
+                    "flex flex-col px-4 md:px-12 py-10 w-full sm:w-1/2 border-gray-200",
             },
             icon: { class: "h-8 w-8 md:h-10 md:w-10 md:-my-1" },
             body: {
@@ -1406,11 +1406,11 @@ export const CONFIG: AppConfig = {
             inner: {
                 open: {
                     class:
-                        "items-center justify-between px-4 pt-2 pb-6 block sm:block sm:flex",
+                        "items-center justify-between pl-4 pb-2 block sm:block sm:flex",
                 },
                 close: {
                     class:
-                        "items-center justify-between px-4 pt-2 pb-6 hidden sm:block sm:flex",
+                        "items-center justify-between pl-4 pb-2 hidden sm:block sm:flex",
                 },
             },
             title: { class: "black f1 lh-title tc db mb2 mb2-ns" },

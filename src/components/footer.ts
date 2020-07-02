@@ -14,11 +14,12 @@ export function footer(ctx: AppContext) {
     return [
         "footer",
         {
-            class: "flex flex-row justify-between items-center px-6 py-3",
+            class:
+                "flex flex-col sm:flex-row justify-between sm:items-center px-4 md:px-6 py-3",
         },
         [
             "div",
-            { class: "flex items-center justify-start px-4 py-3 sm:p-0" },
+            { class: "flex items-center justify-start sm:px-4 sm:py-3 sm:p-0" },
             ["div", { ...ui.icon }, withSize(M_CHAR, "16px", "16px")],
             [
                 externalLink,

@@ -16,7 +16,7 @@ export function signIn(ctx: AppContext) {
         status,
         [
             "div",
-            { class: "flex flex-col p-12" },
+            { class: "flex flex-col p-6 md:p-12" },
             ["p", ctx.ui.newsletterForm.title, "Mencius"],
             [
                 "p",

@@ -25,7 +25,7 @@ function tag(_: AppContext, x: string) {
 export function metadata(ctx: AppContext, entry: Entry) {
     return [
         "div",
-        { class: "flex flex-col justify-center px-12 pb-10" },
+        { class: "flex flex-col justify-center px-4 md:px-12 pb-10" },
         [
             "div",
             { class: "ml-4 md:ml-6" },

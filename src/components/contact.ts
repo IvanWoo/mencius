@@ -9,7 +9,7 @@ import { externalLink } from "./external-link";
 export function contact(ctx: AppContext) {
     return [
         "div",
-        { class: "flex flex-col p-12" },
+        { class: "flex flex-col p-6 md:p-12" },
         ["p", ctx.ui.newsletterForm.title, "Get in touch!"],
         [
             "p",

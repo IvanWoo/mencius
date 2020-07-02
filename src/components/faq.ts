@@ -48,7 +48,7 @@ export function faq(ctx: AppContext) {
                 "header",
                 [
                     "div",
-                    { class: "px-12 pb-6" },
+                    { class: "px-4 md:px-12 pb-6" },
                     [
                         "h1",
                         {
@@ -70,7 +70,7 @@ export function faq(ctx: AppContext) {
                 "section",
                 [
                     "div",
-                    { class: "flex flex-col items-start px-12" },
+                    { class: "flex flex-col items-start px-4 md:px-12" },
                     aqs.zh.map((x) => [
                         "article",
                         [

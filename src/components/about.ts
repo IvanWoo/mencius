@@ -21,7 +21,7 @@ export function about(ctx: AppContext) {
         "div",
         [
             "div",
-            { class: "flex flex-col flex-grow justify-center p-12" },
+            { class: "flex flex-col flex-grow justify-center p-6 md:p-12" },
             ["div", { class: "flex items-center" }],
             [
                 "div",

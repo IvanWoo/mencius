@@ -30,7 +30,7 @@ export function entryInputForm(
         const entry = views[entryType].deref()!;
         return [
             "div",
-            { class: "flex flex-col p-12" },
+            { class: "flex flex-col p-6 md:p-12" },
             [
                 "h2",
                 ctx.ui.newsletterForm.title,

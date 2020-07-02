@@ -38,7 +38,7 @@ export function opinionInput(ctx: AppContext) {
                   "div",
                   {
                       class:
-                          "flex flex-col px-12 py-10 w-full border-t-2 border-gray-200",
+                          "flex flex-col px-4 md:px-12 py-10 w-full border-t-2 border-gray-200",
                   },
                   [
                       "div",
