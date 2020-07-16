@@ -1,3 +1,4 @@
+import { Route } from "@thi.ng/router";
 import { AppContext } from "../api";
 import { ABOUT, CONTACT, FAQ, DONATE } from "../routes";
 import { withSize, M_CHAR, GITHUB } from "./icons";
@@ -33,8 +34,13 @@ export function footer(ctx: AppContext) {
             "div",
             { class: "flex flex-row" },
             [
+                [ABOUT, "About"],
+                [CONTACT, "Contact"],
+                [FAQ, "FAQ"],
+                [DONATE, "Donate"],
+            ].map((x: [Route, string]) => [
                 routeLink,
-                ABOUT.id,
+                x[0].id,
                 null,
                 ui.link,
                 [
@@ -43,51 +49,9 @@ export function footer(ctx: AppContext) {
                         class:
                             "flex flex-row items-center space-x-2 cursor-pointer",
                     },
-                    ["div", "About"],
+                    ["div", x[1]],
                 ],
-            ],
-            [
-                routeLink,
-                CONTACT.id,
-                null,
-                ui.link,
-                [
-                    "div",
-                    {
-                        class:
-                            "flex flex-row items-center space-x-2 cursor-pointer",
-                    },
-                    ["div", "Contact"],
-                ],
-            ],
-            [
-                routeLink,
-                FAQ.id,
-                null,
-                ui.link,
-                [
-                    "div",
-                    {
-                        class:
-                            "flex flex-row items-center space-x-2 cursor-pointer",
-                    },
-                    ["div", "FAQ"],
-                ],
-            ],
-            [
-                routeLink,
-                DONATE.id,
-                null,
-                ui.link,
-                [
-                    "div",
-                    {
-                        class:
-                            "flex flex-row items-center space-x-2 cursor-pointer",
-                    },
-                    ["div", "Donate"],
-                ],
-            ],
+            ]),
         ],
     ];
 }
