@@ -730,11 +730,12 @@ export const CONFIG: AppConfig = {
             ],
         }),
 
-        // triggers getting notification on backend
+        // triggers getting all notifications for a specific entry on backend
         // triggered by GET_ENTRY_W_ACTIVITY
         [ev.GET_NOTIFICATION]: (_, [__, id]) => ({
             [FX_DISPATCH_ASYNC]: [
-                fx.GET_NOTIFICATION,
+                // fx.GET_NOTIFICATION,
+                fx.GET_ALL_NOTIFICATIONS,
                 id,
                 ev.RECEIVE_NOTIFICATION,
                 ev.ERROR,
@@ -1223,7 +1224,21 @@ export const CONFIG: AppConfig = {
                 return resp.json();
             }),
         [fx.GET_NEW_NOTIFICATIONS]: () =>
-            fetch(API_HOST + `/api/v1/notifications`, {
+            fetch(API_HOST + `/api/v1/notifications/new`, {
+                method: "GET",
+                headers: [
+                    ["Content-Type", "application/json"],
+                    ["Content-Type", "text/plain"],
+                ],
+                credentials: "include",
+            }).then((resp) => {
+                if (!resp.ok) {
+                    throw new Error(resp.statusText);
+                }
+                return resp.json();
+            }),
+        [fx.GET_ALL_NOTIFICATIONS]: (id: string) =>
+            fetch(API_HOST + `/api/v1/notifications/all/${id}`, {
                 method: "GET",
                 headers: [
                     ["Content-Type", "application/json"],

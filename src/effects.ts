@@ -19,3 +19,4 @@ export const CREATE_NOTIFICATION = "create-notification";
 export const UPDATE_NOTIFICATION = "update-notification";
 export const DELETE_NOTIFICATION = "delete-notification";
 export const GET_NEW_NOTIFICATIONS = "get-new-notifications";
+export const GET_ALL_NOTIFICATIONS = "get-all-notifications";
