@@ -56,7 +56,7 @@ export function metadata(ctx: AppContext, entry: Entry) {
                     entry.language,
                     entry.romanization,
                     entry.album,
-                ].map((x) => (x ? [tag, x] : [])),
+                ].map(x => (x ? [tag, x] : [])),
             ],
             entry.wikipedia.pageid ? wikipedia(entry) : [],
         ],

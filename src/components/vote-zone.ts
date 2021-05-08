@@ -6,7 +6,7 @@ import {} from "@thi.ng/hiccup-carbon-icons";
 
 const voteSum = (vs: Vote[], op: Opinion, type: string) =>
     vs.filter(
-        (x) => x.opinion_github_handle === op.github_handle && x.type === type
+        x => x.opinion_github_handle === op.github_handle && x.type === type
     ).length;
 
 const upvoteSum = (vs: Vote[], op: Opinion) =>
@@ -17,10 +17,10 @@ const downvoteSum = (vs: Vote[], op: Opinion) =>
 
 const myVote = (user: User, vs: Vote[], op: Opinion, type: string) =>
     vs.filter(
-        (x) =>
+        x =>
             x.opinion_github_handle === op.github_handle &&
             x.type === type &&
-            x.github_handle == user.login
+            x.github_handle === user.login
     );
 
 const myUpvote = (user: User, vs: Vote[], op: Opinion) =>

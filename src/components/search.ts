@@ -163,7 +163,7 @@ export function search(ctx: AppContext) {
                                     {
                                         class: "flex flex-wrap",
                                     },
-                                    search.entries.map((x) => [
+                                    search.entries.map(x => [
                                         "div",
                                         [
                                             eventBtn,

@@ -3,12 +3,12 @@ import { parse, TagFactories } from "@thi.ng/hiccup-markdown";
 
 // custom tag factories (passed to parser)
 const CUSTOM_TAGS: Partial<TagFactories> = {
-    li: (children) => ["li.list-disc.ml-4", ...children],
-    blockquote: (xs) => [
+    li: children => ["li.list-disc.ml-4", ...children],
+    blockquote: xs => [
         "blockquote.text-purple-600.ml-6.pl-4.border-l-4.border-purple-900",
         ...xs,
     ],
-    code: (body) => ["code.bg-gray-200", body],
+    code: body => ["code.bg-gray-200", body],
     codeblock: (lang, body) => [
         "pre.whitespace-pre-line.text-xs.bg-purple-100.p-2",
         { lang: lang || "code" },
@@ -19,8 +19,8 @@ const CUSTOM_TAGS: Partial<TagFactories> = {
         { href, target: "_blank" },
         body,
     ],
-    strike: (body) => ["del.line-through.bg-red-200", body],
-    table: (xs) => ["table.table-auto", ["tbody", ...xs]],
+    strike: body => ["del.line-through.bg-red-200", body],
+    table: xs => ["table.table-auto", ["tbody", ...xs]],
     tr: (i, xs) => [i % 2 === 0 ? "tr" : "tr.bg-gray-100", ...xs],
     td: (i, xs) => [i < 1 ? "th.px-4.py-2" : "td.border.px-4.py-2", ...xs],
 };

@@ -25,7 +25,7 @@ export function signIn(ctx: AppContext) {
                         `https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}&scope=user%20public_repo&redirect_uri=${REDIRECT_URI}`,
                         "Sign in with GitHub",
                     ],
-                ].map((link) => [externalLink, ctx.ui.contact.link, ...link]),
+                ].map(link => [externalLink, ctx.ui.contact.link, ...link]),
             ],
         ],
     ];

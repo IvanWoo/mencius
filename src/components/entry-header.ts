@@ -17,7 +17,7 @@ export function entryHeader(ctx: AppContext, entry: Entry) {
     const user = ctx.views.user.deref()!;
     const notifications = ctx.views.notifications.deref()![id];
     const myNotification = notifications
-        ? notifications.filter((x) => x.github_handle === user.login)
+        ? notifications.filter(x => x.github_handle === user.login)
         : null;
     return [
         "div",

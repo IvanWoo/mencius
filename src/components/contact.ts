@@ -19,7 +19,7 @@ export function contact(ctx: AppContext) {
                 // ["/", "Twitter"],
                 // ["/", "Weibo"],
                 // ["/", "Medium"],
-            ].map((link) => [externalLink, ctx.ui.contact.link, ...link]),
+            ].map(link => [externalLink, ctx.ui.contact.link, ...link]),
         ],
     ];
 }

@@ -24,8 +24,8 @@ export function characterCard(
                 "div",
                 ui.body,
                 ["h2", ui.content.keyword, keyword],
-                ["p", ui.content.description, description]
-            ]
-        ]
+                ["p", ui.content.description, description],
+            ],
+        ],
     ];
 }

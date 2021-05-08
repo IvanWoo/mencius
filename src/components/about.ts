@@ -38,7 +38,7 @@ export function about(ctx: AppContext) {
                     "同时，本⽹站为⾮盈利性开源⽹站，我们相信众⼈的智慧能够孕育出最令⼈意想不到的美好成果，所以在第⼀阶段仅仅完成了⽹站最基本层⾯功能的架构，更进⼀步的优化以及更多功能的增添和完善，还期待着未来⼤家能够共同探讨携⼿完成。",
 
                     "在这样⼀个全球性反智的⼤⽓候下，就让我们⼀起来做⼀些开放性的、具有⻓远意义的实事，也算是抵抗⼀下荒谬时代的滚滚⻋轮，或是个⼈微不⾜道的焦虑和抑郁吧。",
-                ].map((content) => ["p", { class: "mb-4" }, content]),
+                ].map(content => ["p", { class: "mb-4" }, content]),
             ],
             newsletterForm,
         ],
@@ -74,7 +74,7 @@ export function about(ctx: AppContext) {
                         "相信众⼈的智慧能够孕育出最令⼈意想不到的美好成果",
                         INTEGRATION,
                     ],
-                ].map((content) => [characterCard, ...content]),
+                ].map(content => [characterCard, ...content]),
             ],
         ],
     ];

@@ -19,7 +19,7 @@ export function notificationDropdown(ctx: AppContext) {
         let newNotifications = ctx.views.newNotifications.deref()!;
         if (newNotifications !== null) {
             newNotifications = newNotifications.filter(
-                (x) => x.status === NotificationStatus.NEW
+                x => x.status === NotificationStatus.NEW
             );
         }
         return [
@@ -87,7 +87,7 @@ export function notificationDropdown(ctx: AppContext) {
                       ],
                       ["div", { class: "block my-2 border-b bg-grey-400" }],
                       newNotifications && newNotifications.length
-                          ? newNotifications.map((x) => [
+                          ? newNotifications.map(x => [
                                 eventBtn,
                                 [
                                     VIEW_NEW_NOTIFICATIONS,

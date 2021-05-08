@@ -17,7 +17,7 @@ const getVoteSum = (ogh: string, votes: Vote[]) =>
     transduce(
         comp(
             filter((x: Vote) => x.opinion_github_handle === ogh),
-            map((x) => (x.type === ActivityType.UPVOTE ? 1 : -1))
+            map(x => (x.type === ActivityType.UPVOTE ? 1 : -1))
         ),
         add(0),
         votes
@@ -59,10 +59,10 @@ export function entryDetail(ctx: AppContext) {
                       // sort opinions by votes
                       entry.opinions
                           .sort(sortByVotes)
-                          .map((x) => [opinionCard, x]),
+                          .map(x => [opinionCard, x]),
                       user.login &&
                       entry.opinions
-                          .map((x) => x.github_handle.toLowerCase())
+                          .map(x => x.github_handle.toLowerCase())
                           .indexOf(user.login.toLowerCase()) < 0
                           ? opinionInput
                           : [],

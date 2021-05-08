@@ -23,8 +23,8 @@ export function eventBtn(
             onclick: (e: any) => {
                 e.preventDefault();
                 ctx.bus.dispatch(event);
-            }
+            },
         },
-        body
+        body,
     ];
 }

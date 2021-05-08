@@ -10,6 +10,7 @@
         "prep": "yarn clean && mkdir -p out",
         "build": "yarn prep && parcel build index.html -d out --no-source-maps --no-cache --experimental-scope-hoisting --detailed-report --public-url ./",
         "start": "yarn prep && parcel index.html -p 8080 --open -d out",
+        "lint": "prettier --write src/**/*.ts",
         "doc": "npx madge --extensions ts --dot ./src/ > ./doc/overview.gv"
     },
     "dependencies": {
@@ -31,6 +32,7 @@
         "cssnano": "^4.1.10",
         "parcel-bundler": "^1.12.4",
         "postcss-cli": "^6.1.2",
+        "prettier": "^2.2.1",
         "rimraf": "^2.6.3",
         "tailwindcss": "^1.1",
         "terser": "^4.4.0",

@@ -71,7 +71,7 @@ export function faq(ctx: AppContext) {
                 [
                     "div",
                     { class: "flex flex-col items-start px-4 md:px-12" },
-                    aqs.zh.map((x) => [
+                    aqs.zh.map(x => [
                         "article",
                         [
                             "h2",
