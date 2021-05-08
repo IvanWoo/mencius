@@ -1,4 +1,4 @@
-import { Route } from "@thi.ng/router";
+import type { Route } from "@thi.ng/router";
 import { isNumeric } from "@thi.ng/checks/is-alphanum";
 
 export const ABOUT: Route = {
@@ -15,9 +15,9 @@ export const SEARCH: Route = {
     id: "search",
     match: ["search", "?id", "?page"],
     validate: {
-        id: { check: (x) => x !== "" },
+        id: { check: x => x !== "" },
         page: {
-            check: (x) => isNumeric(x),
+            check: x => isNumeric(x),
         },
     },
 };
@@ -28,8 +28,8 @@ export const ENTRY_DETAIL: Route = {
     validate: {
         id: {
             // make sure the don't contain any uppercase
-            coerce: (x) => x.toLowerCase(),
-            check: (x) => x.toLowerCase() === x,
+            coerce: x => x.toLowerCase(),
+            check: x => x.toLowerCase() === x,
         },
     },
 };
@@ -40,8 +40,8 @@ export const NEW_ENTRY: Route = {
     validate: {
         id: {
             // make sure the don't contain any uppercase
-            coerce: (x) => x.toLowerCase(),
-            check: (x) => x.toLowerCase() === x,
+            coerce: x => x.toLowerCase(),
+            check: x => x.toLowerCase() === x,
         },
     },
 };
@@ -52,8 +52,8 @@ export const EDIT_ENTRY: Route = {
     validate: {
         id: {
             // make sure the don't contain any uppercase
-            coerce: (x) => x.toLowerCase(),
-            check: (x) => x.toLowerCase() === x,
+            coerce: x => x.toLowerCase(),
+            check: x => x.toLowerCase() === x,
         },
     },
 };

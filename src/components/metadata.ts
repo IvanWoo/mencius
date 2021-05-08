@@ -22,7 +22,7 @@ function tag(_: AppContext, x: string) {
     ];
 }
 
-export function metadata(ctx: AppContext, entry: Entry) {
+export function metadata(_ctx: AppContext, entry: Entry) {
     return [
         "div",
         { class: "flex flex-col justify-center px-4 md:px-12 pb-10" },
@@ -58,7 +58,7 @@ export function metadata(ctx: AppContext, entry: Entry) {
                     entry.album,
                 ].map(x => (x ? [tag, x] : [])),
             ],
-            entry.wikipedia.pageid ? wikipedia(entry) : [],
+            entry.wikipedia?.pageid ? wikipedia(entry) : [],
         ],
     ];
 }
@@ -69,7 +69,7 @@ function wikipedia(entry: Entry) {
         {
             class: " sm:text-xl text-gray-600 mt-3 leading-relaxed",
         },
-        ["p", { class: "font-light text-base" }, entry.wikipedia.extract],
+        ["p", { class: "font-light text-base" }, entry.wikipedia?.extract],
         [
             "div",
             {
@@ -79,7 +79,7 @@ function wikipedia(entry: Entry) {
             [
                 "a",
                 {
-                    href: `https://${entry.language}.wikipedia.org/?curid=${entry.wikipedia.pageid}`,
+                    href: `https://${entry.language}.wikipedia.org/?curid=${entry.wikipedia?.pageid}`,
                     target: "_blank",
                 },
                 "Surf the Wikipedia 🌊",

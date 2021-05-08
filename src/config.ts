@@ -1,7 +1,6 @@
 import {
     EV_SET_VALUE,
     EV_UPDATE_VALUE,
-    Event,
     FX_DELAY,
     FX_DISPATCH_ASYNC,
     FX_DISPATCH_NOW,
@@ -23,7 +22,8 @@ import * as fx from "./effects";
 import * as ev from "./events";
 import * as routes from "./routes";
 
-const API_HOST = process.env.API_HOST;
+const { SNOWPACK_PUBLIC_API_HOST } = import.meta.env;
+const API_HOST = SNOWPACK_PUBLIC_API_HOST;
 
 // main App configuration
 export const CONFIG: AppConfig = {
@@ -91,13 +91,13 @@ export const CONFIG: AppConfig = {
         }),
 
         // toggles isNavOpen state flag on/off to control the nav dropdown for small screen
-        [ev.TOGGLE_NAV]: valueUpdater<boolean>("isNavOpen", (x) => !x),
+        [ev.TOGGLE_NAV]: valueUpdater<boolean>("isNavOpen", x => !x),
 
         // toggles accountOpen state flag on/off to control the account dropdown
-        [ev.TOGGLE_ACCOUNT]: valueUpdater<boolean>("accountOpen", (x) => !x),
+        [ev.TOGGLE_ACCOUNT]: valueUpdater<boolean>("accountOpen", x => !x),
 
         // sets accountOpen to false
-        [ev.CLOSE_ACCOUNT]: valueUpdater<boolean>("accountOpen", (x) => false),
+        [ev.CLOSE_ACCOUNT]: valueUpdater<boolean>("accountOpen", _ => false),
 
         // toggles notificationOpen state flag on/off to control the notification dropdown
         // prettier-ignore
@@ -105,7 +105,7 @@ export const CONFIG: AppConfig = {
 
         // sets notificationOpen to false
         // prettier-ignore
-        [ev.CLOSE_NOTIFICATION]: valueUpdater<boolean>("notificationOpen", (x) => false),
+        [ev.CLOSE_NOTIFICATION]: valueUpdater<boolean>("notificationOpen", _ => false),
 
         // toggles deleteOpinionOpen state flag on/off to display delete opinion modal
         // prettier-ignore
@@ -113,16 +113,16 @@ export const CONFIG: AppConfig = {
 
         // sets deleteOpinionOpen to false
         // prettier-ignore
-        [ev.CLOSE_DELETE_OPINION]: valueUpdater<boolean>("deleteOpinionOpen", (x) => false),
+        [ev.CLOSE_DELETE_OPINION]: valueUpdater<boolean>("deleteOpinionOpen", _ => false),
 
         // toggles reportOpen state flag on/off to display report modal
-        [ev.TOGGLE_REPORT]: valueUpdater<boolean>("reportOpen", (x) => !x),
+        [ev.TOGGLE_REPORT]: valueUpdater<boolean>("reportOpen", x => !x),
 
         // sets reportOpen to false
-        [ev.CLOSE_REPORT]: valueUpdater<boolean>("reportOpen", (x) => false),
+        [ev.CLOSE_REPORT]: valueUpdater<boolean>("reportOpen", _ => false),
 
         // toggles voteLock state flag on/off to prevent double voting
-        [ev.TOGGLE_VOTE_LOCK]: valueUpdater<boolean>("voteLock", (x) => !x),
+        [ev.TOGGLE_VOTE_LOCK]: valueUpdater<boolean>("voteLock", x => !x),
 
         // sets report in app state
         [ev.SET_REPORT]: (_, [__, json]) => ({
@@ -168,7 +168,7 @@ export const CONFIG: AppConfig = {
         }),
 
         // toggles debug state flag on/off
-        [ev.TOGGLE_DEBUG]: valueUpdater<boolean>("debug", (x) => !x),
+        [ev.TOGGLE_DEBUG]: valueUpdater<boolean>("debug", x => !x),
 
         // sets input value in app state
         [ev.SET_INPUT]: (_, [__, input]) => ({
@@ -256,7 +256,7 @@ export const CONFIG: AppConfig = {
         }),
 
         // triggered after successful getting JWT token
-        [ev.RECEIVE_TOKEN]: (_, [__, json]) => ({
+        [ev.RECEIVE_TOKEN]: (_, [__, _json]) => ({
             [FX_DISPATCH_NOW]: [
                 [
                     ev.SET_STATUS,
@@ -805,7 +805,7 @@ export const CONFIG: AppConfig = {
         }),
 
         // triggered after successful updating notification
-        [ev.UPDATE_NOTIFICATION_SUCCESS]: (_, [__, json]) => ({
+        [ev.UPDATE_NOTIFICATION_SUCCESS]: (_, [__, _json]) => ({
             [FX_DISPATCH_NOW]: [
                 [
                     ev.SET_STATUS,
@@ -906,7 +906,7 @@ export const CONFIG: AppConfig = {
                 [
                     ["newNotifications"],
                     (x: Notification[]) => [
-                        ...x.filter((y) => y.entry_id != json.id),
+                        ...x.filter(y => y.entry_id != json.id),
                         json.data,
                     ],
                 ],
@@ -934,7 +934,7 @@ export const CONFIG: AppConfig = {
                     ["Content-Type", "text/plain"],
                 ],
                 credentials: "include",
-            }).then((resp) => {
+            }).then(resp => {
                 if (!resp.ok) {
                     throw new Error(resp.statusText);
                 }
@@ -948,7 +948,7 @@ export const CONFIG: AppConfig = {
                     ["Content-Type", "text/plain"],
                 ],
                 credentials: "include",
-            }).then((resp) => {
+            }).then(resp => {
                 if (!resp.ok) {
                     throw new Error(resp.statusText);
                 }
@@ -963,14 +963,14 @@ export const CONFIG: AppConfig = {
                     ["Content-Type", "text/plain"],
                 ],
                 credentials: "include",
-            }).then((resp) => {
+            }).then(resp => {
                 if (!resp.ok) {
                     throw new Error(resp.statusText);
                 }
                 // document.cookie ="session_id=; expires=Thu, 01 Jan 1970 00:00:00 GMT";
                 return resp.json();
             }),
-        [fx.CREATE_OPINION]: (json) =>
+        [fx.CREATE_OPINION]: json =>
             fetch(API_HOST + "/api/v1/entries/" + json.id, {
                 method: "POST",
                 headers: [
@@ -979,13 +979,13 @@ export const CONFIG: AppConfig = {
                 ],
                 credentials: "include",
                 body: JSON.stringify(json.data),
-            }).then((resp) => {
+            }).then(resp => {
                 if (!resp.ok) {
                     throw new Error(resp.statusText);
                 }
                 return resp.json();
             }),
-        [fx.DELETE_OPINION]: (json) =>
+        [fx.DELETE_OPINION]: json =>
             fetch(API_HOST + `/api/v1/entries/${json.id}/${json.userName}`, {
                 method: "DELETE",
                 headers: [
@@ -993,13 +993,13 @@ export const CONFIG: AppConfig = {
                     ["Content-Type", "text/plain"],
                 ],
                 credentials: "include",
-            }).then((resp) => {
+            }).then(resp => {
                 if (!resp.ok) {
                     throw new Error(resp.statusText);
                 }
                 return resp.json();
             }),
-        [fx.UPDATE_OPINION]: (json) =>
+        [fx.UPDATE_OPINION]: json =>
             fetch(API_HOST + `/api/v1/entries/${json.id}/${json.userName}`, {
                 method: "PUT",
                 headers: [
@@ -1008,13 +1008,13 @@ export const CONFIG: AppConfig = {
                 ],
                 credentials: "include",
                 body: JSON.stringify(json.data),
-            }).then((resp) => {
+            }).then(resp => {
                 if (!resp.ok) {
                     throw new Error(resp.statusText);
                 }
                 return resp.json();
             }),
-        [fx.GET_WIKI]: (json) =>
+        [fx.GET_WIKI]: json =>
             fetch(
                 API_HOST +
                     `/api/v1/wiki?language=${json.language}&titles=${json.titles}`,
@@ -1026,7 +1026,7 @@ export const CONFIG: AppConfig = {
                     ],
                     credentials: "include",
                 }
-            ).then((resp) => {
+            ).then(resp => {
                 if (!resp.ok) {
                     throw new Error(resp.statusText);
                 }
@@ -1040,13 +1040,13 @@ export const CONFIG: AppConfig = {
                     ["Content-Type", "text/plain"],
                 ],
                 credentials: "include",
-            }).then((resp) => {
+            }).then(resp => {
                 if (!resp.ok) {
                     throw new Error(resp.statusText);
                 }
                 return resp.json();
             }),
-        [fx.CREATE_ENTRY]: (json) =>
+        [fx.CREATE_ENTRY]: json =>
             fetch(API_HOST + "/api/v1/entries", {
                 method: "POST",
                 headers: [
@@ -1055,13 +1055,13 @@ export const CONFIG: AppConfig = {
                 ],
                 credentials: "include",
                 body: JSON.stringify(json.data),
-            }).then((resp) => {
+            }).then(resp => {
                 if (!resp.ok) {
                     throw new Error(resp.statusText);
                 }
                 return resp.json();
             }),
-        [fx.UPDATE_ENTRY]: (json) =>
+        [fx.UPDATE_ENTRY]: json =>
             fetch(API_HOST + `/api/v1/entries/${json.id}`, {
                 method: "PUT",
                 headers: [
@@ -1070,13 +1070,13 @@ export const CONFIG: AppConfig = {
                 ],
                 credentials: "include",
                 body: JSON.stringify(json.data),
-            }).then((resp) => {
+            }).then(resp => {
                 if (!resp.ok) {
                     throw new Error(resp.statusText);
                 }
                 return resp.json();
             }),
-        [fx.SEARCH_ENTRY]: (json) =>
+        [fx.SEARCH_ENTRY]: json =>
             fetch(
                 API_HOST +
                     `/api/v1/search/entry?id=${json.id}&page=${json.page}`,
@@ -1088,13 +1088,13 @@ export const CONFIG: AppConfig = {
                     ],
                     credentials: "include",
                 }
-            ).then((resp) => {
+            ).then(resp => {
                 if (!resp.ok) {
                     throw new Error(resp.statusText);
                 }
                 return resp.json();
             }),
-        [fx.CREATE_REPORT]: (json) =>
+        [fx.CREATE_REPORT]: json =>
             fetch(API_HOST + "/api/v1/report", {
                 method: "POST",
                 headers: [
@@ -1103,7 +1103,7 @@ export const CONFIG: AppConfig = {
                 ],
                 credentials: "include",
                 body: JSON.stringify(json.data),
-            }).then((resp) => {
+            }).then(resp => {
                 if (!resp.ok) {
                     throw new Error(resp.statusText);
                 }
@@ -1120,13 +1120,13 @@ export const CONFIG: AppConfig = {
                     ],
                     credentials: "include",
                 }
-            ).then((resp) => {
+            ).then(resp => {
                 if (!resp.ok) {
                     throw new Error(resp.statusText);
                 }
                 return resp.json();
             }),
-        [fx.CREATE_VOTE]: (json) =>
+        [fx.CREATE_VOTE]: json =>
             fetch(
                 API_HOST +
                     `/api/v1/entries/${json.id}/${json.data.opinion_github_handle}/vote`,
@@ -1139,13 +1139,13 @@ export const CONFIG: AppConfig = {
                     credentials: "include",
                     body: JSON.stringify(json.data),
                 }
-            ).then((resp) => {
+            ).then(resp => {
                 if (!resp.ok) {
                     throw new Error(resp.statusText);
                 }
                 return resp.json();
             }),
-        [fx.DELETE_VOTE]: (json) =>
+        [fx.DELETE_VOTE]: json =>
             fetch(
                 API_HOST +
                     `/api/v1/entries/${json.id}/${json.data.opinion_github_handle}/vote/${json.voteID}`,
@@ -1158,7 +1158,7 @@ export const CONFIG: AppConfig = {
                     credentials: "include",
                     body: JSON.stringify(json.data),
                 }
-            ).then((resp) => {
+            ).then(resp => {
                 if (!resp.ok) {
                     throw new Error(resp.statusText);
                 }
@@ -1172,13 +1172,13 @@ export const CONFIG: AppConfig = {
                     ["Content-Type", "text/plain"],
                 ],
                 credentials: "include",
-            }).then((resp) => {
+            }).then(resp => {
                 if (!resp.ok) {
                     throw new Error(resp.statusText);
                 }
                 return resp.json();
             }),
-        [fx.CREATE_NOTIFICATION]: (json) =>
+        [fx.CREATE_NOTIFICATION]: json =>
             fetch(API_HOST + `/api/v1/notification/${json.id}`, {
                 method: "POST",
                 headers: [
@@ -1187,13 +1187,13 @@ export const CONFIG: AppConfig = {
                 ],
                 credentials: "include",
                 body: JSON.stringify(json.data),
-            }).then((resp) => {
+            }).then(resp => {
                 if (!resp.ok) {
                     throw new Error(resp.statusText);
                 }
                 return resp.json();
             }),
-        [fx.UPDATE_NOTIFICATION]: (json) =>
+        [fx.UPDATE_NOTIFICATION]: json =>
             fetch(API_HOST + `/api/v1/notification/${json.id}`, {
                 method: "PUT",
                 headers: [
@@ -1202,13 +1202,13 @@ export const CONFIG: AppConfig = {
                 ],
                 credentials: "include",
                 body: JSON.stringify(json.data),
-            }).then((resp) => {
+            }).then(resp => {
                 if (!resp.ok) {
                     throw new Error(resp.statusText);
                 }
                 return resp.json();
             }),
-        [fx.DELETE_NOTIFICATION]: (json) =>
+        [fx.DELETE_NOTIFICATION]: json =>
             fetch(API_HOST + `/api/v1/notification/${json.id}`, {
                 method: "DELETE",
                 headers: [
@@ -1217,7 +1217,7 @@ export const CONFIG: AppConfig = {
                 ],
                 credentials: "include",
                 body: JSON.stringify(json.data),
-            }).then((resp) => {
+            }).then(resp => {
                 if (!resp.ok) {
                     throw new Error(resp.statusText);
                 }
@@ -1231,7 +1231,7 @@ export const CONFIG: AppConfig = {
                     ["Content-Type", "text/plain"],
                 ],
                 credentials: "include",
-            }).then((resp) => {
+            }).then(resp => {
                 if (!resp.ok) {
                     throw new Error(resp.statusText);
                 }
@@ -1245,7 +1245,7 @@ export const CONFIG: AppConfig = {
                     ["Content-Type", "text/plain"],
                 ],
                 credentials: "include",
-            }).then((resp) => {
+            }).then(resp => {
                 if (!resp.ok) {
                     throw new Error(resp.statusText);
                 }
@@ -1317,8 +1317,8 @@ export const CONFIG: AppConfig = {
     // docs here:
     // https://github.com/thi-ng/umbrella/tree/master/packages/atom#derived-views
     views: {
-        json: ["", (state) => JSON.stringify(state, null, 2)],
-        user: ["user", (user) => user || {}],
+        json: ["", state => JSON.stringify(state, null, 2)],
+        user: ["user", user => user || {}],
         newNotifications: "newNotifications",
         status: "status",
         debug: "debug",

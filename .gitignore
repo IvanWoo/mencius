@@ -1,6 +1,5 @@
-out
+build
 /.tmp
-.cache
 
 # dotenv environment variables file
 .env
@@ -26,4 +25,5 @@ lerna-debug.log*
 *.d.ts
 *.d.ts.map
 !types.d.ts
+!static.d.ts
 .nyc_output

@@ -1,21 +1,16 @@
-import { AppContext } from "../api";
+import type { AppContext } from "../api";
 import { newsletterForm } from "./newsletter-form";
 import { characterCard } from "./character-card";
 import { redirect } from "./utils";
 
-import {
-    CODE,
-    INTEGRATION,
-    FORUM,
-    SERVICES,
-} from "@thi.ng/hiccup-carbon-icons";
+import { CODE, INTEGRATION, FORUM, TOOLS } from "@thi.ng/hiccup-carbon-icons";
 
 /**
  * Landing page component.
  *
  * @param ctx injected context object
  */
-export function about(ctx: AppContext) {
+export function about(_ctx: AppContext) {
     redirect();
     return [
         "div",
@@ -60,7 +55,7 @@ export function about(ctx: AppContext) {
                         "border-t-2 sm:border-t-0 sm:border-l sm:border-b",
                         "便利的工具",
                         "应对每时每刻不断诞⽣着的层出不穷的各语种专有词汇",
-                        SERVICES,
+                        TOOLS,
                     ],
                     [
                         "border-t-2 sm:border-r sm:border-t",

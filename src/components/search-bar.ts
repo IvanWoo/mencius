@@ -1,4 +1,4 @@
-import { AppContext } from "../api";
+import type { AppContext } from "../api";
 import { SET_INPUT, ROUTE_TO_SEARCH_ENTRY_PAGE } from "../events";
 
 import { SEARCH } from "@thi.ng/hiccup-carbon-icons";
@@ -6,7 +6,6 @@ import { SEARCH } from "@thi.ng/hiccup-carbon-icons";
 export function searchBar(ctx: AppContext) {
     const bus = ctx.bus;
     const input = ctx.views.input.deref()!;
-    const entries = ctx.views.entries.deref()!;
     return [
         "div",
         {

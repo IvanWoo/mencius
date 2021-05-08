@@ -1,5 +1,5 @@
-import { Route } from "@thi.ng/router";
-import { AppContext } from "../api";
+import type { Route } from "@thi.ng/router";
+import type { AppContext } from "../api";
 import { ABOUT, CONTACT, FAQ, DONATE } from "../routes";
 import { withSize, M_CHAR, GITHUB } from "./icons";
 import { routeLink } from "./route-link";
@@ -12,6 +12,12 @@ import { externalLink } from "./external-link";
  */
 export function footer(ctx: AppContext) {
     const ui = ctx.ui.footer;
+    const linkConfig: [Route, string][] = [
+        [ABOUT, "About"],
+        [CONTACT, "Contact"],
+        [FAQ, "FAQ"],
+        [DONATE, "Donate"],
+    ];
     return [
         "footer",
         {
@@ -33,12 +39,7 @@ export function footer(ctx: AppContext) {
         [
             "div",
             { class: "flex flex-row" },
-            [
-                [ABOUT, "About"],
-                [CONTACT, "Contact"],
-                [FAQ, "FAQ"],
-                [DONATE, "Donate"],
-            ].map((x: [Route, string]) => [
+            linkConfig.map(x => [
                 routeLink,
                 x[0].id,
                 null,

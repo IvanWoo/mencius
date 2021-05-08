@@ -5,7 +5,7 @@ import {
     VIEW_NEW_NOTIFICATIONS,
 } from "../events";
 import { eventBtn } from "./event-btn";
-import { HEADER_NOTIFICATION } from "@thi.ng/hiccup-carbon-icons";
+import { NOTIFICATION } from "@thi.ng/hiccup-carbon-icons";
 
 /**
  * Notification dropdown component.
@@ -58,7 +58,7 @@ export function notificationDropdown(ctx: AppContext) {
                                         : "absolute top-0 right-0 text-xs text-center rounded-full p-1 transition eas-in-out duration-300 bg-transparent",
                             },
                         ],
-                        ["div", HEADER_NOTIFICATION],
+                        ["div", NOTIFICATION],
                     ],
                 ],
                 notificationOpen

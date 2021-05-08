@@ -57,12 +57,12 @@ export function entryDetail(ctx: AppContext) {
                       // ["hr"],
                       [metadata, entry],
                       // sort opinions by votes
-                      entry.opinions
-                          .sort(sortByVotes)
+                      entry
+                          .opinions!.sort(sortByVotes)
                           .map(x => [opinionCard, x]),
                       user.login &&
-                      entry.opinions
-                          .map(x => x.github_handle.toLowerCase())
+                      entry
+                          .opinions!.map(x => x.github_handle.toLowerCase())
                           .indexOf(user.login.toLowerCase()) < 0
                           ? opinionInput
                           : [],

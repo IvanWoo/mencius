@@ -37,7 +37,7 @@ jobs:
         run: |
           rm -rf host-repo/mencius
           mkdir host-repo/mencius
-          cp -a out/. host-repo/mencius
+          rsync -avz --delete build/. host-repo/mencius
 
       - name: Commit Changes and Push
         run: |

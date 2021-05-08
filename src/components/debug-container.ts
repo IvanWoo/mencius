@@ -1,4 +1,4 @@
-import { AppContext } from "../api";
+import type { AppContext } from "../api";
 import { TOGGLE_DEBUG } from "../events";
 import { eventBtn } from "./event-btn";
 

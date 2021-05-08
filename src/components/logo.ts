@@ -1,4 +1,4 @@
-import { AppContext } from "../api";
+import type { AppContext } from "../api";
 import { withSize, M_CHAR, MENCIUS } from "./icons";
 
 /**

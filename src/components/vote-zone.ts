@@ -65,7 +65,7 @@ function createBtn(
 function deleteBtn(
     ctx: AppContext,
     mv: Vote,
-    opinion: Opinion,
+    _opinion: Opinion,
     attribs: any,
     content: string
 ) {

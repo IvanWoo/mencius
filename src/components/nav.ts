@@ -1,4 +1,4 @@
-import { AppContext } from "../api";
+import type { AppContext } from "../api";
 import { SIGN_IN, NEW_ENTRY } from "../routes";
 import { TOGGLE_NAV } from "../events";
 import { logo } from "./logo";
@@ -7,12 +7,7 @@ import { eventBtn } from "./event-btn";
 import { searchBar } from "./search-bar";
 import { accountDropdown } from "./account-dropdown";
 import { notificationDropdown } from "./notification-dropdown";
-import {
-    HEADER_HAMBURGER,
-    ADD_OUTLINE,
-    HEADER_CLOSE,
-    USER,
-} from "@thi.ng/hiccup-carbon-icons";
+import { MENU, ADD, CLOSE, USER } from "@thi.ng/hiccup-carbon-icons";
 
 /**
  * Main nav component with hard coded routes.
@@ -43,7 +38,7 @@ export function nav(ctx: AppContext) {
                     [
                         "div",
                         { class: "h-8 w-8 md:h-10 md:w-10" },
-                        isNavOpen ? HEADER_CLOSE : HEADER_HAMBURGER,
+                        isNavOpen ? CLOSE : MENU,
                     ],
                 ],
                 user.login
@@ -79,7 +74,7 @@ export function nav(ctx: AppContext) {
                         class:
                             "flex flex-row items-center space-x-2 cursor-pointer",
                     },
-                    ["div", { class: "h-4 w-4" }, ADD_OUTLINE],
+                    ["div", { class: "h-6 w-6" }, ADD],
                     ["div", "New"],
                 ],
             ],
@@ -109,7 +104,7 @@ export function nav(ctx: AppContext) {
                               class:
                                   "flex flex-row items-center self-center cursor-pointer",
                           },
-                          ["div", { class: "h-4 w-4 mr-2" }, USER],
+                          ["div", { class: "h-6 w-6 mr-2" }, USER],
                           // TODO: figure out why "sign in" will break the ui
                           ["div", "Sign_in"],
                       ],

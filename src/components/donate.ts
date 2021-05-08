@@ -1,4 +1,4 @@
-import { AppContext } from "../api";
+import type { AppContext } from "../api";
 import { externalLink } from "./external-link";
 import ALIPAY from "../assets/alipay.png";
 
@@ -7,7 +7,7 @@ import ALIPAY from "../assets/alipay.png";
  *
  * @param ctx injected context object
  */
-export function donate(ctx: AppContext) {
+export function donate(_ctx: AppContext) {
     return [
         "div",
         [

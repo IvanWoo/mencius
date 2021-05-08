@@ -1,4 +1,4 @@
-import { AppContext } from "../api";
+import type { AppContext } from "../api";
 import type { IObjectOf } from "@thi.ng/api";
 
 interface aq {
@@ -38,7 +38,7 @@ const aqs: IObjectOf<aq[]> = {
  *
  * @param ctx injected context object
  */
-export function faq(ctx: AppContext) {
+export function faq(_ctx: AppContext) {
     return [
         "div",
         [

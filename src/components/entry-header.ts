@@ -5,12 +5,7 @@ import {
     CREATE_NOTIFICATION,
     DELETE_NOTIFICATION,
 } from "../events";
-import {
-    withSize,
-    EDIT,
-    VISIBILITY_ON,
-    VISIBILITY_OFF,
-} from "@thi.ng/hiccup-carbon-icons";
+import { withSize, EDIT, VIEW, VIEW_OFF } from "@thi.ng/hiccup-carbon-icons";
 
 export function entryHeader(ctx: AppContext, entry: Entry) {
     const id = decodeURI(ctx.views.route.deref()!.params.id);
@@ -71,7 +66,7 @@ export function entryHeader(ctx: AppContext, entry: Entry) {
                                               class:
                                                   "inline-block w-full fill-current pr-2 self-center",
                                           },
-                                          withSize(VISIBILITY_OFF, "20"),
+                                          withSize(VIEW_OFF, "20"),
                                       ],
                                       ["div", "unwatch"],
                                   ],
@@ -102,7 +97,7 @@ export function entryHeader(ctx: AppContext, entry: Entry) {
                                               class:
                                                   "inline-block w-full fill-current pr-2 self-center",
                                           },
-                                          withSize(VISIBILITY_ON, "20"),
+                                          withSize(VIEW, "20"),
                                       ],
                                       ["div", "watch"],
                                   ],

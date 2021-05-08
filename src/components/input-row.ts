@@ -2,7 +2,7 @@ import type { AppContext } from "../api";
 import { SET_OPINION } from "../events";
 
 function row(
-    ctx: AppContext,
+    _ctx: AppContext,
     title: string,
     description: string,
     attribs: any,

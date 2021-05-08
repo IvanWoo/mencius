@@ -15,7 +15,7 @@ import { voteZone } from "./vote-zone";
 import { withSize, EDIT, DELETE, WARNING } from "@thi.ng/hiccup-carbon-icons";
 import { dropdown, DropDownOption } from "@thi.ng/hdom-components";
 
-function modalFrame(ctx: AppContext, content: any, cancelBtn: any) {
+function modalFrame(_ctx: AppContext, content: any, cancelBtn: any) {
     return [
         "div",
         { class: "fixed inset-0 flex items-center justify-center z-30" },
@@ -31,7 +31,7 @@ function modalFrame(ctx: AppContext, content: any, cancelBtn: any) {
     ];
 }
 
-function modal(ctx: AppContext, content: any, cancelBtn: any) {
+function modal(_ctx: AppContext, content: any, cancelBtn: any) {
     return [modalFrame, content, cancelBtn];
 }
 
