@@ -1,6 +1,5 @@
 import type { AppContext } from "../api";
 import { externalLink } from "./external-link";
-import ALIPAY from "../assets/alipay.png";
 
 /**
  * Donate page component.
@@ -82,7 +81,7 @@ export function donate(_ctx: AppContext) {
                                 {
                                     class:
                                         "rounded-lg shadow-2xl sm:shadow-none",
-                                    src: ALIPAY,
+                                    src: "assets/alipay.png",
                                 },
                             ],
                         ],
