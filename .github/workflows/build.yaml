@@ -42,8 +42,8 @@ jobs:
       - name: Commit Changes and Push
         run: |
           cd host-repo
-          git add .
           git config --local user.email "tyivanwu@gmail.com"
           git config --local user.name "Yifan Wu"
-          git commit -m "📖 update mencius, cheers!" -a
+          git add -A
+          git commit -m "📖 mencius updated at $(date +%Y-%m-%dT%H:%M:%S)"
           git push
