@@ -22,7 +22,7 @@ jobs:
           CLIENT_ID: ${{ secrets.MENCIUS_CLIENT_ID }}
           REDIRECT_URI: "https://nopro.studio/mencius/#/github_oauth_cb"
         run: |
-          echo -en "SNOWPACK_PUBLIC_API_HOST=${API_HOST}\nSNOWPACK_PUBLIC_CLIENT_ID=${CLIENT_ID}\nSNOWPACK_PUBLIC_REDIRECT_URI={$REDIRECT_URI}\n" > .env
+          echo -en "SNOWPACK_PUBLIC_API_HOST=${API_HOST}\nSNOWPACK_PUBLIC_CLIENT_ID=${CLIENT_ID}\nSNOWPACK_PUBLIC_REDIRECT_URI=${REDIRECT_URI}\n" > .env
           yarn install
           yarn build
 
