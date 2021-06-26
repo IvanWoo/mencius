@@ -1,5 +1,5 @@
 import type { AppContext } from "../api";
-import { SIGN_IN, NEW_ENTRY } from "../routes";
+import { ABOUT, SIGN_IN, NEW_ENTRY } from "../routes";
 import { TOGGLE_NAV } from "../events";
 import { logo } from "./logo";
 import { routeLink } from "./route-link";
@@ -27,7 +27,7 @@ export function nav(ctx: AppContext) {
         [
             "div",
             { class: "flex items-center justify-between px-4 py-3 sm:p-0" },
-            logo,
+            [routeLink, ABOUT.id, null, { class: "cursor-pointer" }, logo],
             [
                 "div",
                 { class: "flex items-center justify-end space-x-2" },
