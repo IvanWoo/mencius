@@ -24,6 +24,7 @@ import * as routes from "./routes";
 
 const { SNOWPACK_PUBLIC_API_HOST } = import.meta.env;
 const API_HOST = SNOWPACK_PUBLIC_API_HOST;
+export const DEFAULT_ROUTE = routes.ABOUT;
 
 // main App configuration
 export const CONFIG: AppConfig = {
@@ -34,7 +35,7 @@ export const CONFIG: AppConfig = {
         // use URI hash for routes (KISS)
         useFragment: true,
         // route ID if no other matches (MUST be non-parametric!)
-        defaultRouteID: routes.ABOUT.id,
+        defaultRouteID: DEFAULT_ROUTE.id,
         // IMPORTANT: rules with common prefixes MUST be specified in
         // order of highest precision / longest path
         routes: [
@@ -263,7 +264,7 @@ export const CONFIG: AppConfig = {
                     [StatusType.SUCCESS, "token successfully loaded", true],
                 ],
                 // TODO: redirect to sign-in landing page
-                [ev.ROUTE_TO, [routes.ABOUT.id, {}]],
+                [ev.ROUTE_TO, [DEFAULT_ROUTE.id, {}]],
                 [ev.GET_USER],
             ],
         }),
@@ -289,7 +290,7 @@ export const CONFIG: AppConfig = {
                     [StatusType.SUCCESS, "signed out successfully", true],
                 ],
                 // redirect to home page
-                [ev.ROUTE_TO, [routes.ABOUT.id, {}]],
+                [ev.ROUTE_TO, [DEFAULT_ROUTE.id, {}]],
                 [EV_SET_VALUE, ["user", {}]],
             ],
         }),

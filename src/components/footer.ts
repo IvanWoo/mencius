@@ -2,7 +2,7 @@ import type { Route } from "@thi.ng/router";
 import type { AppContext } from "../api";
 import { ABOUT, CONTACT, FAQ, DONATE } from "../routes";
 import { withSize, M_CHAR, GITHUB } from "./icons";
-import { routeLink } from "./route-link";
+import { defaultRouteLink, routeLink } from "./route-link";
 import { externalLink } from "./external-link";
 
 /**
@@ -28,9 +28,7 @@ export function footer(ctx: AppContext) {
             "div",
             { class: "flex items-center justify-start sm:px-4 sm:py-3 sm:p-0" },
             [
-                routeLink,
-                ABOUT.id,
-                null,
+                defaultRouteLink,
                 { class: "cursor-pointer" },
                 ["div", { ...ui.icon }, withSize(M_CHAR, "16px", "16px")],
             ],

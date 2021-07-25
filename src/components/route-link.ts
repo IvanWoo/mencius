@@ -1,4 +1,5 @@
 import type { AppContext } from "../api";
+import { DEFAULT_ROUTE } from "../config";
 import { ROUTE_TO } from "../events";
 
 /**
@@ -28,4 +29,15 @@ export function routeLink(
         },
         body,
     ];
+}
+
+/**
+ * Customizable hyperlink component emitting EV_ROUTE_TO DEFAULT_ROUTE event when clicked.
+ *
+ * @param ctx injected context object
+ * @param attribs element attribs
+ * @param body link body
+ */
+export function defaultRouteLink(ctx: AppContext, attribs: any, body: any) {
+    return routeLink(ctx, DEFAULT_ROUTE.id, null, attribs, body);
 }
