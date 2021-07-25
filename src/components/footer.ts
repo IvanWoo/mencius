@@ -27,7 +27,13 @@ export function footer(ctx: AppContext) {
         [
             "div",
             { class: "flex items-center justify-start sm:px-4 sm:py-3 sm:p-0" },
-            ["div", { ...ui.icon }, withSize(M_CHAR, "16px", "16px")],
+            [
+                routeLink,
+                ABOUT.id,
+                null,
+                { class: "cursor-pointer" },
+                ["div", { ...ui.icon }, withSize(M_CHAR, "16px", "16px")],
+            ],
             [
                 externalLink,
                 { title: "See our work on GitHub" },
