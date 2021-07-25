@@ -1,7 +1,7 @@
 import type { AppContext } from "../api";
 import { newsletterForm } from "./newsletter-form";
 import { characterCard } from "./character-card";
-import { redirect } from "./utils";
+import { cleanUrlQuery } from "./utils";
 
 import { CODE, INTEGRATION, FORUM, TOOLS } from "@thi.ng/hiccup-carbon-icons";
 
@@ -11,7 +11,8 @@ import { CODE, INTEGRATION, FORUM, TOOLS } from "@thi.ng/hiccup-carbon-icons";
  * @param ctx injected context object
  */
 export function about(_ctx: AppContext) {
-    redirect();
+    // TODO: find better approach to handle this
+    cleanUrlQuery();
     return [
         "div",
         [
