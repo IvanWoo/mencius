@@ -21,8 +21,7 @@ export function nav(ctx: AppContext) {
     return [
         "nav",
         {
-            class:
-                "sm:flex sm:justify-between sm:items-center px-4 md:px-6 py-3",
+            class: "sm:flex sm:justify-between sm:items-center px-4 md:px-6 py-3",
         },
         [
             "div",
@@ -71,8 +70,7 @@ export function nav(ctx: AppContext) {
                 [
                     "div",
                     {
-                        class:
-                            "flex flex-row items-center space-x-2 cursor-pointer",
+                        class: "flex flex-row items-center space-x-2 cursor-pointer",
                     },
                     ["div", { class: "h-6 w-6" }, ADD],
                     ["div", "New"],
@@ -101,8 +99,7 @@ export function nav(ctx: AppContext) {
                       [
                           "div",
                           {
-                              class:
-                                  "flex flex-row items-center self-center cursor-pointer",
+                              class: "flex flex-row items-center self-center cursor-pointer",
                           },
                           ["div", { class: "h-6 w-6 mr-2" }, USER],
                           // TODO: figure out why "sign in" will break the ui

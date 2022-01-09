@@ -25,8 +25,7 @@ export function entryHeader(ctx: AppContext, entry: Entry) {
             [
                 "div",
                 {
-                    class:
-                        "item-center content-center md:self-center align-center space-x-1 font-semibold text-lg",
+                    class: "item-center content-center md:self-center align-center space-x-1 font-semibold text-lg",
                 },
                 ["span", "entry"],
                 ["span", "/"],
@@ -54,8 +53,7 @@ export function entryHeader(ctx: AppContext, entry: Entry) {
                                       },
                                   ],
                                   {
-                                      class:
-                                          "p-2 mb-2 hover:text-gray-700 border border-purple-300 hover:border-purple-900 font-semibold rounded-l focus:outline-none",
+                                      class: "p-2 mb-2 hover:text-gray-700 border border-purple-300 hover:border-purple-900 font-semibold rounded-l focus:outline-none",
                                   },
                                   [
                                       "div",
@@ -63,8 +61,7 @@ export function entryHeader(ctx: AppContext, entry: Entry) {
                                       [
                                           "div",
                                           {
-                                              class:
-                                                  "inline-block w-full fill-current pr-2 self-center",
+                                              class: "inline-block w-full fill-current pr-2 self-center",
                                           },
                                           withSize(VIEW_OFF, "20"),
                                       ],
@@ -85,8 +82,7 @@ export function entryHeader(ctx: AppContext, entry: Entry) {
                                       },
                                   ],
                                   {
-                                      class:
-                                          "p-2 mb-2 hover:text-gray-700 border border-purple-300 hover:border-purple-900 font-semibold rounded-l focus:outline-none",
+                                      class: "p-2 mb-2 hover:text-gray-700 border border-purple-300 hover:border-purple-900 font-semibold rounded-l focus:outline-none",
                                   },
                                   [
                                       "div",
@@ -94,8 +90,7 @@ export function entryHeader(ctx: AppContext, entry: Entry) {
                                       [
                                           "div",
                                           {
-                                              class:
-                                                  "inline-block w-full fill-current pr-2 self-center",
+                                              class: "inline-block w-full fill-current pr-2 self-center",
                                           },
                                           withSize(VIEW, "20"),
                                       ],
@@ -106,8 +101,7 @@ export function entryHeader(ctx: AppContext, entry: Entry) {
                     [
                         "div",
                         {
-                            class:
-                                "p-2 mb-2 hover:text-gray-700 border border-purple-300 hover:border-purple-900 font-semibold rounded-r focus:outline-none cursor-default",
+                            class: "p-2 mb-2 hover:text-gray-700 border border-purple-300 hover:border-purple-900 font-semibold rounded-r focus:outline-none cursor-default",
                         },
                         notifications ? notifications.length : null,
                     ],
@@ -116,8 +110,7 @@ export function entryHeader(ctx: AppContext, entry: Entry) {
                     eventBtn,
                     [ROUTE_TO_EDIT_ENTRY, id],
                     {
-                        class:
-                            "p-2 mb-2 hover:text-gray-700 border border-purple-300 hover:border-purple-900 font-semibold rounded focus:outline-none",
+                        class: "p-2 mb-2 hover:text-gray-700 border border-purple-300 hover:border-purple-900 font-semibold rounded focus:outline-none",
                     },
                     [
                         "div",

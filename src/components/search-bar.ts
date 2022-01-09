@@ -18,8 +18,7 @@ export function searchBar(ctx: AppContext) {
                 "input",
                 {
                     id: "entry_search",
-                    class:
-                        "transition bg-white shadow-md focus:outline-0 border border-transparent placeholder-gray-700 rounded-lg py-2 pr-4 pl-10 block w-full appearance-none leading-normal",
+                    class: "transition bg-white shadow-md focus:outline-0 border border-transparent placeholder-gray-700 rounded-lg py-2 pr-4 pl-10 block w-full appearance-none leading-normal",
                     placeholder: "搜寻条目 / Search Entries",
                     type: "text",
                     oninput: (e: InputEvent) => {
@@ -41,14 +40,12 @@ export function searchBar(ctx: AppContext) {
             [
                 "div",
                 {
-                    class:
-                        "pointer-events-none absolute inset-y-0 left-0 pl-4 flex items-center",
+                    class: "pointer-events-none absolute inset-y-0 left-0 pl-4 flex items-center",
                 },
                 [
                     "div",
                     {
-                        class:
-                            "fill-current pointer-events-none text-gray-600 w-4 h-4",
+                        class: "fill-current pointer-events-none text-gray-600 w-4 h-4",
                     },
                     SEARCH,
                 ],

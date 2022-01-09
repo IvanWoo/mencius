@@ -37,8 +37,7 @@ function nav(ctx: AppContext, attribs: any) {
                     [
                         "div",
                         {
-                            class:
-                                "w-2 object-fill object-center items-baseline m-2 fill-current",
+                            class: "w-2 object-fill object-center items-baseline m-2 fill-current",
                         },
                         CHEVRON_LEFT,
                     ],
@@ -69,8 +68,7 @@ function nav(ctx: AppContext, attribs: any) {
                     [
                         "div",
                         {
-                            class:
-                                "w-2 object-fill object-center items-baseline m-2 fill-current",
+                            class: "w-2 object-fill object-center items-baseline m-2 fill-current",
                         },
                         CHEVRON_RIGHT,
                     ],
@@ -114,14 +112,12 @@ export function search(ctx: AppContext) {
                           ? [
                                 "div",
                                 {
-                                    class:
-                                        "flex flex-col text-gray-600 font-light",
+                                    class: "flex flex-col text-gray-600 font-light",
                                 },
                                 [
                                     "div",
                                     {
-                                        class:
-                                            "flex flex-row justify-between my-2 align-middle items-center",
+                                        class: "flex flex-row justify-between my-2 align-middle items-center",
                                     },
                                     [
                                         "span",
@@ -132,8 +128,7 @@ export function search(ctx: AppContext) {
                                                   [
                                                       "span",
                                                       {
-                                                          class:
-                                                              "text-black font-normal",
+                                                          class: "text-black font-normal",
                                                       },
                                                       `${
                                                           (page - 1) * 30 + 1
@@ -174,8 +169,7 @@ export function search(ctx: AppContext) {
                                             [
                                                 "div",
                                                 {
-                                                    class:
-                                                        "shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded",
+                                                    class: "shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded",
                                                 },
                                                 x,
                                             ],
@@ -184,8 +178,7 @@ export function search(ctx: AppContext) {
                                 ],
                                 search.total_count > 30
                                     ? nav(ctx, {
-                                          class:
-                                              "flex flex-row px-4 justify-center my-4",
+                                          class: "flex flex-row px-4 justify-center my-4",
                                       })
                                     : [],
                             ]

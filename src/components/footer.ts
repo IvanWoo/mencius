@@ -21,8 +21,7 @@ export function footer(ctx: AppContext) {
     return [
         "footer",
         {
-            class:
-                "flex flex-col sm:flex-row justify-between sm:items-center px-4 md:px-6 py-3",
+            class: "flex flex-col sm:flex-row justify-between sm:items-center px-4 md:px-6 py-3",
         },
         [
             "div",
@@ -51,8 +50,7 @@ export function footer(ctx: AppContext) {
                 [
                     "div",
                     {
-                        class:
-                            "flex flex-row items-center space-x-2 cursor-pointer",
+                        class: "flex flex-row items-center space-x-2 cursor-pointer",
                     },
                     ["div", x[1]],
                 ],

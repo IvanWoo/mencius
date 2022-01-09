@@ -31,8 +31,7 @@ export function accountDropdown(ctx: AppContext) {
                 eventBtn,
                 [TOGGLE_ACCOUNT],
                 {
-                    class:
-                        "relative z-10 block rounded-full overflow-hidden focus:outline-none",
+                    class: "relative z-10 block rounded-full overflow-hidden focus:outline-none",
                 },
                 [
                     "img",
@@ -57,8 +56,7 @@ export function accountDropdown(ctx: AppContext) {
             ? [
                   "div",
                   {
-                      class:
-                          "absolute right-0 mt-2 py-2 w-48 bg-white rounded-lg shadow-xl",
+                      class: "absolute right-0 mt-2 py-2 w-48 bg-white rounded-lg shadow-xl",
                   },
                   [
                       "div",
@@ -90,8 +88,7 @@ export function accountDropdown(ctx: AppContext) {
                       eventBtn,
                       [SIGN_OUT],
                       {
-                          class:
-                              "block px-4 py-2 text-black hover:bg-gray-200 w-full text-left",
+                          class: "block px-4 py-2 text-black hover:bg-gray-200 w-full text-left",
                       },
                       "Sign out",
                   ],

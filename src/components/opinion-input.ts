@@ -37,8 +37,7 @@ export function opinionInput(ctx: AppContext) {
             ? [
                   "div",
                   {
-                      class:
-                          "flex flex-col px-4 md:px-12 py-10 w-full border-t-2 border-gray-200",
+                      class: "flex flex-col px-4 md:px-12 py-10 w-full border-t-2 border-gray-200",
                   },
                   [
                       "div",
@@ -46,8 +45,7 @@ export function opinionInput(ctx: AppContext) {
                       [
                           "div",
                           {
-                              class:
-                                  "my-3 flex flex-row justify-start items-center",
+                              class: "my-3 flex flex-row justify-start items-center",
                           },
                           [
                               "img",
@@ -91,8 +89,7 @@ export function opinionInput(ctx: AppContext) {
                               [
                                   "div",
                                   {
-                                      class:
-                                          "leading-relaxed text-gray-700 mt-1 text-sm md:text-base break-all sm:break-words",
+                                      class: "leading-relaxed text-gray-700 mt-1 text-sm md:text-base break-all sm:break-words",
                                   },
                                   parser(views.opinions.deref()![id].details),
                               ],
@@ -111,19 +108,16 @@ export function opinionInput(ctx: AppContext) {
                               // disable the btn when the translation is empty
                               opinion.translation
                                   ? {
-                                        class:
-                                            "block mt-4 transition ease-in-out duration-700",
+                                        class: "block mt-4 transition ease-in-out duration-700",
                                     }
                                   : {
-                                        class:
-                                            "block mt-4 transition ease-in-out duration-700 disabled:opacity-50",
+                                        class: "block mt-4 transition ease-in-out duration-700 disabled:opacity-50",
                                         disabled: true,
                                     },
                               [
                                   "div",
                                   {
-                                      class:
-                                          "shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded",
+                                      class: "shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded",
                                   },
                                   isEmpty(tempOpinion) ? "CREATE" : "UPDATE",
                               ],
@@ -143,8 +137,7 @@ export function opinionInput(ctx: AppContext) {
                                     [
                                         "div",
                                         {
-                                            class:
-                                                "shadow bg-gray-500 hover:bg-gray-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded",
+                                            class: "shadow bg-gray-500 hover:bg-gray-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded",
                                         },
                                         "CANCEL",
                                     ],

@@ -17,8 +17,7 @@ export function frame(_: AppContext, content: any) {
             [
                 "div",
                 {
-                    class:
-                        "flex-grow bg-white lg:shadow-2xl lg:rounded-lg lg:overflow-hidden h-full lg:h-auto",
+                    class: "flex-grow bg-white lg:shadow-2xl lg:rounded-lg lg:overflow-hidden h-full lg:h-auto",
                 },
                 content,
             ],

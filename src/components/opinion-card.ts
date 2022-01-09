@@ -22,8 +22,7 @@ function modalFrame(_ctx: AppContext, content: any, cancelBtn: any) {
         [
             "div",
             {
-                class:
-                    "fixed flex flex-col items-center justify-between mt-2 pt-2 lg:w-1/3 md:w-1/2 w-3/4 bg-white rounded-lg shadow-xl z-40",
+                class: "fixed flex flex-col items-center justify-between mt-2 pt-2 lg:w-1/3 md:w-1/2 w-3/4 bg-white rounded-lg shadow-xl z-40",
             },
             content,
         ],
@@ -45,8 +44,7 @@ function deleteModal(ctx: AppContext, opinion: Opinion) {
             [
                 "div",
                 {
-                    class:
-                        "block font-medium text-gray-800 text-lg p-4 border-b border-b-2 w-full",
+                    class: "block font-medium text-gray-800 text-lg p-4 border-b border-b-2 w-full",
                 },
                 ["div", { class: "mb-2" }, "Delete opinion"],
                 [
@@ -66,8 +64,7 @@ function deleteModal(ctx: AppContext, opinion: Opinion) {
                     eventBtn,
                     [CLOSE_DELETE_OPINION],
                     {
-                        class:
-                            "block px-4 py-2 text-black text-left font-medium",
+                        class: "block px-4 py-2 text-black text-left font-medium",
                     },
                     "CANCEL",
                 ],
@@ -82,8 +79,7 @@ function deleteModal(ctx: AppContext, opinion: Opinion) {
                         },
                     ],
                     {
-                        class:
-                            "block px-4 py-2 text-white text-left bg-red-600 rounded-lg font-medium hover:bg-red-500 transition ease-in-out duration-150",
+                        class: "block px-4 py-2 text-white text-left bg-red-600 rounded-lg font-medium hover:bg-red-500 transition ease-in-out duration-150",
                     },
                     "DELETE",
                 ],
@@ -94,8 +90,7 @@ function deleteModal(ctx: AppContext, opinion: Opinion) {
             [CLOSE_DELETE_OPINION],
             {
                 tabindex: "-1",
-                class:
-                    "fixed inset-0 h-full w-full cursor-default bg-black bg-opacity-50 z-20",
+                class: "fixed inset-0 h-full w-full cursor-default bg-black bg-opacity-50 z-20",
             },
         ],
     ];
@@ -110,15 +105,13 @@ function reportModal(ctx: AppContext) {
             [
                 "div",
                 {
-                    class:
-                        "block font-medium text-gray-800 text-lg p-4 border-b border-b-2 w-full",
+                    class: "block font-medium text-gray-800 text-lg p-4 border-b border-b-2 w-full",
                 },
                 ["div", { class: "mb-2" }, "Report opinion"],
                 [
                     dropdown,
                     {
-                        class:
-                            "shadow-inner appearance-none border rounded w-full py-2 px-3 bg-gray-200 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:bg-white",
+                        class: "shadow-inner appearance-none border rounded w-full py-2 px-3 bg-gray-200 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:bg-white",
                         onchange: (e: InputEvent) =>
                             bus.dispatch([
                                 SET_REPORT,
@@ -142,8 +135,7 @@ function reportModal(ctx: AppContext) {
                     eventBtn,
                     [CLOSE_REPORT],
                     {
-                        class:
-                            "block px-4 py-2 text-black text-left font-medium",
+                        class: "block px-4 py-2 text-black text-left font-medium",
                     },
                     "CANCEL",
                 ],
@@ -151,8 +143,7 @@ function reportModal(ctx: AppContext) {
                     eventBtn,
                     [CREATE_REPORT, { data: report }],
                     {
-                        class:
-                            "block px-4 py-2 text-black text-left font-medium disabled:opacity-50 transition ease-in-out duration-300",
+                        class: "block px-4 py-2 text-black text-left font-medium disabled:opacity-50 transition ease-in-out duration-300",
                         disabled: report.reason ? false : true,
                     },
                     "REPORT",
@@ -164,8 +155,7 @@ function reportModal(ctx: AppContext) {
             [CLOSE_REPORT],
             {
                 tabindex: "-1",
-                class:
-                    "fixed inset-0 h-full w-full cursor-default bg-black bg-opacity-50",
+                class: "fixed inset-0 h-full w-full cursor-default bg-black bg-opacity-50",
             },
         ],
     ];
@@ -195,8 +185,7 @@ export function opinionCard(ctx: AppContext, opinion: Opinion) {
     return [
         "div",
         {
-            class:
-                "flex flex-col px-4 md:px-12 py-10 w-full border-t-2 border-gray-200",
+            class: "flex flex-col px-4 md:px-12 py-10 w-full border-t-2 border-gray-200",
         },
         [
             "div",
@@ -213,7 +202,7 @@ export function opinionCard(ctx: AppContext, opinion: Opinion) {
                             class: "h-8 w-8 md:h-10 md:w-10 rounded-full",
                             src: opinion.user_avatar_url
                                 ? opinion.user_avatar_url
-                                : "https://subjpop.com/images/sidebar-logo.png",
+                                : "https://subjpop.com/images/logos/2022-spring.png",
                         },
                     ],
                     [
@@ -260,8 +249,7 @@ export function opinionCard(ctx: AppContext, opinion: Opinion) {
                                   },
                               ],
                               {
-                                  class:
-                                      "ml-2 focus:outline-none hover:text-gray-700 p-2",
+                                  class: "ml-2 focus:outline-none hover:text-gray-700 p-2",
                               },
                               [
                                   "div",
@@ -269,8 +257,7 @@ export function opinionCard(ctx: AppContext, opinion: Opinion) {
                                   [
                                       "div",
                                       {
-                                          class:
-                                              "inline-block w-full fill-current pr-2",
+                                          class: "inline-block w-full fill-current pr-2",
                                       },
                                       withSize(EDIT, "20"),
                                   ],
@@ -281,8 +268,7 @@ export function opinionCard(ctx: AppContext, opinion: Opinion) {
                               eventBtn,
                               [TOGGLE_DELETE_OPINION],
                               {
-                                  class:
-                                      "focus:outline-none hover:text-gray-700 fill-current p-2",
+                                  class: "focus:outline-none hover:text-gray-700 fill-current p-2",
                               },
                               [
                                   "div",
@@ -312,8 +298,7 @@ export function opinionCard(ctx: AppContext, opinion: Opinion) {
                                       )}`,
                               ],
                               {
-                                  class:
-                                      "ml-2 focus:outline-none hover:text-gray-700 p-2",
+                                  class: "ml-2 focus:outline-none hover:text-gray-700 p-2",
                               },
                               [
                                   "div",
@@ -321,8 +306,7 @@ export function opinionCard(ctx: AppContext, opinion: Opinion) {
                                   [
                                       "div",
                                       {
-                                          class:
-                                              "inline-block w-full fill-current pr-2",
+                                          class: "inline-block w-full fill-current pr-2",
                                       },
                                       withSize(WARNING, "20"),
                                   ],
@@ -343,8 +327,7 @@ export function opinionCard(ctx: AppContext, opinion: Opinion) {
                 [
                     "div",
                     {
-                        class:
-                            "text-gray-700 mt-1 text-sm md:text-base break-all sm:break-words",
+                        class: "text-gray-700 mt-1 text-sm md:text-base break-all sm:break-words",
                     },
                     parser(opinion.details),
                 ],

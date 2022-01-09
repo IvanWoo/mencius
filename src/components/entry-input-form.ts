@@ -50,8 +50,7 @@ export function entryInputForm(
                 [
                     dropdown,
                     {
-                        class:
-                            "shadow-inner appearance-none border rounded w-full py-2 px-3 bg-gray-200 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:bg-white",
+                        class: "shadow-inner appearance-none border rounded w-full py-2 px-3 bg-gray-200 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:bg-white",
                         onchange: (e: InputEvent) =>
                             bus.dispatch([
                                 setEvent,
@@ -125,8 +124,7 @@ export function entryInputForm(
                       [
                           "div",
                           {
-                              class:
-                                  "block font-medium text-gray-800 text-lg mb-2",
+                              class: "block font-medium text-gray-800 text-lg mb-2",
                           },
                           "维基",
                       ],
@@ -151,19 +149,16 @@ export function entryInputForm(
                 // disable the btn when the name and language is empty
                 entry.name && entry.language
                     ? {
-                          class:
-                              "block mt-4 transition ease-in-out duration-700",
+                          class: "block mt-4 transition ease-in-out duration-700",
                       }
                     : {
-                          class:
-                              "block mt-4 transition ease-in-out duration-700 disabled:opacity-50",
+                          class: "block mt-4 transition ease-in-out duration-700 disabled:opacity-50",
                           disabled: true,
                       },
                 [
                     "div",
                     {
-                        class:
-                            "shadow bg-gray-500 hover:bg-gray-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded",
+                        class: "shadow bg-gray-500 hover:bg-gray-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded",
                     },
                     "RETRIEVE FROM WIKIPEDIA",
                 ],
@@ -174,19 +169,16 @@ export function entryInputForm(
                 // disable the btn when the name is empty
                 entry.name
                     ? {
-                          class:
-                              "block mt-4 transition ease-in-out duration-700",
+                          class: "block mt-4 transition ease-in-out duration-700",
                       }
                     : {
-                          class:
-                              "block mt-4 transition ease-in-out duration-700 disabled:opacity-50",
+                          class: "block mt-4 transition ease-in-out duration-700 disabled:opacity-50",
                           disabled: true,
                       },
                 [
                     "div",
                     {
-                        class:
-                            "shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded",
+                        class: "shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded",
                     },
                     "SUBMIT",
                 ],

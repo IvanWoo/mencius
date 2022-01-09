@@ -42,8 +42,7 @@ export function notificationDropdown(ctx: AppContext) {
                     eventBtn,
                     [TOGGLE_NOTIFICATION],
                     {
-                        class:
-                            "relative z-10 block rounded-full w-6 h-6 focus:outline-none",
+                        class: "relative z-10 block rounded-full w-6 h-6 focus:outline-none",
                     },
                     [
                         "div",
@@ -67,8 +66,7 @@ export function notificationDropdown(ctx: AppContext) {
                           [CLOSE_NOTIFICATION],
                           {
                               tabindex: "-1",
-                              class:
-                                  "fixed inset-0 h-full w-full cursor-default",
+                              class: "fixed inset-0 h-full w-full cursor-default",
                           },
                       ]
                     : [],
@@ -77,8 +75,7 @@ export function notificationDropdown(ctx: AppContext) {
                 ? [
                       "div",
                       {
-                          class:
-                              "absolute z-10 right-0 mt-2 py-2 w-64 bg-white rounded-lg shadow-xl",
+                          class: "absolute z-10 right-0 mt-2 py-2 w-64 bg-white rounded-lg shadow-xl",
                       },
                       [
                           "div",
@@ -97,16 +94,14 @@ export function notificationDropdown(ctx: AppContext) {
                                     },
                                 ],
                                 {
-                                    class:
-                                        "block px-4 py-2 text-black hover:bg-gray-200 w-full text-left focus:outline-none",
+                                    class: "block px-4 py-2 text-black hover:bg-gray-200 w-full text-left focus:outline-none",
                                 },
                                 x.entry_id,
                             ])
                           : [
                                 "div",
                                 {
-                                    class:
-                                        "block px-4 py-2 text-gray-500 w-full text-center focus:outline-none my-6 items-center",
+                                    class: "block px-4 py-2 text-gray-500 w-full text-center focus:outline-none my-6 items-center",
                                 },
                                 "no notification",
                             ],

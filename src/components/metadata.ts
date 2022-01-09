@@ -13,8 +13,7 @@ function tag(_: AppContext, x: string) {
             [
                 "span",
                 {
-                    class:
-                        " py-2, bg-purple-200 text-sm sm:text-base text-gray-700 subpixel-antialiased px-1 rounded mr-2",
+                    class: " py-2, bg-purple-200 text-sm sm:text-base text-gray-700 subpixel-antialiased px-1 rounded mr-2",
                 },
                 `# ${x}`,
             ],
@@ -32,8 +31,7 @@ export function metadata(_ctx: AppContext, entry: Entry) {
             [
                 "h3",
                 {
-                    class:
-                        "sm:font-light text-xl sm:text-2xl md:text-3xl text-gray-900 mt-2",
+                    class: "sm:font-light text-xl sm:text-2xl md:text-3xl text-gray-900 mt-2",
                 },
                 ["span", entry.name],
                 // ["span", "・"],
@@ -73,8 +71,7 @@ function wikipedia(entry: Entry) {
         [
             "div",
             {
-                class:
-                    "pt-2 mt-auto text-lg font-medium inline-flex items-center text-purple-600 hover:text-purple-800",
+                class: "pt-2 mt-auto text-lg font-medium inline-flex items-center text-purple-600 hover:text-purple-800",
             },
             [
                 "a",
