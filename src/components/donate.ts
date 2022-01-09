@@ -1,5 +1,6 @@
 import type { AppContext } from "../api";
 import { externalLink } from "./external-link";
+import ALIPAY from "../assets/alipay.png";
 
 /**
  * Donate page component.
@@ -46,8 +47,7 @@ export function donate(_ctx: AppContext) {
                             [
                                 externalLink,
                                 {
-                                    class:
-                                        "font-bold text-purple-900 hover:bg-purple-900 hover:text-white transition duration-300 ease-in-out border-dotted border-b-2",
+                                    class: "font-bold text-purple-900 hover:bg-purple-900 hover:text-white transition duration-300 ease-in-out border-dotted border-b-2",
                                 },
                                 "https://www.paypal.me/yifanwu0/5",
                                 "付款链接",
@@ -73,15 +73,13 @@ export function donate(_ctx: AppContext) {
                         [
                             "div",
                             {
-                                class:
-                                    "flex justify-center content-center w-full",
+                                class: "flex justify-center content-center w-full",
                             },
                             [
                                 "img",
                                 {
-                                    class:
-                                        "rounded-lg shadow-2xl sm:shadow-none",
-                                    src: "assets/alipay.png",
+                                    class: "rounded-lg shadow-2xl sm:shadow-none",
+                                    src: ALIPAY,
                                 },
                             ],
                         ],

@@ -2,12 +2,9 @@ import type { AppContext } from "../api";
 import { externalLink } from "./external-link";
 import { status } from "./status";
 
-const {
-    SNOWPACK_PUBLIC_CLIENT_ID,
-    SNOWPACK_PUBLIC_REDIRECT_URI,
-} = import.meta.env;
-const CLIENT_ID = SNOWPACK_PUBLIC_CLIENT_ID;
-const REDIRECT_URI = SNOWPACK_PUBLIC_REDIRECT_URI;
+const { VITE_PUBLIC_CLIENT_ID, VITE_PUBLIC_REDIRECT_URI } = import.meta.env;
+const CLIENT_ID = VITE_PUBLIC_CLIENT_ID;
+const REDIRECT_URI = VITE_PUBLIC_REDIRECT_URI;
 
 /**
  * Sign in page.

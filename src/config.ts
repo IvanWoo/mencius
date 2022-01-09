@@ -22,8 +22,8 @@ import * as fx from "./effects";
 import * as ev from "./events";
 import * as routes from "./routes";
 
-const { SNOWPACK_PUBLIC_API_HOST } = import.meta.env;
-const API_HOST = SNOWPACK_PUBLIC_API_HOST;
+const { VITE_PUBLIC_API_HOST } = import.meta.env;
+const API_HOST = VITE_PUBLIC_API_HOST;
 export const DEFAULT_ROUTE = routes.ABOUT;
 
 // main App configuration
@@ -1360,27 +1360,22 @@ export const CONFIG: AppConfig = {
         },
         newsletterForm: {
             title: {
-                class:
-                    "sm:font-light text-2xl sm:text-3xl md:text-4xl text-gray-900 mt-6",
+                class: "sm:font-light text-2xl sm:text-3xl md:text-4xl text-gray-900 mt-6",
             },
             form: { class: "w-full" },
             container: {
-                class:
-                    "flex items-center border-b border-b-2 border-purple-500 py-2",
+                class: "flex items-center border-b border-b-2 border-purple-500 py-2",
             },
             input: {
-                class:
-                    "appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none md:text-xl",
+                class: "appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none md:text-xl",
             },
             button: {
-                class:
-                    "flex-shrink-0 bg-purple-500 hover:bg-purple-700 border-purple-500 hover:border-purple-700 text-sm border-4 text-white py-1 px-2 rounded",
+                class: "flex-shrink-0 bg-purple-500 hover:bg-purple-700 border-purple-500 hover:border-purple-700 text-sm border-4 text-white py-1 px-2 rounded",
             },
         },
         characterCard: {
             container: {
-                class:
-                    "flex flex-col px-4 md:px-12 py-10 w-full sm:w-1/2 border-gray-200",
+                class: "flex flex-col px-4 md:px-12 py-10 w-full sm:w-1/2 border-gray-200",
             },
             icon: { class: "h-8 w-8 md:h-10 md:w-10 md:-my-1" },
             body: {
@@ -1396,8 +1391,7 @@ export const CONFIG: AppConfig = {
         root: { class: "about_bg" },
         debug: {
             container: {
-                class:
-                    "max-w-xs mt-1 flex max-h-screen overflow-y-auto overflow-x-auto",
+                class: "max-w-xs mt-1 flex max-h-screen overflow-y-auto overflow-x-auto",
             },
             debugToggle: {
                 class: "font-bold rotate-270 flex mt-5 focus:outline-none h-10",
@@ -1421,38 +1415,31 @@ export const CONFIG: AppConfig = {
             search: {},
             inner: {
                 open: {
-                    class:
-                        "items-center justify-between pl-4 pb-2 block sm:block sm:flex",
+                    class: "items-center justify-between pl-4 pb-2 block sm:block sm:flex",
                 },
                 close: {
-                    class:
-                        "items-center justify-between pl-4 pb-2 hidden sm:block sm:flex",
+                    class: "items-center justify-between pl-4 pb-2 hidden sm:block sm:flex",
                 },
             },
             title: { class: "black f1 lh-title tc db mb2 mb2-ns" },
             link: {
-                class:
-                    "mt-1 block px-2 py-1 font-bold rounded hover:bg-gray-100 text-lg sm:mt-0 sm:ml-2",
+                class: "mt-1 block px-2 py-1 font-bold rounded hover:bg-gray-100 text-lg sm:mt-0 sm:ml-2",
             },
         },
         contact: {
             link: {
-                class:
-                    "flex flex-col sm:text-xl text-gray-600 mt-2 leading-relaxed font-bold hover:bg-gray-200 hover:text-gray-900",
+                class: "flex flex-col sm:text-xl text-gray-600 mt-2 leading-relaxed font-bold hover:bg-gray-200 hover:text-gray-900",
             },
         },
         footer: {
             icon: {
-                class:
-                    "mt-1 ml-2 font-normal text-gray-600 hover:text-gray-800 text-xs md:text-sm sm:mt-0",
+                class: "mt-1 ml-2 font-normal text-gray-600 hover:text-gray-800 text-xs md:text-sm sm:mt-0",
             },
             copyright: {
-                class:
-                    "mt-1 px-2 py-1 font-normal text-gray-600 text-xs md:text-sm sm:mt-0 sm:ml-2",
+                class: "mt-1 px-2 py-1 font-normal text-gray-600 text-xs md:text-sm sm:mt-0 sm:ml-2",
             },
             link: {
-                class:
-                    "mt-1 block px-2 py-1 font-normal text-gray-600 hover:text-gray-800 text-xs md:text-sm sm:mt-0 sm:ml-2",
+                class: "mt-1 block px-2 py-1 font-normal text-gray-600 hover:text-gray-800 text-xs md:text-sm sm:mt-0 sm:ml-2",
             },
         },
     },

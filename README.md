@@ -11,9 +11,9 @@ Front-end codebase for [Mencius](https://nopro.studio/mencius) project.
 create `.env` file likes:
 
 ```sh
-SNOWPACK_PUBLIC_API_HOST="http://localhost:4200"
-SNOWPACK_PUBLIC_CLIENT_ID=""
-SNOWPACK_PUBLIC_REDIRECT_URI="http://localhost:8080/#/github_oauth_cb"
+VITE_PUBLIC_API_HOST="http://localhost:4200"
+VITE_PUBLIC_CLIENT_ID=""
+VITE_PUBLIC_REDIRECT_URI="http://localhost:8080/#/github_oauth_cb"
 ```
 
 ### Starting the server
