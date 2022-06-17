@@ -18,7 +18,7 @@ jobs:
 
       - name: Install and Build 🔧
         env:
-          API_HOST: "https://mencius.azurewebsites.net"
+          API_HOST: "https://api.nopro.studio"
           CLIENT_ID: ${{ secrets.MENCIUS_CLIENT_ID }}
           REDIRECT_URI: "https://nopro.studio/mencius/#/github_oauth_cb"
         run: |
